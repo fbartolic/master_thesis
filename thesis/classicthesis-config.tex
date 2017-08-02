@@ -50,7 +50,7 @@
 \newcommand{\myFaculty}{Put data here\xspace}
 \newcommand{\myDepartment}{Put data here\xspace}
 \newcommand{\myUni}{Department of Physics, University of Rijeka\xspace}
-\newcommand{\myLocation}{Saarbrücken\xspace}
+\newcommand{\myLocation}{Rijeka, Croatia\xspace}
 \newcommand{\myTime}{July 2017\xspace}
 %\newcommand{\myVersion}{version 4.2\xspace}
 
@@ -96,6 +96,8 @@
 \PassOptionsToPackage{fleqn}{amsmath}       % math environments and more by the AMS 
     \usepackage{amsmath}
 
+\usepackage{siunitx} % for physical units
+\newcommand{\vect}[1]{\boldsymbol{\mathbf{#1}}} % shorthand for bold vectors
 % ******************************************************************** 
 % General useful packages
 % ******************************************************************** 
@@ -105,7 +107,6 @@
 \usepackage{scrhack} % fix warnings when using KOMA with listings package          
 \usepackage{xspace} % to get the spacing after macros right  
 \usepackage{mparhack} % get marginpar right
-\usepackage{fixltx2e} % fixes some LaTeX stuff --> since 2015 in the LaTeX kernel (see below)
 %\usepackage[latest]{latexrelease} % will be used once available in more distributions (ISSUE #107)
 \PassOptionsToPackage{printonlyused,smaller}{acronym} 
     \usepackage{acronym} % nice macros for handling all acronyms in the thesis
@@ -193,7 +194,7 @@
     pdfcreator={pdfLaTeX},%
     pdfproducer={LaTeX with hyperref and classicthesis}%
 }   
-
+\usepackage{cleveref}
 % ********************************************************************
 % Setup autoreferences
 % ********************************************************************
@@ -216,17 +217,7 @@
 			\renewcommand*{\subsectionautorefname}{Section}%
 			\renewcommand*{\subsubsectionautorefname}{Section}%     
                 }%
-       \addto\extrasngerman{% 
-			\renewcommand*{\paragraphautorefname}{Absatz}%
-			\renewcommand*{\subparagraphautorefname}{Unterabsatz}%
-			\renewcommand*{\footnoteautorefname}{Fu\"snote}%
-			\renewcommand*{\FancyVerbLineautorefname}{Zeile}%
-			\renewcommand*{\theoremautorefname}{Theorem}%
-			\renewcommand*{\appendixautorefname}{Anhang}%
-			\renewcommand*{\equationautorefname}{Gleichung}%        
-			\renewcommand*{\itemautorefname}{Punkt}%
-                }%  
-            % Fix to getting autorefs for subfigures right (thanks to Belinda Vogt for changing the definition)
+           % Fix to getting autorefs for subfigures right (thanks to Belinda Vogt for changing the definition)
             \providecommand{\subfigureautorefname}{\figureautorefname}%             
     }{\relax}
 \makeatother
@@ -243,7 +234,6 @@
 %   \usepackage{nag}
 %\PassOptionsToPackage{warning, all}{onlyamsmath}
 %   \usepackage{onlyamsmath}
-
 % ********************************************************************
 % Last, but not least...
 % ********************************************************************

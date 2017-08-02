@@ -1,38 +1,22 @@
 %************************************************
-\chapter{N-body simulations of circumbinary planets up to Common Envelope phase}
-\label{ch:NBODY_simulations}
+\chapter{An analytical model of high-order mean--motion resonances}
+\label{ch:analytical_model_of_high_order_mmrs}
 %************************************************
-While analytic models can give important insight into the physics 
-of divergent resonance passage in a circumbinary planetary system
-they cannot compare to the full solution of the equations of motion.
-Here I describe a different approach to the problem, by means of direct
-N-body simulations coupled with simulations of the stellar binary. 
-These simulations provide a clear picture of the dynamical evolution
-of the system.
+The second chapter deals with analytic models of mean--motion resonances
+(MMRs for short). This concept is the key part of the thesis because the overlap
+of MMRs and the passage of planetary or stellar bodies through them 
+are crucial for the determination of the stability of planetary bodies. 
+Here I develop a new analytical model of a 6:1 resonance in the case 
+where the inner two bodies are 
+comparable in mass. The 6:1 MMR is the first important resonance encountered
+by circumbinary planets similar to the observed MS population once the 
+binary starts evolving off the main--sequence. I use this 
+model to predict the eccentricity kick to a planet orbiting the evolving
+binary as the stars approach each other due to tidal forces. 
 
-\section{The N-body problem}
-\label{sec:The N-body problem}
+\section{A model of the 6:1 resonance}
+\label{sec:6_by_1_resonance}
+- here goes almost everything from the Jupyter notebook
 
-\section{REBOUND - an open source N-body integrator}
-\label{sec:REBOUND - an open source N-body integrator}
-- mention integrators, what does order stand for
-- symplectic vs non-symplectic integrators
-- describe IAS15 in more detail
-- mention reproducibility and simulation archive
-- MEGNO as a criterion for stabilility (not sure this should be here) 
-
-\section{binary\_c - a binary stellar evolution code}
-\label{sec:binary_c - a binary stellar evolution code}
-- describe what it does, mention it's built on BSE
-- Python interface to the C library
-
-\section{Stability of observed circumbinary planets on the main sequence}
-\label{sec:Stability of observed circumbinary planets on the main sequence}
-- MEGNO maps of Kepler planets together with resonance bubbles
-
-\section{Stellar evolution trajectories}
-\label{sec:Stellar evolution trajectories}
-
-
-\section{Intial conditions}
-\label{sec:Intial conditions}
+\section{7:1 and higher-order resonances}
+\label{sec:7:1 and higher-order resonances}
