@@ -291,7 +291,7 @@ in 3D space relative to a fixed reference plane.
 \caption{A keplerian orbit in 3D space.}
 \label{fig:3d_orbit}
 \end{figure}
-\Cref{fig:3d_orbit} shows the orbit in 3D cartesian coordinate system,
+\Cref{fig:3d_orbit} shows the orbit in 3D Cartesian coordinate system,
 the reference plane is taken to be the $X-Y$ plane. The orbital
 ellipse intersects the reference plane in two point. In order to define
 its orientation relative to fixed axes we have to choose one. Independent
@@ -311,7 +311,7 @@ angles in two seperate planes. When the inclination is zero (the orbit
 is co-planar with the reference plane) $\pomega=\omega$. 
 
 It can be shown that each there is a one-to-one correspondance between 
-a set of cartesian positions and velocities $(x,y,z,v_x,v_y,v_z)$ 
+a set of Cartesian positions and velocities $(x,y,z,v_x,v_y,v_z)$ 
 of a given massive particle and an \emph{instantaneous} Keplerian orbit 
 defined by $(a,e,I,\Omega,\omega,f)$ with respect to another massive
 particle. This why it is still usefull to talk about orbits even
@@ -322,14 +322,15 @@ time we can still define an instantaneous Keplerian orbit.
 Most bodies in stable systems change their orbital elements slowly
 when exchanging energy and angular momentum with other bodies, thus
 it is often more useful to use the orbital elements as a set of coordinates
-instead of the cartesian coordinates.
+instead of the Cartesian coordinates.
 
 \section{A brief review of Hamiltonian mechanics}
 \label{sec:hamiltonian_mechanics}
 \subsection{Hamilton's equations}
 \label{sub:Hamilton's equations}
 The two--body prolem could have been solved equally well using a different
-formulation of mechanics called \emph{Hamiltonian mechanics}. Hamiltonian
+formulation of mechanics called \emph{Hamiltonian mechanics} after
+William Rowan Hamilton (1805-1865). Hamiltonian
 mechanics is equivalent to Newtonian mechanics but is often more suitable
 for certain types of problems and the concept of a Hamiltonian function
 is a lot more general than Newton's second law of mechanics.
@@ -345,43 +346,338 @@ where $\dot{\vect{p}}_i=m_i\dot{\vect{r}}_i$ is the momentum of the
 i-th particle, $m_i$ is its mass and $\vect{r}_i$ its position vector
 relative to an origin of an inertial reference system. This 
 constitutes a system of 3N second order differential equations for
-the positions vectors $\vect{r}_i$. 
+the positions vectors $\vect{r}_i$.
 
 In the Hamiltonian formalism a dynamical system is described by 
-a function of \emph{coordinates} $\vect{q}$ and \emph{momenta} 
+a function of \emph{generalized coordinates} $\vect{q}$ and \emph{momenta} 
 $\vect{p}$ called the \emph{Hamiltonian} $\mathcal{H}(\vect{q},
-\vect{p})$. The time evolution of these coordinates and momenta
+\vect{p})$. Each pair $(q_i,p_i)$ constitutes a single 
+\emph{degree of freedom}, it is said to be \emph{conjugate} . 
+The time evolution of these coordinates and 
+momenta
 $(\vect{q},\vect{p})$, collectively known as the \emph{phase space} 
 is given by \emph{Hamilton's equations} 
 \begin{equation}
     \dot{q}_i= \frac{\partial \mathcal{H}}{\partial p_i}\quad
     \dot{p}_i= \frac{\partial \mathcal{H}}{\partial q_i} 
 \end{equation}
-The solution of Hamilton's equations defines a trajectory in a 
+Instead of 3N second order differential equations for a system of N particles
+, we now have 
+6N \emph{coupled first-ordered} equations. Once the initial conditions
+$(\vect{q}_0,\vect{p}_o)$ are specified, the solution of Hamilton's 
+equations defines a \emph{unique} trajectory in a 
 6N dimensional phase space. The coordinate pair $(\vect{q},\vect{p})$
 is said to be \emph{canonical} if the coordinates satisfy 
 Hamilton's equations. The main advantage of the Hamiltonian
 formalism compared to other formalisms of mechanics is the ability
 to easily transform to different choices of $(\vect{q},\vect{p})$
-as long as the new set of coordinates is also canonical. 
+as long as the new set of coordinates is also canonical. There are no
+other strict requirements on the new coordinates, the momentum 
+$p_i$ coincides with the real momentum $m_i \dot{q_i}$ only in
+Cartesian coordinates.
 
+\subsection{Integrable Hamiltonians}
+The Hamiltonian formalism is useful for finding conserved quantities.
+If a generalized coordinate $q_i$ does not appear in the Hamiltonian
+the the corresponding momentum conjugate $p_i$ is a conserved quantity
+\begin{equation}
+    \dot{p}_i= \frac{\partial \mathcal{H}}{\partial q_i} =0
+\end{equation}
+If the motion is in a fixed potential, the Hamiltonian is equal
+to the total energy of the system $E$.
 
-- be as clear as possible
-- HM as one of several equivalent formulations, don't forget about
-orders of diff. equations and Hamilton-Jacobi formulation
-- don't forget that the key point of Hamilton's formulation is 
-the equivalence of positions and momenta and the freedom to transform
-the coordinates as we please as long as the transformation is canonical
-- define a degree of freedom
-- define what it means for a system to be integrable
-- define generating functions
-- maybe Liouville theorem
+If a particular hamiltonian $\mathcal{H}$ can be reduced to a form
+where it depends only on the momenta, that is
+\begin{equation}
+    \mathcal{H}(\vect{p})
+\end{equation}
+then the momenta $\vect{p}$ are conserved and the system is said to be
+\emph{integrable}. An integrable system with $n$ degrees of freedom
+has $n$ constants of motion. From Hamilton's equations, it follows that the time
+evolution of the coordinates is simply
+\begin{equation}
+    \dot{q}_i= \frac{\partial \mathcal{H}}{\partial p_i} =\omega_i
+\end{equation}
+that is, all of the coordinates evolve linearly in time with constant
+frequencies $\omega_i$ which depend only on the momenta
+\begin{equation}
+q_i(t)=\omega_i t
+\end{equation}
+Integrable system are very rare and it is not immediately clear
+if a given Hamiltonian can be reduced to an integrable form.
+
+Systems of the form
+\begin{equation}
+    \mathcal{H}=\mathcal{H}_0(\vect{p})+\epsilon \mathcal{H}_1(\vect{q})
+\end{equation}
+where $\mathcal{H}_0$ is an integrable Hamiltonian, $\mathcal{H}_0$ is 
+a perturbation and $\epsilon$ is a small parameter are said to be nearly 
+integrable
+and in general they display chaotic behaviour .However, if $\epsilon$ is 
+small enough most solutions still lie in the region of phase space
+allowed by the solutions of $\mathcal{H}_0$.
+
+Systems with a single degree of freedom are always integrable and
+the Hamiltonian itself is a conserved quantity (i.e. the energy
+is conserved). The trajectory is defined completely by the value
+of energy. They are often used as an approximation for a generally
+more complex system. Obtaining a single degree of freedom
+Hamiltonian for a resonance is a major goal in 
+\cref{ch:analytical_model_of_high_order_mmrs}.
+
+The Keplerian Hamiltonian for the two--body problem is completely 
+integrable. It can be written as
+\begin{equation}
+    \mathcal{H}_k=- \frac{\mu^2\mu^*}{2\Lambda^2} 
+\end{equation}
+where $\mu^*=m_1m_2/(m_1+m_2)$ and $\Lambda$ is the generalized
+momentum conjugate to the orbital element coordinate $\lambda$,
+the mean anomaly. The original Keplerian Hamiltonian has 6 
+degrees of freedom, the conservation of total linear and total
+angular momentum vectors and the conservation of total energy
+give 7 constants of motion. There is also a hidden symmetry in
+the problem that we haven't mentioned. One can show that
+one of the three components of the 
+\emph{Runge-Lenz} vector is also a constant of motion, which 
+bring the total to 8. The Runge-Lenz vector is a vector pointing
+in the direction of periastron, defined by
+\begin{equation}
+    \vect{e}=\dot{\vect{r}}\times(\vect{r}\times\dot{\vect{r}})
+    /(G(m_1+m_2)) - \vect{\hat r}
+\end{equation}
+Its magnitude is equal to the eccentricity of the orbit. We 
+see that the number of constants of motion over-determines the 
+problem. In fact, the two extra constants of motion are responsible
+for the fact that that the relative motion is not only restricted to 
+a conic curve but it is also a conic section in the inertial
+(centre of mass) frame. Due to this fact the orbit is also fixed in
+3D space.
+
+\subsection{Fixed points}
+Given a Hamiltonian $\mathcal{H}(q,p)$ with a single degree of freedom
+its \emph{fixed points} are solutions of
+\begin{equation}
+    \dot{p}=0\quad\dot{q}=0
+\end{equation}
+Those are points at which there is no motion in phase space. From 
+Hamilton's equations, it follows that their location is given by
+\begin{equation}
+   \frac{\partial \mathcal{H}}{\partial p}= \frac{\partial \mathcal{H}}{\partial q}=0
+\end{equation}
+Given a fixed point $(q_0,p_0)$, we would like to derive the equations
+of motion in its vicinity. If a test particle in its vicinity moves 
+on a trajectory away from the fixed point, the point is said to be
+\emph{unstable}. Conversely, if it remains near the fixed point for all 
+time, the point is said to be \emph{stable}. We can expand the Hamiltonian
+near the fixed point in a Taylor series
+\begin{align}
+    \mathcal{H}(\tilde q, \tilde p)=\mathcal{H}(q_0,p_0) 
+    + \frac{\partial^2\mathcal{H}(q_0,p_0)}{\partial q^2} \frac{\tilde q^2}{2} 
+    &+\frac{\partial^2\mathcal{H}(q_0,p_0)}{\partial p^2} \frac{\tilde p^2}{2} \nonumber\\
+    &+\frac{\partial^2\mathcal{H}(q_0,p_0)}{\partial q\partial p}\tilde q\tilde p 
+\end{align}
+where $\tilde q=q-q_0$ and $\tilde p=p-p_0$. We can write this more succinctly 
+in vectorial form as
+\begin{equation}
+    \mathcal{H}(\tilde q,\tilde p)= \frac{1}{2} \vect{x}^\tau\vect{M}\vect{x}
+\end{equation}
+where $\vect{x}=(\tilde q, \tilde p)$ and $\tau$ denotes the transpose 
+operation. $\vect{M}$ is called the \emph{Hessian matrix} and is given by
+\begin{equation}
+    \vect{M}=
+    \begin{pmatrix}
+        \frac{\partial^2 \mathcal{H}}{\partial q^2} &
+        \frac{\partial^2 \mathcal{H}}{\partial q\partial p }\\
+        \frac{\partial^2 \mathcal{H}}{\partial p \partial q} &
+        \frac{\partial^2 \mathcal{H}}{\partial p^2} 
+    \end{pmatrix}
+\end{equation}
+The matrix $\vect{M}$ is evaluated at the fixed points $(q_0,p_0)$.
+It is symmetric which means that it has two real 
+eigenvalues and two eigenvectors. It can be shown that after 
+diagonalizing this matrix, the Hamiltonian assumes the form
+\begin{equation}
+    \mathcal{H}(q,p)= \frac{1}{2} (\lambda_1 q^2 + \lambda_2 p^2)
+\end{equation}
+where $\lambda_1$ and $\lambda_2$ are the eigenvalues. If the
+eigenvalues are both negative or both positive (i.e. the
+determinant is positive) the system undergoes
+harmonic oscillations (librations) about the fixed point with 
+frequency
+\begin{equation}
+    \omega = \sqrt{\lambda_1\lmabda_2}
+\end{equation}
+and we say the fixed point is a \emph{center}. If one of the 
+eigenvalues is negative and the other positive (the determinant
+is negative) the system is
+diverging exponentially away from the fixed point in the 
+direction of one \emph{eigenvector} and heading towards the 
+fixed point along the direction of the other eigenvector. The
+fixed point is unstable and we call it a \emph{saddle} .
+
+\subsection{Canonical transformations}
+\label{sub:Canonical transformations}
+A \emph{canonical transormation} is a coordinate transformation
+from a set $(\vect{q},\vect{p})$ to $(Q(\vect{q},\vect{p}),
+P(\vect{q},\vect{p})$ which preserves the form of Hamilton's
+equations. It can be shown that canonical transformations
+satisfy the Poisson brackets
+\begin{equation}
+    \{P_i,P_j\}=0\quad\{Q_i,Q_j\}=0\quad\{Q_i,P_j\}=\delta_{i,j}
+\end{equation}
+where $\delta_{i,j}$ is the \emph{Kronecker delta} symbol and
+the Poisson bracket is defined as
+\begin{equation}
+    \{f,g\}=\sum^N_{i=0}\left( \frac{\partial f}{\partial q_i} 
+    \frac{\partial g}{\partial p_i} -\frac{\partial f}{\partial p_i} 
+    \frac{\partial g}{\partial q_i} \right)
+\end{equation}
+where the sum goes over all the degrees of freedom. The question now
+is how to easily construct transformations which are canonical. The
+answer lies in the form of \emph{generating functions}. Consider
+a function $F_1(q,Q)$ of the old and new coordinates and let
+\begin{equation}
+    p_i= \frac{\partial F_1}{\partial q_i} 
+\end{equation}
+After inverting, this equation defines a new coordinate $Q_i=Q_i(q,p)$.
+One can show that the new momentum is then given by
+\begin{equation}
+    P_i=- \frac{\partial F_1}{\partial Q_i} 
+\end{equation}
+Thus we have found a way to construct a canonical transformation to new
+coordinates. We choose the new coordinates $Q_i$, however, the requirement 
+that the new coordinates form a conjugate pair restricts are freedom
+to choose the new momentum as well. The function $F_1(q,Q)$ is called
+the \emph{generating function of first kind} . There are three additional
+kinds of generating functions, the possibilities are listed in 
+\cref{tab:generating_functions}.
+\begin{table}[h!]
+\centering
+\begin{tabular}{cll}
+\toprule
+    Generating function &\multicolumn{2}{c}{Derivatives}\\
+\midrule
+    $F_1(q,Q)$ & $p_i=\frac{\partial F_1}{\partial Q_i}$ & 
+    $P_i=\frac{\partial F_1}{\partial q_i}$\\
+    $F_2(q,P)$ & $p_i=\frac{\partial F_2}{\partial q_i}$ & 
+    $Q_i=\frac{\partial F_2}{\partial P_i}$\\
+    $F_3(p,Q)$ & $q_i=-\frac{\partial F_3}{\partial p_i}$ & 
+    $P_i=-\frac{\partial F_3}{\partial Q_i}$\\
+    $F_4(p,P)$ & $q_i=-\frac{\partial F_4}{\partial p_i}$ & 
+    $Q_i=\frac{\partial F_4}{\partial P_i}$\\
+\bottomrule
+\end{tabular}
+\caption{Different kinds of generating functions.}
+\label{tab:generating_functions}
+\end{table}
+Which kind of the generating function is the best depends on the
+problem at hand.
 
 \section{The pendulum}
 \label{sec:pendulum}
-- follow either Mardling's non-hamiltonian approach or Allice's approach
-- libration periods, driving forces...
-
+A simple single degree of freedom Hamiltonian useful for the study
+of resonance is that of the pendulum. The Hamiltonian has the form
+\begin{equation}
+    \mathcal{H}(\phi,p)= \frac{1}{2} p^2 -\omega_0^2\cos\phi
+\end{equation}
+Where $\omega_0$ is the frequency of oscillations. By solving 
+Hamilton's equations, we obtain
+\begin{align}
+    \dot{\phi} &= p\\
+    \dot{p} &= - \omega_0^2\sin\phi
+\end{align}
+Combining the two equations, we obtain a single equation of motion
+\begin{equation}
+    \ddot{\phi}+\omega_0^2\sin\phi =0
+\end{equation}
+We see that in the limit of small $\phi$ the motion is equivalent to
+that of the harmonic oscillator oscillating with the frequency
+$\omega_0$. The fixed points are located at
+$(\phi, p)=(\pm k\pi,0)$ (where k is an interger) and there is 
+a single 
+stable center point located at $(\phi¸ p)=(\pi, 0)$. It is 
+sufficient to study the two fixed points $(0,0)$ and $(\pi,0)$
+since the motion is periodic. For the fixed point at $(0,0)$, we have
+\begin{equation}
+    \vect{M}=
+    \begin{pmatrix}
+        0 & 1\\
+        -1 & 0
+    \end{pmatrix}
+\end{equation}
+and we see that this point is a stable center. For the other point 
+at $(\pi,0)$, we have
+\begin{equation}
+    \vect{M}=
+    \begin{pmatrix}
+        0 & 1\\
+        1 & 0
+    \end{pmatrix}
+\end{equation}
+The point is a an unstable saddle point.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=\linewidth]{gfx/pendulum_phase_portrait.png}
+\caption{The phase space of a pendulum. There red curve denotes the 
+    separatrix.}
+\label{fig:pendulum}
+\end{figure}
+\Cref{fig:pendulum} shows the level curves (curves of constant $\mathcal{H}$)
+of the pendulum. Given a specific value of the energy, the system stays 
+on one of the curves for all time. The motion around the fixed point $(0,0)$
+ in between the fixed points at $-\pi$ and $\pi$ is said to be \emph{libratory}.
+There is also an entirely different type of motion where $\phi$ is unbounded,
+these trajectories are called \emph{circulatory}. The curve which passes through
+the unstable points separates the two regimes and is called the \emph{separatrix.} 
+As seen from the figure\footnote{This can also be shown rigorously by deriving the
+expression for $\omega_{lib}$ as a function of maximum $\phi$.},
+the oscillation period increases from the initial
+small amplitude value of $2\pi/\omega_0$ to infinity as the separatrix is
+approached. Once the separatrix is crossed the motion is unbounded. This
+steep dependance of the librational period on the distance to the separatrix is
+responsible for chaos in weakly interacting non-linear systems. The concepts
+presented in this section will be important for the study of resonance in the
+three--body problem.
+\section{The pendulum model and the concept of a resonance}
+\label{sec:pendulum_model}
+Consider a single degree of freedom Hamiltonian of the form
+\begin{equation}
+    \mathcal{H}(\phi, p)=\mathcal{H}_0(p)+\epsilon f(p)\cos\phi
+\end{equation}
+where $\phi$ is an angle and $p$ its momentum conjugate. We can expand
+the first part $\mathcal{H}_0$ around some value of momentum $p_0$ as 
+follows
+\begin{equation}
+    \mathcal{H}_0(J)= \frac{1}{2} aJ^2+bJ+\mathcal{H}_0
+\end{equation}
+where $J=p-p_0$ (the transformation $(p,\phi)\rightarrow (J,\phi)$ is canonical)
+and the coefficients $a$ and $b$ are given by
+\begin{equation}
+    b= \frac{\partial \mathcal{H}_0(p_0)}{\partial p}\quad
+    a = \frac{\partial^2\mathcal{H}_0(p_0)}{\partial p^2} 
+\end{equation}
+After neglecting the constant $\mathcal{H}_0(p_0)$, we obtain the following 
+Hamiltonian 
+\begin{equation}
+    \mathcal{H}(J,\phi)= \frac{1}{2} aJ^2+bJ+\epsilon g(J)\cos\phi
+\end{equation}
+where $g(J)=f(J+p_0)$. In the special case $g(J)=1$, the Hamiltonian reduces
+to that of a pendulum shifted in frequency by amount $b$
+\begin{equation}
+    \mathcal{H}(J,\phi)= \frac{1}{2} aJ^2+bJ+\epsilon \cos\phi
+\end{equation}
+Hamilton's equations result in the following equations of motion
+\begin{align}
+    \dot{\phi}&=aJ + b\\
+    \dot{J}&=-\epsilon\sin\phi
+\end{align}
+By combining the two equations, we obtain
+\begin{equation}
+    \ddot{\phi} + a\epsilon\sin\phi=0 
+\end{equation}
+which is the familiar equation of motion of a pendulum. If $\phi$ is small
+the equation reduces to that of a simple harmonic oscillator with frequency
+$\omega_o^2=a\epsilon$.
 \section{The three--body problem}
 \label{sec:three_body}
 - follow Mardling's nbody lectures, introduce mean mean--motion

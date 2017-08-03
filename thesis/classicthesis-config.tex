@@ -119,8 +119,10 @@
 % ****************************************************************************************************
 % 4. Setup floats: tables, (sub)figures, and captions
 % ****************************************************************************************************
-\usepackage{tabularx} % better tables
-    \setlength{\extrarowheight}{3pt} % increase table row height
+%\usepackage{tabularx} % better tables
+%    \setlength{\extrarowheight}{3pt} % increase table row height
+\usepackage{booktabs} % better tables
+\renewcommand{\arraystretch}{1.3} (or 1.3)
 \newcommand{\tableheadline}[1]{\multicolumn{1}{c}{\spacedlowsmallcaps{#1}}}
 \newcommand{\myfloatalign}{\centering} % to be used with each float for alignment
 \usepackage{caption}
