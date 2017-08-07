@@ -123,9 +123,9 @@ most stable planetary orbits are very nearly circular.
 \includegraphics[width=\linewidth]{gfx/ellipse.png}
 \caption{An elliptical orbit. The mass $m_1$ sits in one focus and $m_2$ orbits 
     around it. The postion of $m_2$ on the ellipse is specified by two angles, 
-    the true anomaly $f$ and the argument of pericentre $\omega$. Only the $f$ 
+    the true anomaly $f$ and the argument of pericentre $\omega$. Only $f$ 
     varies in the two--body problem, $\omega$ stays fixed in the absence of an
-    external perturbation. Figure taken from \citeauthor{murray}.}
+    external perturbation. Figure taken from \citet{murray}.}
 \label{fig:ellipse}
 \end{figure}
 \Cref{fig:ellipse} shows an elliptical orbit in two dimensional space. The mass
@@ -141,7 +141,7 @@ The \emph{semi-major axis} of the ellipse $a$ is given by
 \begin{equation}
     a= \frac{h^2}{\mu} \frac{1+e}{1-e} 
 \end{equation}
-One can easily derive (\cite[ex.]{murray}) \emph{Kepler's third law} which says 
+One can easily derive \citep[ex.][]{murray} \emph{Kepler's third law} which says 
 that
 \begin{equation}
     T^2= \frac{4\pi^2}{\mu} a^3
@@ -303,7 +303,7 @@ and choose it as a reference. The angle from the ascending node to the
 $X$ axis is then called the \emph{longitude of the ascending node} and
 is denoted by $\Omega$. The angle between the plane of the ellipse and
 the reference plane is called the \emph{inclination} of the orbit and
-is defined in the range $0\leq I\leg \pi$.
+is defined in the range $0\leq I\leq \pi$.
 Thus, we have completely described the orbit in 3D space. However, it is useful to 
 define another angle $\pomega$ called the \emph{longitude of pericentre.} 
 $\pomega$ is not really a true angle since it is defined as a sum of 
@@ -617,9 +617,10 @@ at $(\pi,0)$, we have
 The point is a an unstable saddle point.
 \begin{figure}[htb]
 \centering
-\includegraphics[width=\linewidth]{gfx/pendulum_phase_portrait.png}
+\includegraphics[width=\linewidth]{gfx/pendulum.pdf}
 \caption{The phase space of a pendulum. There red curve denotes the 
-    separatrix.}
+    separatrix filled circles denote stable fixed points, open circles denote
+    unstable fixed points.}
 \label{fig:pendulum}
 \end{figure}
 \Cref{fig:pendulum} shows the level curves (curves of constant $\mathcal{H}$)
@@ -638,48 +639,291 @@ steep dependance of the librational period on the distance to the separatrix is
 responsible for chaos in weakly interacting non-linear systems. The concepts
 presented in this section will be important for the study of resonance in the
 three--body problem.
-\section{The pendulum model and the concept of a resonance}
-\label{sec:pendulum_model}
-Consider a single degree of freedom Hamiltonian of the form
-\begin{equation}
-    \mathcal{H}(\phi, p)=\mathcal{H}_0(p)+\epsilon f(p)\cos\phi
-\end{equation}
-where $\phi$ is an angle and $p$ its momentum conjugate. We can expand
-the first part $\mathcal{H}_0$ around some value of momentum $p_0$ as 
-follows
-\begin{equation}
-    \mathcal{H}_0(J)= \frac{1}{2} aJ^2+bJ+\mathcal{H}_0
-\end{equation}
-where $J=p-p_0$ (the transformation $(p,\phi)\rightarrow (J,\phi)$ is canonical)
-and the coefficients $a$ and $b$ are given by
-\begin{equation}
-    b= \frac{\partial \mathcal{H}_0(p_0)}{\partial p}\quad
-    a = \frac{\partial^2\mathcal{H}_0(p_0)}{\partial p^2} 
-\end{equation}
-After neglecting the constant $\mathcal{H}_0(p_0)$, we obtain the following 
-Hamiltonian 
-\begin{equation}
-    \mathcal{H}(J,\phi)= \frac{1}{2} aJ^2+bJ+\epsilon g(J)\cos\phi
-\end{equation}
-where $g(J)=f(J+p_0)$. In the special case $g(J)=1$, the Hamiltonian reduces
-to that of a pendulum shifted in frequency by amount $b$
-\begin{equation}
-    \mathcal{H}(J,\phi)= \frac{1}{2} aJ^2+bJ+\epsilon \cos\phi
-\end{equation}
-Hamilton's equations result in the following equations of motion
-\begin{align}
-    \dot{\phi}&=aJ + b\\
-    \dot{J}&=-\epsilon\sin\phi
-\end{align}
-By combining the two equations, we obtain
-\begin{equation}
-    \ddot{\phi} + a\epsilon\sin\phi=0 
-\end{equation}
-which is the familiar equation of motion of a pendulum. If $\phi$ is small
-the equation reduces to that of a simple harmonic oscillator with frequency
-$\omega_o^2=a\epsilon$.
+
 \section{The three--body problem}
 \label{sec:three_body}
+\subsection{The disturbing function}
+Finally, we move to the problem of three gravitationally interacting massive 
+bodies suchs as the circumbinary system consisting of two stars and 
+an outer planet. The three--body problem is famously not integrable, many 
+great mathematicians such as Newton and Poincaré have tried and failed to find and
+exact solution. However, it is still possible to do a perturbative analysis
+in the case when one of the bodies is only weakly interacting with the
+other two. The following discussion largely follows \citet{Mardling2013}.
+
+A stable hierarchical system of three bodies naturally divides into
+two orbits composed of an "inner binary" and an "outer binary". We will work
+in \emph{Jacobi coordinates} which are defined such that in a hierarchical
+system consisting of $N$ bodies, the $N$th body is defined in a coordinate 
+system whose origin is the centre of mass of the previous $N-1$ bodies. 
+\Cref{fig:jacobi} shows a system of three masses $m_1$, $m_2$ and $m_3$ in
+Jacobi coordinates. The position vector $\vect{r}$ points from $m_1$ to $m_2$ 
+and it is the same vector as in our previous analysis of the two--body 
+problem. The position vector $\vect{R}$ points from the centre of mass
+of the inner binary consisting of $m_1$ and $m_2$ to the outer mass $m_3$.
+Thus, at any given moment we can define two Keplerian orbits, one for
+the inner binary and one for the outer binary. Since the three--body
+problem is not integrable the orbits will in general no longer be fixed
+and will change their orbital elements with time. This choice of coordinates
+obviously fails in the case of crossing orbits since the hiararchy loses
+its meaning, however, a system with crossing orbits is inherently unstable
+and not the subject of our interests.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=\linewidth]{gfx/jacobi.pdf}
+    \caption{A system of three massive bodies in Jacobi coordinates. 
+    The point $C_{12}$ denotes the centre of mass of the inner two 
+    bodies and the point $C_{123}$ that of the whole system.}
+\label{fig:jacobi}
+\end{figure}
+
+When the system is stable the inner and outer orbits interact only 
+weakly by means of an interacting potential called the 
+\emph{disturbing function}. The disturbing function can be written
+as an infinite Fourier series of angles called the \emph{resonance
+angles}, it is responsible for the exchange of energy and angular 
+momentum between the two orbits.  Each resonance angle is a linear
+superposition of all angles in the system. A resonance angles can either 
+circulate or librate in exactly the same way as in the pendulum model
+described in the previous section.
+If a particular resonance angle is librating, we say that the system
+is in \emph{resonance}. The various resonance angles can mutually 
+interact, under certain conditions a system can exisist in two 
+neighbouring resonant states where two resonant angles librate 
+at a similar period. This is known as \emph{resonance overlap} 
+and it leads to chaotic behaviour as the resonance angle approaches
+the unstable fixed points \citep{WalkerFord1969}. The resonance
+overlap criterion is then a good indication of wheather the
+system is stable or not.
+
+We can write the equations of motions as
+\begin{equation}
+\begin{aligned}
+    m_1\ddot{\vect{r}}_1&= \frac{Gm_1m_2}{r^2_{12}} \vect{\hat r}_{12}+
+    \frac{Gm_1m_3}{r^2_{13}} \vect{\hat r}_{13}\\
+    m_2\ddot{\vect{r}}_2&= -\frac{Gm_1m_2}{r^2_{12}} \vect{\hat r}_{12}+
+    \frac{Gm_2m_3}{r^2_{23}} \vect{\hat r}_{23}\\
+    m_3\ddot{\vect{r}}_3&= -\frac{Gm_1m_3}{r^2_{13}} \vect{\hat r}_{13}-
+    \frac{Gm_2m_3}{r^2_{23}} \vect{\hat r}_{23}
+\label{eq:three_body_newton}
+\end{aligned}
+\end{equation}
+where the position vectors $r_i$ point from the centre of mass of 
+system $C_{123}$ to the mass $m_i$ and $\vect{r}_{ij}=\vect{r}_j-\vect{r}_i$. 
+\Cref{eq:three_body_newton} constitues a system with 9 degrees of freedom.
+Again we have the 7 conserved quantities due to momentum and energy 
+conservation, however, there is no analogue of the Runge-Lenz vector
+in the three--body problem. Therefore, the system is not completely
+integrable, in fact, it admits \emph{chaotic} solutions -- solutions which
+are extremely sensitive to small variations in the inital conditions. 
+There are two kinds of stability. One is called \emph{Lagrange stability} 
+and the other \emph{Hill instability}. The latter happens due to close
+approaches of two bodies, the former does not require close approaches.
+In this chapter we are primarily interested in Lagrange instability 
+since scattering events are difficult to handle analytically
+and only become important after the onset of Lagrange instability in 
+circumbinary systems, because the circumbinary planet is initally far away
+from the inner stellar binary.
+
+We start by rewriting \cref{eq:three_body_newton} in Jacobi coordinates
+and define the vectors $\vect{r}&=\vect{r}_2-\vect{r}_1$ and 
+$\vect{R}&= (m_{123}/m_{12})\vect{r}_3$ 
+where $\vect{r}$ is the same relative position vector from the two--body 
+problem and $\vect{R}$ points from the centre of mass $C_{12}$ to $m_3$.
+We can now rewrite \cref{eq:three_body_newton} as
+\begin{align}
+    \mu_i\ddot{\vect{r}}+ \frac{Gm_1m_2}{r^2} \vect{\hat r}&= \frac{
+        \partial \mathcal{R}}{\partial \vect{r}} \\
+    \mu_o\ddot{\vect{R}}+ \frac{Gm_{12}m_3}{R^2} \vect{\hat R}&= \frac{
+        \partial \mathcal{R}}{\partial \vect{R}} 
+\end{align}
+where $R=\lvert\vect{R}\rvert$, $\mu_i=m_1m_2/m_{12}$ and $\mu_o=m_{12}m_3/m_{123}$
+and
+\begin{equation}
+    \mathcal{R}=- \frac{Gm_{12}m_3}{R} + \frac{Gm_2m_3}{\lvert\vect{R}-\beta_1\vect{r}
+    \rvert} + \frac{Gm_1m_3}{\lvert\vect{R}+\beta_2\vect{r}\rvert}
+    \label{eq:dist_cartesian}
+\end{equation}
+is the disturbing function with $\beta_i=m_i/m_{12},\,i=1,2$. We use the subscripts
+$i$ and $o$ to denote quantities defined with respoct to the inner and outer orbits
+respectively. The notation $\partial/\partial\vect{r}$ refers to the gradient with 
+respect to the spherical polar coordinates $(r,\theta_1,\phi_1)$ 
+associated with the position od body 2 relative to the centre of mass $C_{12}$, similarly,
+$\partial/\partial\vect{R}$ for the position of body 3 with coordinates $(R,\theta_o,\phi_o)$
+relative to the same origin. All information
+about the mutual interaction of the inner and outer orbits is contained in
+$\mathcal{R}$\footnote{Historically, most versions of the expanded disturbing
+function have units of energy per unit mass. The expansion presented in RM2013 has
+units of energy}. In the limit when the inner two masses coalesce ($r/R\rightarrow 0$)
+or the mass ratio between the planet mass $m_3$ and the total binary mass $m_{12}$
+goes to zero ($m_3/m{12}\rightarrow 0$) $\mathcal{R}$ vanishes and the two orbits
+no longer interact with each other. The total energy (or the Hamiltonian) is given by
+\begin{equation}
+    E=E_i+E_o-\mathcal{R}
+\end{equation}
+where
+\begin{equation}
+    E_i= \frac{1}{2}\mu_i\dot{\vect{r}}\cdot\dot{\vect{r}}- \frac{Gm_1m_2}{r}, \quad
+    E_o= \frac{1}{2}\mu_o\dot{\vect{R}}\cdot\dot{\vect{R}}- \frac{Gm_{12}m_3}{R}
+\end{equation}
+are the Keplerian energies corresponding to the inner and outer orbits and the 
+disturbing function has a role of interaction energy. 
+
+We start by expanding the last two terms in \cref{eq:dist_cartesian} using 
+a well known\footnote{Expressions involving a difference between two vectors 
+such as $1/\lvert \vect{r}-\vect{r}'\rvert$ occur in all kinds of problems 
+in physics.} expansion in terms of \emph{spherical harmonics}. 
+\begin{equation}
+    \frac{1}{\lvert \vect{R} -\beta_s\vect{r}\rvert}= \frac{1}{R} \sum^\infty_{l=0}
+  \frac{4\pi}{2l+1}   \left( \frac{\beta_s r}{R} \right)^l
+    \sum^l_{m=-l} Y_{lm}(\theta_i,\phi_i)
+    Y_{lm}^*(\theta_o,\phi_o)
+    \label{eq:addition_theorem}
+\end{equation}
+$Y_{lm}$ is a spherical harmonic\footnote{Spherical harmonics are special
+functions which form a complete set of orthogonal functions on the sphere, 
+any function defined in terms of spherical polar coordinates can be expanded
+in an infinite series of spherical harmonics as $f(\theta,\phi)
+=\sum^\infty_{l=0}\sum^l_{m=-l}f^m_lY_l^m(\theta,\phi)$. The series converges 
+if the coefficients $f^l_m$ decay in $l$ sufficiently rapidly.} of
+\emph{degree l} and \emph{order m} with
+$Y_{lm}^*$ being its complex conjugate. Using 
+\cref{eq:addition_theorem} the disturbing function $\mathcal{R}$ becomes
+\begin{equation}
+    \mathcal{R}=G\mu_im_3\sum^\infty_{l=2}\sum^l_{m=-l}\left( \frac{4\pi}{2l+1} 
+    \right)\mathcal{M}_l\left( \frac{r^l}{R^{l+1}} \right) Y_{lm}(\theta_i,\phi_i)
+    Y_{lm}^*(\theta_o,\phi_o)
+\label{eq:dist_harmonics}
+\end{equation}
+where $\mathcal{M}_l$ is a mass factor given by
+\begin{equation}
+    \mathcal{M}_l= \frac{m_1^{l-1}+(-1)^lm_2^{l-1}}{m_{12}^{l-1}} 
+\end{equation}
+\Cref{eq:dist_harmonics} is a spherical harmonic expansion with 
+coefficients proportional to $(r/R)^l$. In order for this series
+to converge, we require that $r/R$ is a small number. This is satisfied
+for all circumbinary planets because as will be shown later, there is
+an inner instability region outside of the stellar binary and the only
+stable orbits exist further outside the stellar binary's orbit. 
+
+Next, we focus on coplanar systems
+(mutual inclination between orbits is assumed to be zero) and thus we take
+$\theta_i=\theta_o=\pi/2$ (the motion is restricted to the $x-y$ plane), 
+$\phi_i=f_i+\varpi_i$ and $\phi_o=f_o+\varpi_o$ where $f_i$ and $f_o$ are
+the true anomalies of the outer and inner orbits respectively.
+ We can then use the definition of the spherical harmonic $Y_{lm}(\theta, \phi)$ 
+from \cite{jackson} to rewrite \cref{eq:dist_harmonics} in terms of exponential
+function containing the orbital frequencies, as follows
+\begin{equation}
+    Y_{lm}(\theta,\phi)=\sqrt{ \frac{2l+1}{4\pi} \frac{(l-m)!}{(l+m)!} }\mathcal{P}_1^m(
+    \cos\theta)e^{im\phi}
+    \label{eq:sph_harmonics}
+\end{equation}
+where $\mathcal{P}_1^m(\theta, \phi)$ is the \emph{associated Legendre function}
+\citep{jackson}. Therefore, we have
+\begin{equation}
+    \mathcal{R}=g\mu_im_3\sum^\infty_{l=2}\sum^l_{m=-l,2} \frac{1}{2} c_{lm}^2\mathcal{M}_l
+    e^{im(\varpi_i-\varpi_o)}\left(r^le^{imf_i}\right)\left( \frac{e^{-imf_o}}{R^{l+1}} 
+    \right)
+    \label{eq:dist_expanded}
+\end{equation}
+where
+\begin{equation}
+    c^2_{lm}= \frac{8\pi}{2l+1} \left[Y_{lm}(\pi/2,0\right]=c^2_{l-m}
+\end{equation}
+and the notation $m=-l, 2$ in the summation over $m$ means that the summation is taken
+in steps of 2. For stable systems the expressions in the last two brackets of
+\cref{eq:dist_expanded} are nearly periodic and can therefore be expanded in a 
+\emph{Fourier series} of the inner and outer mean anomalies $M_i=n_it+M_i(0)$ and
+$M_o=n_ot+M_o(0)$, where $n_i,n_o$ are the mean motions associated with the inner
+and outer orbits and $M_i(0),M_o(0)$ are their values at $t=0$.  The result is
+\begin{equation}
+    r^le^{imf_i}\stackrel{\mathcal{F}}{=}a_i^l\sum^\infty_{n=-\infty}X^{l,m}_n(e_i)e^{inM_i}
+    \label{eq:expansion_1}
+\end{equation}
+and
+\begin{equation}
+    \frac{r^{-imf_o}}{R^{l+1}} \stackrel{\mathcal{F}}{=}a_o^{-(l+1)}\sum^\infty_{n'=-\infty}
+    X^{-(l+1),m}_{n'}(e_o)e^{-n'M_o}
+    \label{eq:expansion_2}
+\end{equation}
+where the \emph{Fourier coefficients} given by
+\begin{equation}
+    X^{l,m}_n(e_i)= \frac{1}{2\pi} \int^{2\pi}_0 \left(\frac{r}{a_i}\right)^l
+    e^{imf_i}e^{inM_i}\mathrm{d}M_i=\mathcal{O}(e_i^{\lvert m-n\rvert})
+\end{equation}
+and
+\begin{equation}
+    X^{-(l+1),m}_{n'}(e_o)= \frac{1}{2\pi} \int^{2\pi}_0 \left( \frac{R}{a_o}
+    \right)^{-(l+1)}e^{-imf_o}e^in'M_o=\mathcal{O}(e_o^{\lvert m-n'\rvert})
+\end{equation}
+are called the \emph{Hansen coefficients} and the notion $\mathcal{O}()$
+refers to the order of the leading terms. Plugging \cref{eq:expansion_1}
+and \cref{eq:expansion_2} into \cref{eq:dist_expanded}, we obtain
+\citep{Mardling2013}
+\begin{equation}
+    \mathcal{R}=\sum^\infty_{m=0}\sum^\infty_{n=-\infty}\sum^\infty_{n'=-\infty}
+    \mathcal{R}_{mnn'}\cos\phi_{mnn'}
+    \label{eq:disturbing_function}
+\end{equation}
+where 
+\begin{equation}
+    \phi_{mnn'}=nM_i-n'M_o+m(\varpi_i-\varpi_o)
+\end{equation}
+is the \emph{harmonic angle},
+\begin{equation}
+    \mathcal{R}_{mnn'}= \frac{G\mu_im_3}{a_o} \sum^\infty_{l=l_\text{min},2}
+    \zeta_m c_{lm}^2\mathcal{M}_l\alpha^l X^{l,m}_n(e_i)X^{-(l+1),m}_n'(e_o)
+    \label{eq:harmonic_coefficient}
+\end{equation}
+is the \emph{harmonic coefficient} associated with the harmonic angle
+$\phi_{mnn'}$, $\alpha=a_i/a_o$ is the semi-major axis ratio, 
+and the factor $\zeta_m$ is defined as
+\begin{equation}
+    \zeta_m=
+    \begin{cases}
+        1/2 & m=0\\
+        1 & \text{otherwise}
+    \end{cases}
+\end{equation}
+The summation over $l$ stars at
+\begin{equation}
+    l_\text{min}=
+    \begin{cases}
+        2 & m=0\\
+        3 & m=1\\
+        m & m\geq 2
+    \end{cases}
+\end{equation}
+The series contains three independent indices associated with the each 
+harmonic coefficient since there are three independent frequencies in the 
+problem. The indices $n$ and $n'$ are associated with the  two mean 
+motions and the index $m$ is associated with the change in the
+relative orientation of the orbits called the 
+\emph{rate of apsidial advance} $\dot{\varpi}_i-\dot{\varpi}_o$. 
+The terms corresponding to $l=2$ are called \emph{quadropole} 
+terms, those with $l=3$ are \emph{octopole} terms and so on.
+
+At this point, it is useful to review what has been done. We have started
+with the equations of motion for the three--body problem and expressed them
+in terms of the Keplerian motion of masses 1 and 2 (the inner orbit) 
+,the motion of mass 3 around the centre of mass of the inner 
+two masses (the outer orbit) and an interaction term between the two
+orbits called the disturbing function. The disturbing function
+can be written as an infinite series of spherical harmonics 
+whose coefficients depend on $r/R$. We then impose the 
+condition of coplanar orbits and rewrite the spherical harmonics in 
+terms of exponentials containing the three angles in the problem. Finally
+we expand the terms with the exponentials in an infinite Fourier series.
+We end up with an expression for $\mathcal{R}$ which is a triple infinite
+Fourier cosine series whose coefficients contain another infinite 
+series in $\alpha$, the semi-major axis ratio, which reflects the original
+expansion in $r/R$. The dependence on the eccentricity is contained
+only in the Hansen coefficients, which can \emph{in principle} be
+calculated exactly. The question now is what is the significance
+of the various terms in \cref{eq:disturbing_function}.
+
+
 - follow Mardling's nbody lectures, introduce mean mean--motion
 resonances mathematically as slowly varying angles in  Fourier series
 and physically, as repeated conjuctions of planets at the same location
