@@ -736,6 +736,7 @@ We can now rewrite \cref{eq:three_body_newton} as
         \partial \mathcal{R}}{\partial \vect{r}} \\
     \mu_o\ddot{\vect{R}}+ \frac{Gm_{12}m_3}{R^2} \vect{\hat R}&= \frac{
         \partial \mathcal{R}}{\partial \vect{R}} 
+    \label{eq:three_body_newton_R}
 \end{align}
 where $R=\lvert\vect{R}\rvert$, $\mu_i=m_1m_2/m_{12}$ and $\mu_o=m_{12}m_3/m_{123}$
 and
@@ -759,15 +760,50 @@ or the mass ratio between the planet mass $m_3$ and the total binary mass $m_{12
 goes to zero ($m_3/m{12}\rightarrow 0$) $\mathcal{R}$ vanishes and the two orbits
 no longer interact with each other. The total energy (or the Hamiltonian) is given by
 \begin{equation}
-    E=E_i+E_o-\mathcal{R}
+    \mathcal{H}=\mathcal{H}_i+\mathcal{H}_o-\mathcal{R}
+    \label{eq:three_body_hamiltonian}
 \end{equation}
 where
 \begin{equation}
-    E_i= \frac{1}{2}\mu_i\dot{\vect{r}}\cdot\dot{\vect{r}}- \frac{Gm_1m_2}{r}, \quad
-    E_o= \frac{1}{2}\mu_o\dot{\vect{R}}\cdot\dot{\vect{R}}- \frac{Gm_{12}m_3}{R}
+    \mathcal{H}_i= \frac{1}{2}\mu_i\dot{\vect{r}}\cdot\dot{\vect{r}}- \frac{Gm_1m_2}{r}, \quad
+    \mathcal{H}_o= \frac{1}{2}\mu_o\dot{\vect{R}}\cdot\dot{\vect{R}}- \frac{Gm_{12}m_3}{R}
 \end{equation}
-are the Keplerian energies corresponding to the inner and outer orbits and the 
-disturbing function has a role of interaction energy. 
+are the Keplerian Hamiltonians corresponding to the inner and outer orbits and the 
+disturbing function has a role of interaction energy. The two Keplerian Hamiltonians
+individually are fully integrable as mentioned previously, the complete Hamiltonian
+is not. 
+
+Given 
+\cref{eq:three_body_hamiltonian}, one can calculate the Hamilton's equations of
+motion. Those are equivalent to \cref{eq:three_body_newton_R}, except that they
+are first order in time. If those equations are are then expressed in terms
+of the inner and outer orbital elements, they are called 
+\emph{Lagrange's planetary equations}. The derivation is presented
+in \cite[ex.][]{brouwer1961}, here we merely state the result for coplanar
+systems
+\begin{equation}
+\begin{aligned}
+    \dot{e}&= -\frac{s(1-s)}{\mu na^2e} 
+    \frac{\partial\mathcal{R}}{\partial\lambda}
+    -\frac{s}{\mu na^2e} 
+    \frac{\partial\mathcal{R}}{\partial\varpi}\\
+    \dot{\varpi}&= \frac{s}{\mu na^2e} 
+    \frac{\partial\mathcal{R}}{\partial e}\\
+    \dot{\epsilon}&=- \frac{2}{\mu n a} 
+    \frac{\partial\mathcal{R}}{\partial a}
+   +\frac{s(1-s)}{\mu na^2e} 
+    \frac{\partial\mathcal{R}}{\partial e} 
+\end{aligned}
+    \label{eq:lagrange_planetary_equations}
+\end{equation}
+where the subscripts of the orbital elements are either $i$
+or $o$ for the inner and outer orbits respectively. $s=\sqrt{1-e^2}$
+and $\epsilon$ is the mean longitude at $t=t_0$ and is related
+to the mean longitude by $\int^t_0 n\mathrm{d}t$ 
+\citep[see.][for details]{Mardling2013}. There is no unique general 
+solution for \cref{eq:lagrange_planetary_equations}, best one can do
+is to expand $\mathcal{R}$ in a series and consider a few dominant
+terms in certain cases.
 
 We start by expanding the last two terms in \cref{eq:dist_cartesian} using 
 a well known\footnote{Expressions involving a difference between two vectors 
@@ -804,23 +840,21 @@ coefficients proportional to $(r/R)^l$. In order for this series
 to converge, we require that $r/R$ is a small number. This is satisfied
 for all circumbinary planets because as will be shown later, there is
 an inner instability region outside of the stellar binary and the only
-stable orbits exist further outside the stellar binary's orbit. 
-
-Next, we focus on coplanar systems
-(mutual inclination between orbits is assumed to be zero) and thus we take
-$\theta_i=\theta_o=\pi/2$ (the motion is restricted to the $x-y$ plane), 
-$\phi_i=f_i+\varpi_i$ and $\phi_o=f_o+\varpi_o$ where $f_i$ and $f_o$ are
-the true anomalies of the outer and inner orbits respectively.
- We can then use the definition of the spherical harmonic $Y_{lm}(\theta, \phi)$ 
-from \cite{jackson} to rewrite \cref{eq:dist_harmonics} in terms of exponential
-function containing the orbital frequencies, as follows
+stable orbits exist further outside the stellar binary's orbit. A spherical
+harmonic is defined by
 \begin{equation}
     Y_{lm}(\theta,\phi)=\sqrt{ \frac{2l+1}{4\pi} \frac{(l-m)!}{(l+m)!} }\mathcal{P}_1^m(
     \cos\theta)e^{im\phi}
     \label{eq:sph_harmonics}
 \end{equation}
 where $\mathcal{P}_1^m(\theta, \phi)$ is the \emph{associated Legendre function}
-\citep{jackson}. Therefore, we have
+\citep{jackson}. 
+
+Next, we focus on coplanar systems
+(mutual inclination between orbits is assumed to be zero) and thus we take
+$\theta_i=\theta_o=\pi/2$ (the motion is restricted to the $x-y$ plane), 
+$\phi_i=f_i+\varpi_i$ and $\phi_o=f_o+\varpi_o$ where $f_i$ and $f_o$ are
+the true anomalies of the outer and inner orbits respectively. We obtain 
 \begin{equation}
     \mathcal{R}=g\mu_im_3\sum^\infty_{l=2}\sum^l_{m=-l,2} \frac{1}{2} c_{lm}^2\mathcal{M}_l
     e^{im(\varpi_i-\varpi_o)}\left(r^le^{imf_i}\right)\left( \frac{e^{-imf_o}}{R^{l+1}} 
@@ -829,10 +863,11 @@ where $\mathcal{P}_1^m(\theta, \phi)$ is the \emph{associated Legendre function}
 \end{equation}
 where
 \begin{equation}
-    c^2_{lm}= \frac{8\pi}{2l+1} \left[Y_{lm}(\pi/2,0\right]=c^2_{l-m}
+    c^2_{lm}= \frac{8\pi}{2l+1} \left[Y_{lm}(\pi/2,0)\right]=c^2_{l-m}
 \end{equation}
 and the notation $m=-l, 2$ in the summation over $m$ means that the summation is taken
-in steps of 2. For stable systems the expressions in the last two brackets of
+in steps of 2. The first few values for $c_{lm}$ can be found in \cite{Mardling2013}.
+For stable systems the expressions in the last two brackets of
 \cref{eq:dist_expanded} are nearly periodic and can therefore be expanded in a 
 \emph{Fourier series} of the inner and outer mean anomalies $M_i=n_it+M_i(0)$ and
 $M_o=n_ot+M_o(0)$, where $n_i,n_o$ are the mean motions associated with the inner
@@ -847,7 +882,8 @@ and
     X^{-(l+1),m}_{n'}(e_o)e^{-n'M_o}
     \label{eq:expansion_2}
 \end{equation}
-where the \emph{Fourier coefficients} given by
+where the $\mathcal{F}$ above the equality sign denotes Fourier expansion 
+and the \emph{Fourier coefficients} are given by
 \begin{equation}
     X^{l,m}_n(e_i)= \frac{1}{2\pi} \int^{2\pi}_0 \left(\frac{r}{a_i}\right)^l
     e^{imf_i}e^{inM_i}\mathrm{d}M_i=\mathcal{O}(e_i^{\lvert m-n\rvert})
@@ -902,13 +938,25 @@ motions and the index $m$ is associated with the change in the
 relative orientation of the orbits called the 
 \emph{rate of apsidial advance} $\dot{\varpi}_i-\dot{\varpi}_o$. 
 The terms corresponding to $l=2$ are called \emph{quadropole} 
-terms, those with $l=3$ are \emph{octopole} terms and so on.
+terms, those with $l=3$ are \emph{octopole} terms and so on. The harmonic
+angle can also be written in terms of mean longitudes $\lambda_i=M_i+\varpi_i$
+and $\lambda_o=M_o+\varpi_o$ as
+\begin{equation}
+    \phi_{mnn'}=n\lambda_i-n'\lambda_o+(m-n)\varpi_i-(m-n')\varpi_o
+    \label{eq:harmonic_angle}
+\end{equation}
+The harmonic angle should be invariant to the rotation of the coordinate axes, 
+since such a rotation changes all longitude angles by the same amount, their 
+coefficients should add up to zero. This property is called the 
+\emph{d'Alembert relation} \citep{murray}. A short inspection of 
+\cref{eq:harmonic_angle} shows that this is indeed satisfied for all possible
+coefficients.
 
 At this point, it is useful to review what has been done. We have started
 with the equations of motion for the three--body problem and expressed them
-in terms of the Keplerian motion of masses 1 and 2 (the inner orbit) 
-,the motion of mass 3 around the centre of mass of the inner 
-two masses (the outer orbit) and an interaction term between the two
+in terms of the Keplerian motion of masses $m_1$ and $m_2$ (the inner orbit) 
+, the motion of mass $m_3$ around the centre of mass of the inner 
+two masses (the outer orbit), and an interaction term between the two
 orbits called the disturbing function. The disturbing function
 can be written as an infinite series of spherical harmonics 
 whose coefficients depend on $r/R$. We then impose the 
@@ -922,6 +970,211 @@ expansion in $r/R$. The dependence on the eccentricity is contained
 only in the Hansen coefficients, which can \emph{in principle} be
 calculated exactly. The question now is what is the significance
 of the various terms in \cref{eq:disturbing_function}.
+\subsection{Secular dynamics}
+\label{sub:Secular_dynamics}
+There are two different kinds of harmonic angles, those which 
+include the mean longitudes which necessarily vary on an orbital
+timescale, and those which don't include the mean longitudes but
+contain only the angles which vary on a slower timescale, such 
+as $\varpi_i-\varpi_o$ and the inclination angles in non-coplanar
+systems. As we will be shown in \cref{sub:resonant_dynamics}, in many
+cases one can ignore the disturbing function terms involving the 
+fast-varying mean longitudes and avarage them over the orbital
+period, this is due to the fact that for such terms $\phi$ is 
+slowly varying and therefore $\cos{\phi}$ becomes significant.
+. In practice, the averaging\footnote{One can show \citep{murray}
+that the averaging over the mean longitudes is equivalent to 
+considering the dynamics of rings made up by spreading the 
+orbiting masses
+around their orbits. The procedure is called \emph{Gauss's 
+averaging method}, is shows us that secular interactions
+between planets are equivalent to interactions between massive
+rings because the specific location of given mass along its orbit
+doesn't matter on long timescales.} 
+is achieved by simply retaining only
+the terms with $n=n'=0$ in \cref{eq:disturbing_function}. The 
+resulting disturbing function is called the \emph{secular}
+\footnote{The word secular comes from Latin \emph{seculum} meaning
+century, or long period.} distrubing function. It is given by
+\begin{equation}
+    \tilde{\mathcal{R}}=\sum^\infty_{m=0}\tilde{\mathcal{R}}_m
+    \cos[m(\varpi_i-\varpi_o)]
+    \label{eq:secular_dist}
+\end{equation}
+where
+\begin{equation}
+    \tilde{\mathcal{R}}_m= \frac{G\mu_im_3}{a_o}
+    \sum^\infty_{l=l_\text{min},2}\zeta_mc_{lm}^2\mathcal{M}_l
+    \alpha^l X_0^{l,m}(e_i)X_0^{-(l+1),m}(e_o)
+\end{equation}
+Closed-form expressions exist for Hansen coefficients when $n=n'=0$.
+Up the octopole order, the secular disturbing function becomes
+\citep{Mardling2013}
+\begin{equation}
+\begin{aligned}
+    \tilde{\mathcal{R}}&= \frac{G\mu_im_3}{a_o}\left[ \frac{1}{4} 
+    \left( \frac{a_i}{a_o} \right)^2 
+    \frac{1+ \frac{3}{2} e_i^2}{(1-e_o^2)^{3/2}}\right\\  
+    &-\left \frac{15}{16}
+    \left( \frac{a_i}{a_o} \right)^3\left( \frac{m_1-m_2}{m_{12}}
+    \right) \frac{e_ie_o(1+ \frac{3}{4} e_i^2)}{(1-e_o^2)^{5/2}} 
+    \cos(\varpi_i-\varpi_o)\right]
+\end{aligned}
+    \label{eq:dist_sec_octopole}
+\end{equation}
+It turns out that a purely secular coplanar three--body problem 
+involving only terms
+up to octopole order is fully integrable \citep[ex.][]{murray}
+and hence it does not admit chaotic solutions. 
+
+One can show \citep{murray} that by using the Lagrange planetary 
+equations together with \cref{eq:dist_sec_octopole} expanded
+to second order in eccentricity, it is possible to obtain
+a unique solution. The solution is best expressed in the 
+following coordinates
+\begin{align}
+    h_i&=e_i\sin\varpi_i\quad k_i=e_i\cos\varpi_i\\
+    h_o&=e_o\sin\varpi_i\quad k_o=e_o\cos\varpi_o
+\end{align}
+and the Lagrange planetary equations reduce to form
+\begin{equation}
+    \begin{pmatrix}
+        \dot{h}_i\\
+        \dot{h}_o
+    \end{pmatrix}
+    = \vect{A}\begin{pmatrix}
+        k_i\\
+        k_o
+    \end{pmatrix}
+\quad    \text{and} \quad
+\begin{pmatrix}
+        \dot{k}_i\\
+        \dot{k}_o
+    \end{pmatrix}
+    = -\vect{A}\begin{pmatrix}
+        h_i\\
+        h_o
+    \end{pmatrix}
+\end{equation}
+where the matrix $\vect{A}$ contains constant factors. This
+system can be solved as an eigenvalue problem, the solutions are
+\begin{equation}
+\begin{aligned}
+    h_i&=\sum^2_{l=1}e_{il}\sin(g_lt+\beta_l)\quad
+    k_i=\sum^2_{l=1}e_{il}\cos(g_lt+\beta_l)\\
+    h_o&=\sum^2_{l=1}e_{ol}\sin(g_lt+\beta_l)\quad
+    k_o=\sum^2_{l=1}e_{ol}\cos(g_lt+\beta_l)
+\end{aligned}
+    \label{eq:laplace_lagrange}
+\end{equation}
+where the frequencies $g$ are the eigenvalues of the matrix $\vect{A}$
+with $e_{ol}$ and $e_{il}$ the components of two corresponding 
+eigenvectors. These are determined from the inital conditions together
+with the phases $\beta_l$. \Cref{eq:laplace_lagrange} is known as
+the \emph{Laplace-Lagrange secular solution}. As expected, the solution
+does not depend on the mean longitudes since we are neglecting them
+in the secular disturbing function. The solution gives the variation
+of the eccentricities and pericentres\footnote{In fact, the 
+Laplace-Lagrange secular solution is also valid in the case of inclined
+system in which there are two additional coordinates $p=I\sin\Omega$
+and $q=I\cos\Omega$.}of the two orbits as a function
+of time and it implies that the orbits are stable for all time within
+the limits of the secular approximation (terms with mean longitudes
+can be avaraged out) and the eccentricity expansion to second order.
+The Laplace-Lagrange holds not only in the three body case but
+also in the N-body case and it successfuly reproduces most aspects
+of the secular dynamics of the Solar System.
+\subsubsection*{Free and Forced elements}
+In \cref{sub:Secular_dynamics} we have shown that it is possible to 
+find an exact solution for the evolution of slowly-varying
+orbital elements in the three--body problem. We can use this solution
+to study the dynamics of an outer massless particle perturbed by 
+the other three bodies. Let the orbital elements of the massless
+particle be $(a',\lambda',e',I'=0,\varpi',\Omega'=0)$. Through a
+derivation similar to similar to that described in 
+\cref{sub:Secular_dynamics} \citep[see ch. 7 sec. 4 of][]{murray}
+we obtain the following solution for $h'$ and $k'$
+\begin{equation}
+    h'=e_\text{free}\sin(At+\beta)+h_0(t)\quad
+     k'=e_\text{free}\cos(At+\beta)+k_0(t)
+     \label{eq:free_forced_elements}
+\end{equation}
+where $e_\text{free},\beta$ and $A$ are constants determined by
+the initial conditions and the functions $h_0(t)$ and $k_0(t)$
+are given by
+\begin{align}
+    h_0(t)&=-\sum^2_{l=1} \frac{\nu_l}{A-g_l} \sin(g_lt+\beta_l)\\
+    k_0(t)&=-\sum^2_{l=1} \frac{\nu_l}{A-g_l} \cos(g_lt+\beta_l)
+\end{align}
+where$\nu_l,g_l$ and $\beta_l$ are again constants depending on 
+the initial conditions, such as the mass ratios and (fixed)
+semi-major axes. The solution is best described by plotting
+\cref{eq:free_forced_elements} in the plane $(e'\cos\varpi',
+e'\sin\varpi')$.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.6\linewidth]{gfx/free_forced_elements.png}
+\caption{The geometric relationship between the free and forced
+    eccentricities and longitudes. Figure taken from \cite{murray}.}
+\label{fig:free_forced_elements}
+\end{figure}
+\Cref{fig:free_forced_elements} shows the geometrical interpretation
+for the motion of the test particle. The point in the plane represents
+a certain $(h',k')$ value, which defines a vector pointing from the origin
+to the point with magnitude $e'$ and it makes an angle $\varpi'$ with
+the $x$ axis. This vector can be thought of as a vector sum of two 
+vectors. One points from the origin to the point $(h_0, k_0)$ 
+with magnitude $e_\text{forced}$ called the \emph{forced eccentricity} 
+at an angle $\varpi_\text{forced}$ called the \emph{forced longitude 
+of pericentre},  
+the other pointing from
+$(h_0,k_0)$ to the point $(k,h)$ with magnitude $e_\text{free}$ called
+the \emph{free eccentricity} 
+at an angle $\varpi_\text{free}=At+\beta$ called the \emph{free
+longitude of pericentre}. 
+
+Thus, the particle's motion can be thought of as a motion around 
+a circle centered at $(h_0,k_0)$ at rate constant rate $A$ where
+the point $(h_0,k_0)$ itself moves in a complicated path determined
+by the Laplace-Lagrange solution for the three massive bodies. 
+
+\subsection{Resonant dynamics}
+\label{sub:Resonant_dynamics}
+Consider the harmonic angle defined in \cref{eq:harmonic_angle}, 
+$\cos\phi_{mnn'}$ becomes large when $\phi_{mnn'}$ is a slowly
+varying angle, in other words, $\dot{\phi}_{mnn'}\approx 0$. 
+Differentiating \cref{eq:harmonic_angle} with respect to time,
+we have
+\begin{equation}
+    \dot{\phi}_{mnn'}=nn_i-n'n_o+(m-n)\dot{\varpi}_i-(m-n')\dot{
+        \varpi}_o\approx 0
+    \label{eq:harmonic_angle_deriv}
+\end{equation}
+where $n_i=\dot{\lambda}_i$ and $n_o=\dot{\lambda}_o$ are the two
+mean motions. We can rewrite \cref{eq:harmonic_angle_deriv} as
+\begin{equation}
+    \frac{n_i+( \frac{m}{n} -1)\dot{\varpi}_i}
+    {n_o + ( \frac{m}{n'}-1)\dot{\varpi}_o } 
+    = \frac{n'}{n} 
+    \label{eq:resonance_condition}
+\end{equation}
+Since the rates of pericentre precession $\dot{varpi}_i$ 
+and $\dot{varpi}_o$ are small compared to the mean motions, we
+require approximately
+\begin{equation}
+    \frac{n_i}{n_o} = \frac{n'}{n} 
+\end{equation}
+Thus, the harmonic angle is slowly varying if there is an interger 
+ratio (since $n$ and $n'$ are interger coefficients in a Fourier 
+series) between the mean motions of
+the inner and outer orbits, or equivalently, there is an interger
+ratio between the periods since $n=2\pi/P$. If this 
+requirement is satisfied, we say that the mean motions
+are \emph{commensurate}. If \cref{eq:resonance_condition} is 
+satisfied we say that the system is in a \emph{mean motion resonance}.
+The effect of the precession of pericentres is to shift the location
+of a mean motion resonance (MMR for short) from an exact 
+mean motion commensurability.
 
 
 - follow Mardling's nbody lectures, introduce mean mean--motion
