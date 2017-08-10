@@ -887,11 +887,13 @@ and the \emph{Fourier coefficients} are given by
 \begin{equation}
     X^{l,m}_n(e_i)= \frac{1}{2\pi} \int^{2\pi}_0 \left(\frac{r}{a_i}\right)^l
     e^{imf_i}e^{inM_i}\mathrm{d}M_i=\mathcal{O}(e_i^{\lvert m-n\rvert})
+    \label{eq:hansen_inner}
 \end{equation}
 and
 \begin{equation}
     X^{-(l+1),m}_{n'}(e_o)= \frac{1}{2\pi} \int^{2\pi}_0 \left( \frac{R}{a_o}
     \right)^{-(l+1)}e^{-imf_o}e^in'M_o=\mathcal{O}(e_o^{\lvert m-n'\rvert})
+    \label{eq:hansen_outer}
 \end{equation}
 are called the \emph{Hansen coefficients} and the notion $\mathcal{O}()$
 refers to the order of the leading terms. Plugging \cref{eq:expansion_1}
@@ -1158,8 +1160,8 @@ mean motions. We can rewrite \cref{eq:harmonic_angle_deriv} as
     = \frac{n'}{n} 
     \label{eq:resonance_condition}
 \end{equation}
-Since the rates of pericentre precession $\dot{varpi}_i$ 
-and $\dot{varpi}_o$ are small compared to the mean motions, we
+Since the rates of pericentre precession $\dot{\varpi}_i$ 
+and $\dot{\varpi}_o$ are small compared to the mean motions, we
 require approximately
 \begin{equation}
     \frac{n_i}{n_o} = \frac{n'}{n} 
@@ -1171,20 +1173,205 @@ the inner and outer orbits, or equivalently, there is an interger
 ratio between the periods since $n=2\pi/P$. If this 
 requirement is satisfied, we say that the mean motions
 are \emph{commensurate}. If \cref{eq:resonance_condition} is 
-satisfied we say that the system is in a \emph{mean motion resonance}.
+satisfied we say that the system is in an $n':n$ 
+\emph{mean motion resonance}.
+The difference $n'-n$ is called the \emph{resonance order}.
 The effect of the precession of pericentres is to shift the location
 of a mean motion resonance (MMR for short) from an exact 
 mean motion commensurability.
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=\linewidth]{gfx/conjunctions.png}
+    \caption{The relative positions of Jupiter (white circle) and 
+    an asteroid (small filled circle) in a $2:1$ mean motion
+    resonance. Figure taken from \cite{murray}.}
+\label{fig:conjuctions}
+\end{figure}
 
+An MMR is best understood by considering the geometry of the 
+orbits. \Cref{fig:conjuctions} shows an example of a $2:1$
+mean motion resonance of Jupiter with an inner asteroid. 
+If both bodies start at $\vapi_i=\varpi_o=0$ in 
+\emph{conjuction}\footnote{A conjuction is defined by 
+$\lambda_i=\lambda_o$} (panel (a) in \cref{fig:conjuctions}) and we 
+neglect the pericentre precession, they will experience
+a conjuction again once the asteroid has gone twice 
+around its orbit (panel (d) in \cref{fig:conjuctions}). Conjunctions
+happen independently of wheather or not there is a resonant
+relationship between the mean motion, the crucial point
+is that in the case of an MMR, the conjuctions happen
+\emph{at the same position on the orbit}. Another aspect of MMRs
+is visible in \cref{fig:conjuctions}, if one of the bodies starts
+at apocentre and the other at pericentre the conjuctions --
+points of closest approach always happen when the bodies 
+are as far away from each other as possible. Thus, the effect
+of the $2:1$ MMR in this case is to prevent close encounters and 
+the resonance acts as a stablizing agent. Conversely, if bodies
+started at pericentre the conjuctions would happen at a point 
+where the two orbits are closest to each other and the resonance
+would act to destabilize the system via close encounters between
+the bodies. We see that capture into MMR can be either beneficial
+or destructive for a planetary system, the exact outcome
+depending on the geometry of the orbits at the point of resonant
+capture. 
 
-- follow Mardling's nbody lectures, introduce mean mean--motion
-resonances mathematically as slowly varying angles in  Fourier series
-and physically, as repeated conjuctions of planets at the same location
-in space.
-- KAM theorem and invariant torii
-- disturbing function
-- secular and resonant interactions
-- resonance widths (no plots for now)
+In the case when the pericentre precession cannot be neglected the
+picture is somewhat more complicated, the conjuctions occur 
+at the  almost same relative position in the two orbits, but not 
+necessarily also at the same position in inertial space.
+
+A consequence of \cref{eq:hansen_inner,eq:hansen_outer}
+defining the Hansen coefficients
+is that the combined power exponent of the inner and outer 
+eccentricites 
+grows with the resonance order. The eccentricity dependance
+for a given term in the disturbing function 
+is of the form $\mathcal{O}(e_i^{\lvert m-n\rvert}
+e_o^{\lvert m-n'\rvert})$. The combined exponent is then
+\begin{equation}
+    \lvert m-n\rvert+\lvert m-n'\rvert=
+    \begin{cases}
+        n'-n, & n\leq m\leq n'\\
+        \lvert 2m-n-n'\rvert, & \text{otherwise}
+    \end{cases}
+\end{equation}
+The term in the distrubing function expansion corresponding
+to a specific $n':n$ MMR with the lowest combined order
+in eccentricity is the one with $n\leq m\leq n'$ and its
+combined exponent is equal to the resonance order. Thus, we
+have the result that the higher the resonance order of
+a particular MMR, the 'stronger' is the corresponding dominant
+term in the disturbing function expansion. \Cite{Mardling2013}
+refers to the resonant terms which satisfy as the
+\emph{principal resonances} or \emph{principal harmonics} 
+of an $n':n$ MMR. For example, for the $2:1$ MMR there are two
+principal resonances with harmonic angles $\phi_{112}=
+\lambda_i-2\lambda_o+\varpi_o$ and $\phi_{212}=\lambda_i
+-2\lambda_o+\varpi_i$.
+
+From \cref{eq:harmonic_coefficient} it follows that $\mathcal{R}
+_{mnn'}=\mathcal{O}(\alpha^m),\,m\geq 2$, $\mathcal{R}_{0nn'}=
+\mathcal{O}(\alpha^2)$ and $\mathcal{R}_{1nn'}=\mathcal{O}(
+alpha^3)$. Thus, unless $e_o\ll e_i$, the principal resonance
+with $m=n$ provides the largest contribution to the disturbing
+function, unless $n=1$, in which case the $m=2$ harmonic makes
+gives the largest contribution.
+\subsubsection{Resonance widths}
+\label{ssub:Resonance_widths}
+In general, the harmonic angle $\phi_{mnn'}$ will circulate in the
+manner similar to that of a pendulum, unless the system is 
+sufficiently close to a period commensurability in which case
+it can librate. 
+. The harmonic angle
+can librate even if the system is not at exact resonance
+because the orbits exchange energy and the period ratio changes
+slightly after every outer orbit. If $\phi_{mnn'}$ is librating
+ then $\oint\cos\phi_{mnn'}\mathrm{d}\phi_{mnn'}\neq 0$ where the
+integral is taken over one libration cycle. A natural 
+question to ask then is just how close to a period commensurability
+we have to be in order for a specific harmonic angle to start
+librating. This is referred to as the \emph{resonance width}i. 
+Just as in the case of a pendulum described in 
+\cref{sec:pendulum}, the libration period 
+depends on the distance from the border between the libration region
+and the circulation region, i.e. the separatrix.  
+
+In order to calculate the resonance width, \cite{Mardling2013} derives
+a pendulum like differential equation for the harmonic angle $\phi_{mnn'}$.
+Given a pendulum equation it straightforward to calculate the dimensionless
+width of the resonance in units of period ratio.
+
+Assumming $\dot{\varpi}_i\ll n_o$ and $\dot{\varpi}_i\ll n_o$ 
+\cref{eq:harmonic_angle_deriv} is approximately
+\begin{equation}
+    \dot{\phi}_{mnn'}=nn_i-n'n_o
+    \label{eq:resonance_width_libration_condition}
+\end{equation}
+Consider the case of an $N:1$ resonant term with $m=2$ (the dominant
+term for an $N:1$ principal resonance. We want to derive an equation of
+the form
+\begin{equation}
+    \dot{\phi}_{N}=-\omega_{N}^2\sin\phi_{N}
+\end{equation}
+where $\phi_{N}\equiv\phi_N$ is determined by the parameters of the system. Once 
+we know $\phi_{N}$ we can determine the libration criterion from the
+equation of the pendulum separatrix \ref{eq:pendulum_separatrix}
+\begin{equation}
+    \dot{\phi}_{N}=\pm 2\omega_{N}\cos\left( \frac{\phi_{N}}{2} \right)
+\end{equation}
+Libration occurs if $\dot{\phi}_{N}<2\omega_{N}$. 
+We start rewriting \cref{eq:resonance_width_libration_condition} as
+\begin{equation}
+    \ddot{\phi}_{N}=n_o\left( \frac{n_i}{n_o} \frac{\dot{n}_o}{n_i} 
+    -N \frac{\dot{n}_o}{n_o} \right)=- \frac{3}{2} n_o\left(
+    \frac{n_i}{n_o} \frac{\dot{a}_i}{a_i} -N \frac{\dot{a}_o}{a_o} 
+    \right)
+\end{equation}
+where we have used Kepler's third law to replace the mean motions with
+semi-major axes. We can then use Lagrange's planetary equations 
+together with the dominant disturbing function term for $N:1$ resonance
+to calculate $\dot{a}_i$ and $\dot{a}_o$. The result is
+\begin{equation}
+\begin{aligned}
+    \ddot{\phi}_{N}&=-\omega_{N}^2\sin\phi_{N}\\&= \frac{9}{4} 
+    n_o^2\left[ \frac{m_3}{m_{123}} +
+    N^{2/3}\left( \frac{m_{12}}{m_{123}}
+    \right)^{2/3}\left( \frac{m_1m_2}{m_{12}^2} \right)\right]
+    X^{2,2}_1(e_i)X^{-3,2}_N(e_o)\sin\phi_{N}
+\end{aligned}
+\end{equation}
+The harmonic angle $\phi_N$ librates around $0$ because 
+$X^{2,2}_1(e_i)<0$ and $X^{-3,2}_N(e_o)>0$ for all
+$e_i$ and $e_o$ and thus there is a minus sign in front
+of $\omega_N^2$. If it weren't for the minus sign, the 
+angle would librate around $\pi$ (NEED REFERENCE).
+The libration condition is then
+\begin{equation}
+    \dot{\phi}_N=n_o\left( \frac{n_i}{n_o} -N\right)<2\omega_N
+\end{equation}
+Thus, the distance from resonance $N$ in units of inner mean motion
+within which the harmonic angle is librating is given by
+\begin{equation}
+    \begin{aligned}
+        \sigma&=\frac{n_i}{n_o} -N= \frac{2\omega_n}{n_o}\\ 
+        &= 3\left[ \frac{m_3}{m_{123}} +
+    N^{2/3}\left( \frac{m_{12}}{m_{123}}
+        \right)^{2/3}\left( \frac{m_1m_2}{m_{12}^2} \right)\right]^{1/2}
+        \sqrt{X^{2,2}_1(e_i)X^{-3,2}_N(e_o)}
+    \end{aligned}
+    \label{eq:resonance_width}
+\end{equation}
+where $\sigma$ is the dimensionless distance from resonance. The Hansen
+coefficient can be calculated to arbitrary order using a series expansion
+of the integrals \ref{eq:hansen_inner} and \ref{eq:hansen_outer}. One can
+show that$\lim_{e_o\rightarrow 0}\sigma=0$ for $N\geq 3$, that is, the 
+widths of high $N$ resonances are only significant if $e_0$ is not very
+small. We also have $\lim_{e_i\rightarrow 0}\sigma=0$ which implies that
+the resonance widths become infinitely narrow for circular inner orbits.
+However, the situation when $e_i=0$ is physically unrealistic since some
+eccentricity is always induced secularly (see \cref{sub:Secular_dynamics}).
+We will use \cref{eq:resonance_width} in 
+\cref{ch:numerical_results} together with numerical techniques to predict the
+stability of circumbinary systems
+
+So far, we have managed the disentangle the three body problem by
+by expanding the interaction potential in a Fourier series and 
+classifying the behaviour of different terms in the expansions. We have
+defined what it means for a sysytem to be in a mean motion resonance and
+derived a useful expression which enables us to calculate the location of 
+the regions of instability due to resonance overlap. However, we haven't
+mentioned how the system got into resonance in the first place. The main
+subject of this thesis is what happens during a \emph{resonance
+passage} as $n_i/n_o$ grows due to tidal decay of the stellar binary.
+In order to describe the physics behind resonant passage, we need to use
+Hamiltonian mechanics from \cref{sec:hamiltonian_mechanics}. Ideally, we
+would like to have a single degree of freedom Hamiltonian which describes
+the resonant passage of the relevant resonance for circumbinary planets.
+In the next section we will show that it is always possible to construct 
+such a Hamiltonian by considering a single dominant resonant term in 
+the disturbing function. Considering more than one terms at the time
+usually leads to a Hamiltonian with more degrees of freedom.
+
 - show that any Hamiltonian with a particular Harmonic can be reduced to
 a single degree of freedom
 - show that it is possible to systematically remove all other harmonics
