@@ -1,22 +1,353 @@
 %************************************************
-\chapter{An analytical model of high-order mean--motion resonances}
+\chapter{Resonant passage of the 6:1 mean motion resonance}
 \label{ch:analytical_model_of_high_order_mmrs}
 %************************************************
-The second chapter deals with analytic models of mean--motion resonances
-(MMRs for short). This concept is the key part of the thesis because the overlap
-of MMRs and the passage of planetary or stellar bodies through them 
-are crucial for the determination of the stability of planetary bodies. 
-Here I develop a new analytical model of a 6:1 resonance in the case 
-where the inner two bodies are 
-comparable in mass. The 6:1 MMR is the first important resonance encountered
-by circumbinary planets similar to the observed MS population once the 
-binary starts evolving off the main--sequence. I use this 
-model to predict the eccentricity kick to a planet orbiting the evolving
-binary as the stars approach each other due to tidal forces. 
+After reviewing the theory required for studying
+resonant capture in the framework of a three--body problem
+with arbitrary mass ratios, we turn to the construction of
+a one dimensional Hamiltonian for a particular mean motion 
+resonance relevant to circumbinary planets. The question is,
+which resonances are relevant?
 
-\section{A model of the 6:1 resonance}
+Looking at the circumbinary planets orbiting main--sequence stars,
+we see that all of them are located outside of the $5:1$ MMR
+with the stellar binary. This is due to the fact that the inner
+regions in period space are  mostly unstable because of resonance overlap
+as will be shown in \cref{ch:numerical_analysis}. Thus, as the 
+stellar binary evolves and the period ratio $P_o/P_i=n_i/n_o$ grows,
+the first major resonance that will be encountered is the $6:1$ resonance,
+which is 5th order.
+More distant resonances such as $7:1$ and $8:1$ might be important
+as well, however, since resonance 'strength' drops off with resonance
+order, their effects will be less important. 
+\section{The 6:1 mean motion resonance}
 \label{sec:6_by_1_resonance}
-- here goes almost everything from the Jupyter notebook
+A $6:1$ MMR is defined by the labels $n'=6,\,n=1$ in the disturbing
+function expansion in \cref{eq:disturbing_function}. \Cref{tab:6_1_angles}
+lists all of the harmonic angles associated with the principal
+harmonics of a $6:1$ MMR together with the leading order of the
+harmonic coefficient in the semi-major axis ratio $\alpha$ and
+the inner and outer eccentricities. As expected, the sum of the
+exponent powers of $e_i$ and $e_o$ is equal to 5 which is the order
+of the resonance.
+\begin{table}[h!]
+\centering
+\begin{tabular}{l c}
+\toprule
+    Harmonic angle $\phi_{mnn'}$ & Leading order of $\mathcal{R}_{mnn'}$\\
+\midrule
+    $\phi_{161}=\lambda_i-6\lambda_o+5\varpi_o$ & 
+    $\mathcal{O}(\alpha^3,\,e_i^0,\,e_o^5)$\\
+$\phi_{261}=\lambda_i-6\lambda_o+\varpi_i + 4\varpi_o$ & 
+    $\mathcal{O}(\alpha^2,\,e_i^1,\,e_o^4)$\\
+$\phi_{361}=\lambda_i-6\lambda_o+2\varpi_i + 3\varpi_o$ & 
+    $\mathcal{O}(\alpha^3,\,e_i^2,\,e_o^3)$\\
+$\phi_{461}=\lambda_i-6\lambda_o+3\varpi_i + 2\varpi_o$ & 
+    $\mathcal{O}(\alpha^4,\,e_i^3,\,e_o^2)$\\
+$\phi_{561}=\lambda_i-6\lambda_o+4\varpi_i + \varpi_o$ & 
+    $\mathcal{O}(\alpha^5,\,e_i^4,\,e_o^1)$\\
+$\phi_{661}=\lambda_i-6\lambda_o+5\varpi_i  $ & 
+    $\mathcal{O}(\alpha^6,\,e_i^5,\,e_o^5)$\\
+\bottomrule
+\end{tabular}
+\caption{Harmonic angles associated with the principal harmonics
+    of a $6:1$ mean motion resonance (those with $n\leq m\leq n'$).}
+\label{tab:6_1_angles}
+\end{table}
 
-\section{7:1 and higher-order resonances}
-\label{sec:7:1 and higher-order resonances}
+The Harmonic angle associated with the dominant term is the one with
+$m=2$ because its harmonic coefficient is proportional to $\alpha^2$
+while all the other harmonic coefficients associated with this MMR
+are higher order in $\alpha$. We can now write down the Hamiltonian
+in \cref{eq:three_body_hamiltonian} with $\mathcal{R}=\mathcal{R}_{216}
+\cos\phi_{216}$.
+\begin{equation}
+    \mathcal{H}&=\mathcal{H}_k+\mathcal{R}
+    \label{eq:hamiltonian_orbital_elements}
+\end{equation}
+where
+\begin{equation}
+    \mathcal{H}_k&=\mathcal{H}_i+\mathcal{H}_o=
+    -G \frac{m_1m_2}{a_i} -G \frac{m_{12}m_3}{a_o}
+\end{equation}
+is the Keplerian part of the Hamiltonian which depends only on the 
+semi-major axes and
+\begin{equation}
+    \mathcal{R}=\frac{3}{4}\frac{G\mu_im_3}{a_o}\left(\frac{a_i}{a_o}\right)^2
+    X^{2,2}_1(e_i)\,X^{-3,2}_6(e_o)\cos(\lambda_i-6\lambda_o+
+    \varpi_i + 4\varpi_o)
+\end{equation}
+is the single resonant distrubing function term. Hamiltonian 
+\ref{eq:hamiltonian_orbital_elements} is written in terms of the
+orbital elements $(\lambda,a,e,\varpi)$ which do not form a canonically
+conjugate set of variables. Proceed to rewrite the Hamiltonian in
+so called \emph{Poincaré variables} which are often used in Celestial 
+mechanics and do form a canonically conjugate set of variables. The Poincaré
+variables are defined in terms of the orbital elements as
+\begin{equation}
+    \begin{aligned}
+        \lambda_i&=\lambda_i &\Lambda_i&=\mu_i\sqrt{Gm_{12}a_i\\
+        \gamma_i&=-\omega_i & \Gamma_i&=\mu_i\sqrt{Gm_{12}a_i}
+    \left(1-\sqrt{1-e_i^2}\right)
+\end{aligned}
+\label{eq:poincare_variables}
+\end{equation}
+and similary for the outer orbit with $m_{12}\rightarrow m_{123}$ and the
+index $o$ for the orbital elements. Remembering \cref{eq:ang_momentum} for 
+the angular momentum of a Keplerian orbit, we see that the Poincaré 
+Lambda-s correspond to the angular momentum for a circular outer and inner orbit
+respectively. The Gammas are then the differences between two-body angular
+momenta for a circular and elliptical orbit\footnote{In secular interactions
+the sum of all $\Gamma$ elements of the system
+is called the \emph{angular momentum deficit} (AMD). It is a conserved quantity
+because the semi-major axes are constant and the total angular momentum is conserved.
+\cite{laskar} has shown that the Solar System is AMD unstable in the sense that
+if say all planets except, say, Venus attained maximum angular momentum (corresponding
+to a circular orbit), Venus's eccentricity would inrease enough for crossing
+orbits to occur.}
+We can then solve the system 
+\ref{eq:poincare_variables} for the orbital elements in terms of Poincaré
+variables, the result is
+\begin{equation}
+    \begin{aligned}
+        a_i&= \frac{\Lambda_i^2}{G\mu_i^2m_{12}} \\
+        e_i &= \frac{1}{\Lambda_i} \sqrt{\Lambda_i^2-(\Gamma_i-\Lambda_i)^2}\\
+        \varpi_i&=-\gamma_i
+    \end{aligned}
+    \label{eq:orbital_elems_in_terms_of_poincare}
+\end{equation}
+and again similarly for the outer orbital elements. We have taken the positive root
+of $e_i$ since eccentricity is defined to be positive. The Hamiltonian
+\ref{eq:hamiltonian_orbital_elements} expressed in terms of the new variables
+is then
+\begin{equation}
+    \begin{aligned}
+        \mathcal{H}&=-G^2 \frac{\mu_i^3m_{12}^2}{2\Lambda_i^2}  
+        -G^2 \frac{\mu_o^3m_{123}^2}{2\Lambda_o^2}\\ 
+        &-\frac{3}{4}G^2 \frac{\mu_o^6}{\mu_i^3} \frac{m_{123}^3m_3}{m_{12}^2}
+        \frac{1}{\Lambda_o^2} \left(\frac{\Lambda_i}{\Lambda_o}\right)^4
+    X^{2,2}_1(\Lambda_i)\,X^{-3,2}_6(\Lambda_o)\cos(\lambda_i-6\lambda_o
+    -\gamma_i - 4\gamma_o)
+    \end{aligned}
+    \label{eq:hamiltonian_poincare}
+\end{equation}
+We can simplify the Hamiltonian \ref{eq:hamiltonian_poincare} by changing
+to dimensionless units. This is achieved by scaling all masses, lengths and
+time by a constant factor, as follows
+\begin{equation}
+    \hat m= \frac{m}{m'} \quad\hat a= \frac{a}{a'}\quad \hat t = \frac{t}{t'}  
+\end{equation}
+where $m$ stands for any quantity with the dimension of mass in 
+\cref{eq:hamiltonian_poincare} and $a$ stands for any quantity with the 
+dimension of length. Time is not present explicitely in \cref{eq:hamiltonian_poincare}.
+The hats denote the fact that the new variables are dimensionless. Plugging in the
+rescaled variables in the Hamiltonian (and taking out $G$, which has dimensions, from
+the definition of the Poincaré momenta) we obtain a Hamiltonian of the form
+\begin{equation}
+    \mathcal{H}= \frac{Gm'^2}{a'} \mathcal{\hat H}
+\end{equation}
+where $\mathcal{\hat H}$ is now dimensionless and exactly the same as
+\cref{eq:hamiltonian_poincare} except with $G$ factored out and all 
+variables with a physical dimension given hats. The factor $Gm'^2/a'$ 
+has dimensions of energy (as it should) and we can multiply the 
+Hamiltonian $\mathcal{H}$ by its inverse to obtain a dimensionless 
+Hamiltonian. Multiplying any Hamiltonian by a constant factor is 
+equivalent to rescaling the time by that same factor\footnote{
+    This follows from Hamilton's equations. Since 
+    $\frac{\partial}{\partial p} (a
+    \mathcal{H})= \frac{dq}{dt}$ where $a$ is some 
+    constant, it follows that
+$ \frac{\partial\mathcal{H}}{\partial p} = \frac{dq}{d(at)}$.}.
+We then choose the scaling factors which give the simplest Hamiltonian,
+a natural choice is $m'=m_{12}$ as a unit of mass, $\tilde{a}_i$ (the
+reason for the use
+of $\tilde$ will become clear in the next paragraph) as a unit of 
+semi-major axis, and $1/n_i$ as a unit of time. The dimensionless
+Hamiltonian is then given by
+\begin{equation}
+    \begin{aligned}
+        \mathcal{H}&=-\frac{\mu_i^3}{2\Lambda_i^2}  
+        -\frac{\mu_o^3}{2\Lambda_o^2}\\ 
+        &-\frac{3}{4} \frac{\mu_o^6}{\mu_i^3} 
+       \frac{m_3}{\Lambda_o^2} \left(\frac{\Lambda_i}{\Lambda_o}\right)^4
+    X^{2,2}_1(\Gamma_i)\,X^{-3,2}_6(\Gamma_o)\cos(\lambda_i-6\lambda_o
+    -\gamma_i - 4\gamma_o)
+    \end{aligned}
+    \label{eq:hamiltonian_poincare_dimensionless}
+\end{equation}
+where we have omitted all the hats for clarity and we have used the 
+approximation $m_{123}\approx m_{12}$, since the most massive planets
+we will be considering are $m_3\approx 10^{-3} m_{12}$ which is negligible.
+
+In order to reduce the Hamiltonian \ref{eq:hamiltonian_poincare_dimensionless},
+to a form which resembles that of the pendulum, we have to expand it in a 
+Taylor series around a location of an exact resonance. Since we're interested
+in the dynamics in the vicinity of the resonance, this is a valid expansion.
+We choose to expand the Keplerian part to \emph{second order} and the
+resonant term to \emph{zeroth order} around $\Lambda_i=\tilde{\Lambda}_i$ 
+and $\Lambda_o=\tilde{\Lambda}_o$, where 'tilde' denotes Poincaré
+momenta evaluated at exact resonance
+\begin{equation}
+    \begin{align}
+        \tilde{\Lambda}_i&=m_1m_2\sqrt{\tilde{a}_i/\tilde{a}_i}=m_1m_2\\
+        \tilde{\Lambda}_o&=\mu_o\sqrt{\tilde{a}_o/\tilde{a}_i}=6^{1/3}\mu_o
+    \end{align}
+\end{equation}
+where we have used Kepler's third law to evaluate the outer semi-major axis
+at the location of $6:1$ MMR. The Hamiltonian 
+\ref{eq:hamiltonian_poincare_dimensionless} becomes
+\begin{equation}
+    \begin{aligned}
+        \mathcal{H}&=\frac{\mu_i^3}{2\tilde{\Lambda}_i^3}
+        (\Lambda_i-\tilde{\Lambda}_i) - \frac{3}{2}
+        \frac{\mu_i^3}{\tilde{\Lambda}_i^4} (\Lambda_i-\tilde{\Lambda}_i)^2
+    \frac{\mu_o^3}{2\tilde{\Lambda}_o^3}
+        (\Lambda_o-\tilde{\Lambda}_o) - \frac{3}{2}
+        \frac{\mu_o^3}{\tilde{\Lambda}_o^4} (\Lambda_o-\tilde{\Lambda}_o)^2\\
+        &-\frac{3}{4} \frac{\mu_o^6}{\mu_i^3} 
+        \frac{m_3}{\tilde{\Lambda}_o^2} \left(\frac{\tilde{\Lambda}_i}
+        {\tilde{\Lambda}_o}\right)^4
+    X^{2,2}_1(\Gamma_i)\,X^{-3,2}_6(\Gamma_o)\cos(\lambda_i-6\lambda_o
+    -\gamma_i - 4\gamma_o)
+    \end{aligned}
+    \label{eq:hamiltonian_poincare_dimensionless_expanded}
+\end{equation}
+where we have ignored constant terms because Hamilton's equations are invariant
+to an addition of a constant to the Hamiltonian. We then define new momenta
+$J_i=\Lambda_i-\tilde{\Lambda}_i$ and $J_o=\Lambda_o-\tilde{\Lambda}_o$ 
+which are shifted from $\Lambda_i$ and $\lambda_o$ by a constant (it is easy 
+to check that the canonical form is preserved).
+\section{Reduction to a single degree of freedom}
+\label{sec:Reduction_to_a_sdof}
+The Hamiltonian \ref{eq:hamiltonian_poincare_dimensionless_expanded} has four
+degrees of freedom. We would like to find a canonical transformation which
+reduces the number of degrees of freedom to one. It is known from one of the 
+first Hamiltonian models of resonance \citep{Henrard1983} that a suitable 
+canonical transformation has the harmonic angle as a position coordinate.
+Inspired by this fact, we choose a canonical transformation  to coordinates
+$(\theta_1,\theta_2,\theta_3,\theta_4;\Theta_1,\Theta_2,\Theta_3,\Theta_4)$ 
+generated by
+\begin{equation}
+    F_2= -(\lambda_i-6\lambda_o -\gamma_i - 4\gamma_o)\Theta_1 + 
+    \lambda_i\Theta_2+ \lambda_o\Theta_3+\gamma_i\Theta_4
+\end{equation}
+From \cref{tab:generating_functions}, it follows that 
+\begin{equation}
+    \begin{aligned}
+        J_1&= \frac{\partial F_2}{\partial \lambda_i}=-\Theta_1+\Theta_2 & 
+        \quad\theta_1&= \frac{\partial F_2}{\partial\Theta_1}=
+        - (\lambda_i-6\lambda_o -\gamma_i - 4\gamma_o)\\
+J_2&= \frac{\partial F_2}{\partial \lambda_o}=6\Theta_1+\Theta_3 & 
+        \quad\theta_2&= \frac{\partial F_2}{\partial\Theta_2}=\lambda_i\\
+\Gamma_i&= \frac{\partial F_2}{\partial \gamma_i}=\Theta_1+\Theta_4& 
+        \quad\theta_3&= \frac{\partial F_2}{\partial\Theta_3}=\gamma_o\\
+\Gamma_o&= \frac{\partial F_2}{\partial \gamma_o}=4\Theta_1& 
+        \quad\theta_4&= \frac{\partial F_2}{\partial\Theta_4}=\gamma_i\\
+    \end{aligned}
+    \label{eq:new_momenta}
+\end{equation}
+We can then easily solve for the new momenta in terms of all momenta
+\begin{equation}
+    \begin{align}
+        \Theta_1&= \frac{1}{4} \Gamma_o\\
+        \Theta_2&=J_1+ \frac{1}{4} \Gamma_o\\
+        \Theta_3&=J_2 - \frac{3}{2} \Gamma_o\\
+        \Theta_4&= \Gamma_i - \frac{1}{4} \Gamma_o
+    \end{align}
+\end{equation}
+and the Hamiltonian expressed in terms of the new coordinates is 
+\begin{equation}
+    \begin{aligned}
+        \mathcal{H}&=\left(- \frac{1}{2} \frac{\mu_i^3}{\tilde{\Lambda}_i^3}
+         +3 \frac{\mu_o^3}{\tilde{\Lambda}_o^3}+3\Theta_2 \frac{\mu_i^3}
+         {\tilde{\Lambda}_i^4} -18\Theta_3\frac{\mu_o^3}{\tilde{\Lambda}_o^4} 
+        \right)\Theta_1 +
+         \left(-\frac{3}{2}\frac{\mu_i^3}{\tilde{\Lambda}_i^4} - 
+         54\frac{\mu_o^3}{\tilde{\Lambda}_o^4}\right)\Theta_1^2\\
+        &-\frac{3}{4} \frac{\mu_o^6}{\mu_i^3} 
+        \frac{m_3}{\tilde{\Lambda}_o^2} \left(\frac{\tilde{\Lambda}_i}
+        {\tilde{\Lambda}_o}\right)^4
+        X^{2,2}_1(\Theta_1+\Theta_4)\,X^{-3,2}_6(\Theta_1)\cos(\theta_1)
+    \end{aligned}
+    \label{eq:hamiltonian_sdof_full}
+\end{equation}
+The resulting Hamiltonian depends only on one coordinate $\theta_1$ with
+$\Theta_1$ its momentum conjugate and 
+is therefore a single degree of freedom Hamiltonian. From Hamilton's
+equations, it follows that $\dot{\Theta}_2=\dot{\Theta}_3=\dot{\Theta}_4=0$.
+
+Finally, we turn to the Hansen coefficients which we have kept in symbolic 
+form so far. There are no closed-form solutions for the integrals 
+\cref{eq:hansen_inner,eq:hansen_outer} which define the coefficients. It is however
+possible to obtain a series solution using a computer algebra system. 
+\Cite{Mardling2013} provides \texttt{Wolfram Mathematica} \citep{Mathematica} code 
+for a series solution in eccentricities. However, we are working in Poincaré 
+coordinates and would like a solution as a series in $\Gamma_i$ and $\Gamma_o$. 
+The integral
+for the inner Hansen coefficient is given by \cref{eq:hansen_inner} as
+\begin{equation}
+    \begin{aligned}
+        X^{2,2}_1(e_i)= \frac{1}{2\pi} \int^{2\pi}_0 &(1-e_i\cos E_i)^{l+1}
+        \left[\cos(mf_i)+i\sin(mf_i)\right]\\
+        &\left[\cos(nM_i)-i\sin(nM_i)\right]\mathrm{d}E_i
+    \end{aligned}
+\end{equation}
+where we have used the relation $(r/a_i)=1-e_i\cos E_i$ and wrote the 
+exponentials in complex number form by using the Euler's identity. We 
+do the same with $X^{-3,2}_6(e_o)$. We eliminate $e_i$ using 
+\cref{eq:new_momenta,eq:orbital_elems_in_terms_of_poincare}
+\begin{equation}
+    e_i = \frac{1}{\tilde{\Lambda}_i} \sqrt{\tilde{\Lambda}_i^2-
+    (\Theta_1+\Theta_4-\tilde{\Lambda}_i)^2}
+\end{equation}
+and similarly for the outer eccentricity
+    \begin{equation}
+        e_o = \frac{1}{\tilde{\Lambda}_o} \sqrt{\tilde{\Lambda}_o^2
+        -(4\Theta_1+-\tilde{\Lambda}_i)^2}
+\end{equation}
+Next, we replace the trigonometric terms and the mean anomaly
+by using \cref{eq:eccentric_anomaly,kepler_equation}. Finally,
+we exapand the integrand in a Taylor series around $\Theta_1=
+\Gamma_o/4\approx m_3\sqrt{\tilde{a}_o}e_o^2/2$ which is a
+small parameter.
+
+
+
+We can only use the lowest order approximation accurate to order 
+$\mathcal{O}(e_i^3,e_o^6)$, otherwise the Hamiltonian becomes too complicated
+later on. In order to establish the domain of validity of this approximation,
+we plot the Hansen coefficients as functions of eccentricity.
+\cref{fig:hansen_coefficients} shows that the first order approximation is 
+valid up to abou $e_i\leq 3$ for the inner eccentricity, and $e_o\leq 0.4$
+for the outer. This is a fairly limiting assumption, however, the vast majority
+of the observe circumbinary systems are comfortably in the low eccentricity
+regime so it remains justified.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=\linewidth]{gfx/hansen_coefficients.pdf}
+    \caption{Lowest order expansion term for the Hansen coefficients (dashed curves) 
+    compared to exact integration.}
+\label{fig:hansen_coefficients}
+\end{figure}
+Finally, after converting the series approximation to Poincaré momenta, the 
+Hamiltonian \ref{eq:hamiltonian_poincare_dimensionless} becomes
+\begin{equation}
+    \begin{aligned}
+        \mathcal{H}&=\frac{\mu_i^3}{2\tilde{\Lambda}_i^3}
+        J_i - \frac{3}{2}
+        \frac{\mu_i^3}{\tilde{\Lambda}_i^4} J_i^2
+    \frac{\mu_o^3}{2\tilde{\Lambda}_o^3}
+        J_o - \frac{3}{2}
+        \frac{\mu_o^3}{\tilde{\Lambda}_o^4} J_o^2\\
+        &+\frac{4797\sqrt{2}}{16} \frac{\mu_o^6}{\mu_i^3} 
+        \frac{m_3}{\tilde{\Lambda}_o^2} \left(\frac{\tilde{\Lambda}_i}
+        {\tilde{\Lambda}_o}\right)^4
+    \cos(\lambda_i-6\lambda_o+
+    -\gamma_i - 4\gamma_o)
+    \end{aligned}
+    \label{eq:hamiltonian_poincare_dimensionless}
+\end{equation}
+
+
+
+Where we have taken $\theta_1\equiv\theta$ and $\Theta_1\equiv\Theta$.

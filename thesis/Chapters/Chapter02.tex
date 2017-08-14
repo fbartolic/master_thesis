@@ -885,14 +885,22 @@ and
 where the $\mathcal{F}$ above the equality sign denotes Fourier expansion 
 and the \emph{Fourier coefficients} are given by
 \begin{equation}
-    X^{l,m}_n(e_i)= \frac{1}{2\pi} \int^{2\pi}_0 \left(\frac{r}{a_i}\right)^l
-    e^{imf_i}e^{inM_i}\mathrm{d}M_i=\mathcal{O}(e_i^{\lvert m-n\rvert})
+    \begin{aligned}
+        X^{l,m}_n(e_i)&= \frac{1}{2\pi} \int^{2\pi}_0 \left(\frac{r}{a_i}\right)^l
+        e^{imf_i}e^{inM_i}\mathrm{d}M_i\\[4pt]
+        &=\frac{1}{2\pi}\int^{2\pi}_0r^{l+1} e^{imf_i}e^{-inM_i}\mathrm{d}E_i
+=    \mathcal{O}(e_i^{\lvert m-n\rvert})
     \label{eq:hansen_inner}
+    \end{aligned}
 \end{equation}
 and
 \begin{equation}
-    X^{-(l+1),m}_{n'}(e_o)= \frac{1}{2\pi} \int^{2\pi}_0 \left( \frac{R}{a_o}
-    \right)^{-(l+1)}e^{-imf_o}e^in'M_o=\mathcal{O}(e_o^{\lvert m-n'\rvert})
+    \begin{aligned}
+        X^{-(l+1),m}_{n'}(e_o)&= \frac{1}{2\pi} \int^{2\pi}_0 \left( \frac{R}{a_o}
+        \right)^{-(l+1)}e^{-imf_o}e^{in'M_o}\mathrm{d}M_o\\[4pt]
+        &=\frac{1}{2\pi}\int^{2\pi}_0R^{-l} e^{-imf_o}e^{in'M_o}\mathrm{d}E_o
+        =\mathcal{O}(e_o^{\lvert m-n'\rvert})
+    \end{aligned}
     \label{eq:hansen_outer}
 \end{equation}
 are called the \emph{Hansen coefficients} and the notion $\mathcal{O}()$
@@ -1252,7 +1260,7 @@ principal resonances with harmonic angles $\phi_{112}=
 From \cref{eq:harmonic_coefficient} it follows that $\mathcal{R}
 _{mnn'}=\mathcal{O}(\alpha^m),\,m\geq 2$, $\mathcal{R}_{0nn'}=
 \mathcal{O}(\alpha^2)$ and $\mathcal{R}_{1nn'}=\mathcal{O}(
-alpha^3)$. Thus, unless $e_o\ll e_i$, the principal resonance
+\alpha^3)$. Thus, unless $e_o\ll e_i$, the principal resonance
 with $m=n$ provides the largest contribution to the disturbing
 function, unless $n=1$, in which case the $m=2$ harmonic makes
 gives the largest contribution.
@@ -1352,27 +1360,133 @@ However, the situation when $e_i=0$ is physically unrealistic since some
 eccentricity is always induced secularly (see \cref{sub:Secular_dynamics}).
 We will use \cref{eq:resonance_width} in 
 \cref{ch:numerical_results} together with numerical techniques to predict the
-stability of circumbinary systems
+stability of circumbinary systems.
 
 So far, we have managed the disentangle the three body problem by
-by expanding the interaction potential in a Fourier series and 
+by expanding the interaction potential term in a Fourier series and 
 classifying the behaviour of different terms in the expansions. We have
-defined what it means for a sysytem to be in a mean motion resonance and
+defined what it means for a system to be in a mean motion resonance and
 derived a useful expression which enables us to calculate the location of 
 the regions of instability due to resonance overlap. However, we haven't
-mentioned how the system got into resonance in the first place. The main
-subject of this thesis is what happens during a \emph{resonance
+mentioned how the system got into resonance in the first place. 
+
+The main
+subject of this thesis is what happens during  \emph{resonance
 passage} as $n_i/n_o$ grows due to tidal decay of the stellar binary.
 In order to describe the physics behind resonant passage, we need to use
 Hamiltonian mechanics from \cref{sec:hamiltonian_mechanics}. Ideally, we
 would like to have a single degree of freedom Hamiltonian which describes
-the resonant passage of the relevant resonance for circumbinary planets.
+the passage of whichever resonance is important for circumbinary planets.
 In the next section we will show that it is always possible to construct 
 such a Hamiltonian by considering a single dominant resonant term in 
 the disturbing function. Considering more than one terms at the time
 usually leads to a Hamiltonian with more degrees of freedom.
+\section{The small divisor problem}
+\label{sec:The_small_divisor_problem}
+We have mentioned that in order to study resonance capture, we have
+to reduce the Hamiltonian \ref{eq:three_body_hamiltonian} to a 
+single degree of freedom, which can only be done if we isolate 
+a single resonant term. How do we know that by considering a single
+dominant term we can still capture the major aspects of the dynamics
+of resonance passage? Certainly this assumption has to fail if
+the system is in a region of resonance overlap. We can make this 
+approximation more rigorous in the following way.
 
-- show that any Hamiltonian with a particular Harmonic can be reduced to
-a single degree of freedom
-- show that it is possible to systematically remove all other harmonics
-by means of a canonical transformation
+Consider a Hamiltonian of the form
+\begin{equation}
+    \mathcal{H}(\vect{J},\boldsymbol{\theta})=\mathcal{H}_0(\vect{J})+
+    \epsilon\cos(\vect{k}\cdot\boldsymbol{\theta})
+    \label{eq:small_divisor_hamiltonian}
+\end{equation}
+where $\epsilon$ is a small parameter, $(\vect{J},\boldsymbol{\theta})$
+for a conjugate pair of variables where $\vect{J}$ is the momentum
+vector and $\boldsymbol{\theta}$ is the coordinate vector, $\vect{k}$ is
+a vector whose elements are intergers. This Hamiltonian has the form of
+\cref{eq:three_body_hamiltonian} where we have isolted a paricular term
+in $\mathcal{R}$. We transform the coordinates
+by means of a canonical transformation $(\vect{J},\boldsymbol{\theta})
+\rightarrow (\vect{I},\boldsymbol{\theta}')$ generated by
+\begin{equation}
+    F_2(\theta, \vect{I})=\vect{I}\cdot\boldsymbol{\theta}
+    - \frac{\epsilon}{\vect{k}\cdot\boldsymbol{\omega}} \sin{(\vect{k}\cdot
+    \boldsymbol{\theta})}
+\end{equation}
+Where $\boldsymbol{\omega}$ is just an unknown vector at this point.
+\Cref{tab:generating_functions} then give the relations between new and old
+coordinates
+\begin{align}
+    \frac{\partial F_2}{\partial \vect{I}} &=\boldsymbol{\theta}
+    =\boldsymbol{\theta}'\\
+    \frac{\partial F_2}{\partial \boldsymbol{\theta}}&=\vect{I}
+    - \frac{\epsilon\vect{k}}{\vect{k}\boldsymbol{\omega}}\cos
+    (\vecct{k}\cdot\boldsymbol{\theta})=\vect{J}\label{
+        eq:small_divisor}
+\end{align}
+Inserting the new coordinates in \cref{eq:small_divisor_hamiltonian}, we
+we have
+\begin{equation}
+    \mathcal{H}(\vect{I},\boldsymbol{\theta}')=\mathcal{H}_0\left(
+\vect{I} - \frac{\epsilon\vect{k}}{\vect{k}\cdot\boldsymbol{\omega}}\cos
+    (\vecct{k}\cdot\boldsymbol{\theta}')\right) +\epsilon\cos
+    (\vect{k}\cdot\boldsymbol{\theta}')
+\end{equation}
+If we expand $\mathcal{H}_0$ to first order in the small parameter 
+$\epsilon$, we have
+\begin{equation}
+    \mathcal{H}(\vect{I},\boldsymbol{\theta}')=\mathcal{H}_0(\vect{I})
+    - \frac{\epsilon\nabla \mathcal{H}_0(\vect{I})\cdot\vect{k}}{
+        \vect{k}\cdot\boldsymbol{\omega}} \cos(\vect{k}\cdot
+    \boldsymbol{\theta}')+\epsilon\cos(\vect{k}\cdot\boldsymbol{\theta}')
+\end{equation}
+If we take $\boldsymbol{\omega}$ to be equal to $\nabla\mathcal{H}_0(\vect{I})$
+the $\epsilon\cos(\vect{k}\cdot\boldsymbol{\theta}')$ term is cancelled. Note
+that if $\nabla\mathcal{H}_0(\vect{I})$, it is a function of $\vect{I}$ and 
+we should have taken that into account when taking the derivative of $F_2$, 
+however, to first order in $\epsilon$, the transformation is correct.
+
+Here we have 
+considered only a cosine term but the procedure is equally valid for any
+number of terms since their general form is the same. The procedure 
+relies crucially on the last step in which we expand $\mathcal{H}_0$ around
+$\vect{I}$ which is only allowed if $\vect{k}\cdot\boldsymbol{\omega}$ is not
+small (since $\epsilon$ is small). If however $\vect{k}\cdot\boldsymbol{\omega}$
+is small which happens if the perturbation term is commensurate, the expansion
+fails because the new momenta are not close to the old ones. This is known
+as the \emph{small divisor problem}. Thus, any attempt to remove a 
+commensurate term in the disturbing function by means of a canonical transformation
+fails. Any non-commensurate term however, can be consistently removed.
+
+Therefore, as long a single resonant term in the distrubing function dominates, and
+all the other terms are non-commensurate, we can consider only a single term
+in Hamiltonian \ref{eq:three_body_hamiltonian}. It remains to show that 
+such a Hamiltonian can then be reduced to a single degree of freedom.
+\section{Reduction to a single degree of freedom}
+\label{sec:reduction_to_single_degree}
+We start with the Hamiltonian
+\begin{equation}
+    \mathcal{\vect{p},\boldsymbol{\theta})=\mathcal{H}_0(\vect{p})+\epsilon
+    \cos(\vect{K}\cdot\boldsymbol{\theta})
+\end{equation}
+where now we assume that the cosine term is commensurate. We can expand the
+unperturbed part of the Hamiltonian $\mathcal{H}_0(\vect{p})$ in a Taylor
+series about a specific value of momentumm $\vect{p}_0$. We have
+\begin{equation}
+    \mathcal{H}_0(\vect{p})=\mathcal{H}_0(\vect{P}_0)+\grad\mathcal{H}_0
+    (\vect{p}_0)(\vect{p}-\vect{p}_0)+ \frac{1}{2} (\vect{p}-\vect{p}_0)^\tau
+    \vect{M}(\vect{p}-\vect{p}_0)
+\end{equation}
+where $\vect{M}$ is the Hessian matrix \citep[see for ex.][for definition]
+{bronsthein} of second derivatives  evaluated at $\vect{P}_0$. We define
+new momentum $\vect{J}=\vect{p}-\vect{p}_0$, it is easy to show that 
+$(\vect{J}=\vect{p}-\vect{p}_0,\boldsymbol{\theta})$ form a conjugate
+pair of coordinates. We then have
+\begin{equation}
+    \mathcal{H}_0(\vect{J})=\mathcal{H}_0(\vect{p}_0)+
+    \boldsymbol{\omega}\vect{J}+ \frac{1}{2} \vect{J}^\tau
+    \vect{M}\vect{J}
+\end{equation}
+where
+\begin{equation}
+    \boldsymbol{\omega}=\grad\mathcal{H}_0(\vect{p}_0)
+\end{equation}
+
