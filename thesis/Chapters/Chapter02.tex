@@ -360,11 +360,12 @@ is given by \emph{Hamilton's equations}
 \begin{equation}
     \dot{q}_i= \frac{\partial \mathcal{H}}{\partial p_i}\quad
     \dot{p}_i= \frac{\partial \mathcal{H}}{\partial q_i} 
+    \label{eq:hamiltons_equations}
 \end{equation}
 Instead of 3N second order differential equations for a system of N particles
 , we now have 
 6N \emph{coupled first-ordered} equations. Once the initial conditions
-$(\vect{q}_0,\vect{p}_o)$ are specified, the solution of Hamilton's 
+$(\vect{q}_0,\vect{p}_0)$ are specified, the solution of Hamilton's 
 equations defines a \emph{unique} trajectory in a 
 6N dimensional phase space. The coordinate pair $(\vect{q},\vect{p})$
 is said to be \emph{canonical} if the coordinates satisfy 
@@ -376,6 +377,20 @@ other strict requirements on the new coordinates, the momentum
 $p_i$ coincides with the real momentum $m_i \dot{q_i}$ only in
 Cartesian coordinates.
 
+We can arbitrarily scale the momentum and the coordinate by a 
+constant factor, for example $p\rightarrow\eta p\quad q\rightarrow\nu q$, 
+, as long as we also
+rescale the time. This is obvious from the form of 
+\cref{eq:hamiltons_equations} because
+\begin{equation}
+    \frac{\partial \mathcal{H}}{\partial (\eta p)}= 
+    \frac{\mathrm{d}q}{\mathrm{d}(\eta t)}  
+    \label{eq:rescaling_hamiltonian}
+\end{equation}
+and similary for the coordinate scaling. Transformations of this
+type are known as \emph{scale transformations} and they are simply 
+a reflection of the fact that the equations of motion should be invariant
+to the changes of units.
 \subsection{Integrable Hamiltonians}
 The Hamiltonian formalism is useful for finding conserved quantities.
 If a generalized coordinate $q_i$ does not appear in the Hamiltonian
@@ -1382,7 +1397,7 @@ such a Hamiltonian by considering a single dominant resonant term in
 the disturbing function. Considering more than one terms at the time
 usually leads to a Hamiltonian with more degrees of freedom.
 \section{The small divisor problem}
-\label{sec:The_small_divisor_problem}
+\label{sec:small_divisor}
 We have mentioned that in order to study resonance capture, we have
 to reduce the Hamiltonian \ref{eq:three_body_hamiltonian} to a 
 single degree of freedom, which can only be done if we isolate 
