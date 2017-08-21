@@ -422,6 +422,8 @@ where the two constants $\delta$ and $c$ are given by
 We have thus managed to reduce the $6:1$ resonant Hamiltonian to the
 simplest possible form, a one degree of freedom Hamiltonian with two
 parameters. We now turn to studying its structure.
+\section{The resonance structure}
+\label{sec:The resonance structure}
 \begin{figure}[htb]
 \centering
     \includegraphics[width=\linewidth]{gfx/ham_params.pdf}
@@ -462,6 +464,7 @@ We obtain
     -\Theta^2\sqrt{\Theta +c}\sin\theta&=0\\
      \frac{\Theta^2}{2\sqrt{\Theta + c}}\cos\theta +2\Theta\sqrt{\Theta+c}
     +2\Theta-\delta&=0
+    \label{eq:saddle_point}
 \end{align}
 The only non trivial solution for the first equation is $\theta=\{0,\pi\}$
 for $\theta\in\{0,2\pi\}$. The second equation then becomes
@@ -511,7 +514,8 @@ change in a certain parameter of a system causes a sudden \emph{topological}
 change in its behaviour.}
 
 The properties of Hamiltonian \ref{eq:hamiltonian_final} are most easily seen
-in phase space plots for different values of $\delta$. We plot the Hamiltonian
+in phase space plots for different values of $\delta$. Instead of $(\Theta,\theta)$ 
+coordinates, we plot the Hamiltonian
 in so called Poincaré Cartesian variables, defined as 
 \begin{equation}
     \begin{aligned}
@@ -535,10 +539,7 @@ solving \cref{eq:fixed_points} for the fixed points, we missed a third fixed
 point at the origin. It is easy to see by writing down the Hamilton's
 equations in $(x,y)$ coordinates that the origin $(0,0)$ is always a fixed
 point, independent of the value of $\delta$.
-
-
-
-\begin{figure}[htb]
+\begin{figure}
 \centering
 \includegraphics[width=0.8\linewidth]{gfx/phase_space_plot.pdf}
     \caption{Phase space portraits of the Hamiltonian 
@@ -548,10 +549,268 @@ point, independent of the value of $\delta$.
     circle is the unstable saddle point.}
 \label{fig:phase_space}
 \end{figure}
+
+The phase space structure is shown in \cref{fig:phase_space} for three different
+values of $\delta$, consider for now the first panel which shows the phase space
+structure for positive $\delta$. Each curve is a constant trajectory defined by a specific value
+of $\mathcal{H}$. Given specific values of $\delta$, and $c$, the Hamiltonian 
+\ref{eq:hamiltonian_final} is completely defined and the system moves around on
+one of the level curves in \cref{fig:phase_space} for all time. The radial distance
+from the origin to a point on any given level curve is proportional to the eccentricity
+of the outer orbit since $\Theta\propto
+\Gamma_o\propto e_o^2$. There are three fixed points, the
+leftmost one and the origin are stable and the right most one is unstable. The 
+stability of a fixed point is easily calculated by evaluating the Hessian matrix in
+\cref{eq:fixed_points_stability}, but is also apparent from the figure because there
+appear to be no small amplitude circulatory trajectories around the rightmost point. 
+
+The phase space of the first two panels of \cref{fig:phase_space} is divided into two
+\emph{topologically}\footnote{Topology is a field in mathematics which studies 
+properties of space preserved under continuous deformations such as stretching, twisting
+and crumpling. For example, a circle is topologically equivalent to an ellipse and 
+a sphere is equal to an ellipsoid, and a coffe cup is equivalent to a torus.} different
+regions divided by the separatrix curve (red curve). The separatrix curve passes through
+the unstable saddle point and consists of two
+'branches', an inner branch (small red quasi-circle) and on outer branch (large red
+quasi-circle).  The two branches intersect the $x$ axis at two points, the region between
+them is called the resonant region. The trajectories 
+in between the two branches are called \emph{librations} and they do not include the origin,
+the trajectories outside the outer branch and inside the inner branch of the separatrix
+are called \emph{circulations} and they do include the origin. The sytem is said to be
+in resonance if its trajectory is a curve within the resonant region, in which case $\theta$
+does not pass through all the values in $\{0,2\pi\}$ and is slowly varying. Depending on the
+distance from the resonance center (the leftmost stable fixed point), a resonant trajectory
+can include large excursions in eccentricity.
+
+If we vary the $\delta$ parameter from a positive value (first panel of \cref{fig:phase_space}),
+to a negative value the phase space changes. As $\delta$ decreases towards zero the two
+outer fixed points approach the origin (second panel in \cref{fig:phase_space}), finally at 
+$\delta=0$, corresponding to an exact $6:1$ commensurability, the three fixed points coalesce
+into a single fixed point at the origin. For negative $\delta$ there are only circulatory 
+trajectories enclosing the origin and no resonant trajectories are possible. This changing
+behaviour of the Hamiltonian based on the sign of $\delta$ is best illustrated using
+a \emph{bifurcation digram}, shown in \cref{fig:morphogenesis}. The bifurcation diagram
+shows the value of the Hamiltonian at the two outer fixed points as a function of $\delta$.
+The dashed curve curve is the value of $\mathcal{H}$ evaluated at the saddle point, and the 
+solid line is the value of $\mathcal{H}$ at the left center point. The possible 
+types of trajectories are indicated in the diagram.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=\linewidth]{gfx/morphogenesis.pdf}
-\caption{}
+    \caption{The bifurcation diagram of the the Hamiltonian \ref{eq:hamiltonian_final}. 
+    The dashed curve denotes the value of $\mathcal{H}$ evaluated at the saddle point $x_s$, and 
+    the solid curve the value of $\mathcal{H}$ at the left center point.}
 \label{fig:morphogenesis}
 \end{figure}
+
+While the analysis beforehand has concentrated on a particular $6:1$ MMR, it is 
+worth mentioning 
+that many of the properties of the phase space (number of fixed points, shape of
+separatrix) look similar for other 
+resonances, most major differences are in the structure of the bifurcation diagram.
+
+\section{Resonance passage}
+\label{sec:Resonance_passage}
+Finally, we turn to the topic of resonance passage. As mentioned previously, we
+can model the resonance passage as a slowly varying $\delta$ parameter in Hamiltonian 
+\ref{eq:hamiltonian_final}. 
+Looking at \cref{fig:phase_space}, an immediate consequence of the resonant
+passage is visible. If the system starts at positive delta and ends up at
+negative delta, the resonant angle is necessarily circulating at the end. 
+Thus, divergent
+resonance passage ($\dot{\delta}<0$) cannot result in a capture into resonance.
+Since the two orbits in an evolving circumbinary system
+are diverging away from each other, the $\delta$ parameter starts positive 
+($P_o/P_i<6$), passes through zero and end up being negative ($P_o/P_i>6$).
+As long as the stellar binary's orbit decays due to tidal forces, no capture 
+will occur in such systems.
+
+The assumption that $\delta$ varies \emph{slowly} is crucial. As long as
+$\dot{\delta}/\delta$ is small compared to the libration or circulation 
+frequency,or equivalently the characteristic time of resonance passage
+is large compared to the libration/circulation period, the system 
+approximately follows the level curves in \cref{fig:phase_space}. In 
+other words, we require 
+\begin{equation}
+    \bigg\lvert\frac{\dot{\delta}}{\delta}\bigg\rvert \ll \frac{1}{T} 
+    \label{eq:adabatic_criterion}
+\end{equation}
+where $T$ is the period of circulatory or libratory motion.
+In reality, an evolving circumbinary system is fully 
+described only by a nonconservative Hamiltonian because the tidal decay
+forces acting on the stellar binary dissipate energy. Such Hamiltonians
+are however analytically intractable.
+
+One can show that given a Hamiltonian $\mathcal{H}(\theta,\Theta;\delta)$
+where $\delta$ is slowly varying, there exists a constant of motion
+called the \emph{adiabatic invariant} (see for example \cite{landau}),
+given by
+\begin{equation}
+    \mathcal{J}=\oint \Theta\,\mathrm{d}\theta    
+    \label{eq:adiabatic_invariant}
+\end{equation}
+where $\oint$ means that the integration is done over the complete range
+of variation of the coordinate variable, in our case, $\{0,2\pi\}$. Along
+such  path the Hamiltonian and $\delta$ are constant. The integral
+\ref{eq:adiabatic_invariant} is in fact the definition of the famous
+physical \emph{action} from the \emph{principle of least action}, thus, 
+is an adiabatic invariant.
+
+$\mathcal{J}$
+remains constant on average when $\delta$ is varied and it has a 
+particularly simple interpretation in the case of a one dimensional
+Hamiltonian, namely, it is equal to the area enclosed by a level
+curve of the Hamiltonian in $(x,y)$ coordinates. For a circular trajectory
+\begin{equation}
+    \mathcal{J}_\text{circ}=2\pi\,\Theta=\pi R^2
+    \label{eq:J_circular}
+\end{equation}
+Remember that since $\mathcal{J}\propto\Theta$, it depends on the 
+eccentricity of the outer orbit. 
+
+For a general trajectory, the integral in \cref{eq:adiabatic_invariant}
+is most easily evaluated by switching the integration variable to $\Theta$.
+Using $\frac{\mathrm{d}\theta}{dt}=\frac{\partial\mathcal{H}}{\partial\Theta}$
+and $ \frac{\mathrm{d}\Theta}{dt} =- \frac{\partial\mathcal{H}}{\partial\theta}$,
+we have 
+\begin{equation}
+    \mathcal{J}=-\oint \frac{\frac{\partial\mathcal{H}}{\partial\Theta}}{
+        \frac{\partial\mathcal{H}}{\partial\theta}}
+    \bigg\rvert_{\mathcal{H}=\mathcal{H}_\text{curve}}\Theta\mathrm{d}\Theta 
+\end{equation}
+where $\mathcal{H}_\text{curve}$ is the value of the Hamiltonian corresponding
+to a particular level curve.
+
+There is caveat to the conservation of $\mathcal{J}$ however. If the trajectory 
+approaches
+the separatrix, the librational period tends to inifinity (remember the pendulum
+model). As $T\rightarrow\infty$, the adiabatic criterion in 
+\cref{eq:adabatic_criterion} is no longer satisfied and $\mathcal{J}$ is not
+conserved. After passing the separatrix curve however, $\mathcal{J}$ is 
+one again conserved. At the exact moment of separatrix crossing, the 
+adiabatic invariant experiences a discontinuity, it is this discontinuity
+which is responsible for a sudden increase in eccentricity in the case
+of divergent resonance crossing.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=\linewidth]{gfx/phase_space_plot_adiabatic.pdf}
+    \caption{The evolution of the adiabatic invariant $\mathcal{J}$
+    with varying $\delta$.
+    Dark circle denotes the adiabatic invariant, red curve is the 
+    separatrix. Top left panel - initially the trajectory is a circle.
+    Top right panel - at $\delta=0.0001$ the initial adiabatic invariant
+    is equal to the area enclosed by the inner separatrix. Bottom left
+    - the trajectory expands to the outer branch of the separatrix which
+    corresponds to a discontinuity in $\mathcal{J}$. Bottom right -
+    at $\delta=-0.0001$ the phase space has only circulatory trajectories
+    and the adiabatic invariant is larger than initially.}
+\label{fig:phase_space_adiabatic}
+\end{figure}
+
+\Cref{fig:phase_space_adiabatic} shows the evolution of the adiabatic 
+invariant as $\delta$ varies. Assuming the system is not in resonance
+to begin with, it starts on a circular trajectory with $\mathcal{J}
+=2\pi\Theta_\text{init}$ within the inner branch of the separatrix
+(top left panel, grey circle). At a particular $\delta=\delta_t$
+whic depends on the initial area of the circle, the adiabatic 
+invariant is equal to the area enclosed by the inner branch of the
+separatrix (top right panel). The adiabatic invariant has no choice
+but to suddenly expand to the value equal to the area of the
+outer separatrix branch (bottom left panel). Finally, as $\delta$
+decreases further and goes past $\delta=0$, the separatrix
+disappears, the adiabatic invariant is again conserved and the 
+system is left on a trajectory with a larger $\Theta$ (and
+therefore larger $e_O$) then it inially started with.
+
+In order to calculate the adiabatic invariant after the discontinuous
+jump and therefore also the final eccentricity, we need to know
+the initial adiabatic invariant (the initial eccentricity) and
+the areas enclosed by the two branches of the separatrix for any
+given $\delta$. We start by calculating the separatrix areas, 
+plugging in the Hamilton's equations into \cref{eq:adiabatic_invariant},
+we have
+\begin{equation}
+    \mathcal{J}=\oint \frac{1}{\Theta \sqrt{\Theta + c} 
+    \sin{\left (\theta \right )}} 
+    \left(\frac{\Theta^{2} \cos{\left (\theta \right )}}
+    {2 \sqrt{\Theta + c}} + 2 \Theta \sqrt{\Theta + c} 
+    \cos{\left (\theta \right )} + 2 \Theta - \delta\right)\mathrm{d}\,\Theta
+    \label{eq:intermediate_integral}
+\end{equation}
+To solve the integral, we need an expression for $\theta$ as a
+function of $\Theta$ on the level curve corresponding to the separatrix.
+Since the separatrix passes through the saddle point, it is defined by
+the equation
+\begin{equation}
+    \mathcal{H}_s=\Theta^2-\delta\Theta+\Theta^2\sqrt{\Theta+c}\cos\theta
+    \label{eq:sepratrix_eq}
+\end{equation}
+where $\mathcal{H}_s$ is the value of the Hamiltonian at the saddle point.
+We can easily solve \cref{eq:sepratrix_eq} for $\cos\theta$ and $\sin\theta$
+using the trigonometric identity $\sin^2\theta+\cos^2\theta=1$. Plugging
+those expressions into \cref{eq:intermediate_integral}, we have
+\begin{equation}
+    \mathcal{J}=2\oint_{\Theta_1}^{\Theta_2}\frac{\Theta 
+    \left(\Theta + c\right) \left(2 \Theta - 
+    \delta\right) + \frac{\Theta}{2} \left(- \Theta^{2} + \Theta \delta 
+    + \mathcal{H}_s\right) + 2 \left(\Theta + c\right) \left(- \Theta^{2}
+    + \Theta \delta + \mathcal{H}_s\right)}{\sqrt{\frac{1}{\Theta + c} 
+    \left(\Theta^{4} \left(\Theta + c\right) - \left(- \Theta^{2} +
+    \Theta \delta + \mathcal{H}_s\right)^{2}\right)} \left(\Theta + 
+    c\right)^{\frac{3}{2}}}\mathrm{d}\Theta
+    \label{eq:massive_integral}
+\end{equation}
+Where we have used the symmetry of the separatrix to integrate along 
+its upper part. The lower limit of integration is the value the location of the saddle
+point $\Theta_1=\Theta_s$, the upper limit is the value of $\Theta$
+at $\theta=\pi$ where the inner and the outer branch cross the separatrix.
+
+Since it is not possible to derive an analytic solution for the location
+of the fixed points and hence also the poins at which the separatrix
+crosses the $x$ axis, we have to resort to numerical methods of finding
+the equation roots. To find the roots we use
+the \texttt{Python} package \texttt{SciPy} \citep{scipy} and its
+well-tested routine \texttt{fsolve} for finding roots of nonlinear equations.
+The algorithm for finding the area enclosed by the separatrix is then
+\begin{enumerate}
+    \item Determine the location of the saddle point by finding the root
+        for \cref{eq:saddle_point} with $\theta=0$. There is only one
+        root and the algorithm easily converges.\\
+    \item Evaluate the Hamiltonian \ref{eq:hamiltonian_final} at the 
+        location of the saddle point denoting the value by $\mathcal{H}_s$
+        , this determines the separatrix curve.\\
+    \item Solve \cref{eq:sepratrix_eq} for the two roots at $\theta=\pi$ 
+        which are the locations at which the two branches of the separatrix 
+        cross the $x$ axis. The shape of the function is simple and the
+        root-finding algorithm easily converges.\\
+    \item Solve the integral \ref{eq:massive_integral} using the \texttt{SciPy}
+        module \texttt{integrate.quad}. The lower limit of integration is the
+        location of the saddle point and the upper is either the root 
+        of the lower separatrix branch or the upper one, depending on which
+        area we are interested in.
+\end{enumerate}
+
+Now that we have an algorithm which determines the areas enclosed by the two
+branches of the separatrix, the eccentricity kick can be determined as
+follows
+\begin{enumerate}
+    \item Calculate $\mathcal{J}_\text{init}=2\pi\,\Theta_\text{init}$ for given
+        system parameters and an initial eccentricity $e_o$.\\
+    \item We require $\mathcal{J}_\text{init}=\mathcal{J}_\text{inner}$ 
+        where $\mathcal{J}_\text{inner}$ is the area enclosed by the inner
+        branch of the separatrix. To find the value of $\delta=\delta_t$ for
+        which this equality is true, we numerically solve for the root of
+        $\mathcal{J}_\text{init}-\mathcal{J}_\text{inner}(\delta)=0$.
+    \item The final action $\mathcal{J}_\text{final}$ is then equal to
+        the area enclosed by outer branch of the separatrix evaluated at
+        $\delta=\delta_t$, that is, $\mathcal{J}_\text{final}=
+        \mathcal{J}_\text{outer}(\delta_t)$.
+    \item Once the resonance passage is over the trajectory is again circulatory
+        and we can recover the final eccentricity by solving the equation
+        \begin{equation}
+            \mathcal{J}_\text{final}=2\pi\,\Theta_\text{final}=
+            \frac{\pi}{2} 6^{1/3}m_3\left(1-\sqrt{1-e_o^2}\right)
+        \end{equation}
+        for $e_o$. 
+\end{enumerate}
 
