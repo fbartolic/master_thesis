@@ -1,6 +1,6 @@
 %************************************************
 \chapter{Resonant passage of the 6:1 mean motion resonance}
-\label{ch:analytical_model_of_high_order_mmrs}
+\label{ch:analytical_model}
 %************************************************
 After reviewing the theory required for studying
 resonant capture in the framework of a three--body problem
@@ -792,7 +792,7 @@ The algorithm for finding the area enclosed by the separatrix is then
 
 Now that we have an algorithm which determines the areas enclosed by the two
 branches of the separatrix, the eccentricity kick can be determined as
-follows
+as follows
 \begin{enumerate}
     \item Calculate $\mathcal{J}_\text{init}=2\pi\,\Theta_\text{init}$ for given
         system parameters and an initial eccentricity $e_o$.\\
@@ -813,4 +813,8 @@ follows
         \end{equation}
         for $e_o$. 
 \end{enumerate}
-
+For a system with $\mu_i=0.5\,\text{M}_\odot$, $m_3=10^{-3}\,\text{M}_\odot$ 
+and initial eccentricities $e_i=0.2$, $e_o=0.05$ we obtain a final outer
+eccentricity after resonance passage of $e_o=0.089$. We will use the
+algorithms defined above to investagate the dependance of the eccentricity
+kick on system parameters in \cref{ch:results}.

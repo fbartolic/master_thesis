@@ -1,28 +1,230 @@
 %************************************************
-\chapter{N-body simulations of circumbinary planets up to Common Envelope phase}
+\chapter{N-body simulations of circumbinary systems up to the Common Envelope phase}
 \label{ch:NBODY_simulations}
 %************************************************
 While analytic models can give important insight into the physics 
 of divergent resonance passage in a circumbinary planetary system
 they cannot compare to the full solution of the equations of motion.
-Here I describe a different approach to the problem, by means of direct
+Here I describe a different approach to studying evolving
+circumbinary systems, by means of direct
 N-body simulations coupled with simulations of the stellar binary. 
-These simulations provide a clear picture of the dynamical evolution
-of the system.
+These simulations provide a complete picture of the dynamical evolution
+of the system. To realistically simulate the dynamics of a stellar binary
+with a circumbinary planet as the stellar binary evolves, we need to know
+how to stars evolve at each time step and how they interact with the outer
+planet(s). To solve this computationally we need to couple in some way
+a stellar evolution code with an N-body solver. 
 
 \section{The N-body problem}
 \label{sec:The N-body problem}
+The \emph{N-body problem} is a problem of $N$ gravitationally interacting
+masses. The equations of motion are
+\begin{equation}
+    m_i\ddot{\vect{r}}_i=\sum_{j=1,j\neq 1}^NGm_im_j \frac{\vect{r}_{ij}}
+    {\lvert \vect{r}_{ij}\rvert^3} 
+    \label{eq:nbody_equations}
+\end{equation}
+where $m_i$ is the mass of the $i$-th particle, $\vect{r}_i$ is its 
+position vector, $\vect{r}_{ij}=\vect{r}_j-\vect{r}_i$ and $i=1\dots N$.
+Once the initial positions $\vect{r}_{i,0}$ and velocities $\dot{\vect{r}}_{i,0}$
+are specified, there exists a unique solution which can only be obtained
+numerically for $N>2$. The N-body system of equations is extremely sensitive
+to the initial conditions and special care must be taken to ensure numerical
+accuracy of the soltions. Since \cref{eq:nbody_equations} involve the force
+calculation between each pair of $N$ particles, the computational complexity
+of the problem scales as $\mathcal{O}(N^2)$.
 
+There are many different ways of solving \cref{eq:nbody_equations} numerically,
+and the choice of method depends primarily on the problem at hand. For systems
+with large $N$
+approximation schemes are often used which manage to reduce the complexity
+to order $\mathcal{O}(N\ln N)$. In celestial mechanics $N$ is generally on
+the order of a few and the integration times are very long (sometimes 
+billions of years), high precision is thus required and the complexity is 
+$\mathcal{O}(N^2)$. Another difficulty is the fact that \cref{eq:nbody_equations}
+has a singularity when two particles come very close to each other which
+can lead to arbitrarily high particle velocities if not properly handled.
+For a system of $N$ gravitationally interacting bodies the total energy 
+and angular momentum are always conserved, however, this need not be true 
+for a numerical solution of the equations of motion. Often, the 'quality'
+of an integrator\footnote{An \emph{integrator} is a name often given to
+any numerical scheme which solves a system of differential equations.}
+is judged by how good it conserves the total energy.
+
+A class of integrators called \emph{symplectic integrators} 
+\citep{vogelaere,ruth,feng} is often used
+in celestial mechanics. Instead of solving \cref{eq:nbody_equations}, these
+integrators solve the equivalent Hamiltonian system. They preserve
+invariant propertties such as phase-space density and in many cases
+can have an upper bound on the energy error.
 \section{REBOUND - an open source N-body integrator}
 \label{sec:REBOUND - an open source N-body integrator}
-- mention integrators, what does order stand for
-- symplectic vs non-symplectic integrators
-- describe IAS15 in more detail
-- mention reproducibility and simulation archive
-- MEGNO as a criterion for stabilility (not sure this should be here) 
+Because the N-body problem occurs very often in astrophyisical applications,
+there exist multiple numerical solvers for problems of various scales and 
+with varying degree of accuracy. Traditionally, the code most often used for applications
+in celestial mechanics is \texttt{MERCURY} \citep{chambers1997,chambers1999}, 
+written in \texttt{Fortran} programming language.
+For the problem of simulating a circumbinary system
+which involves pure N-body computations and dissipative forces, I have 
+opted to use a different code called \texttt{REBOUND} \citep{Rein2012}.
+REBOUND is an open-source code freely available on \texttt{GitHub}\footnote{
+    \url{https://github.com/hannorein/rebound}}, it is written in \texttt{C99}
+and also has a \texttt{Python} interface, it is under active development.
+The reasons for choosing \texttt{REBOUND} over \texttt{MERCURY} are several,
+most important being the ease of use, the availability of 
+integrators accurate to machine precision  and the fact that 
+\texttt{REBOUND} uses Jacobi coordinates
+by default (which matches well with the analysis in \cref{ch:analytical_model})
+while \texttt{MERCURY} uses heliocentric coordinates which are more suitable to
+Solar System type of problems.
+
+\texttt{REBOUND} comes with many integrators, the most important of which
+are the symplectic integrator \texttt{WHFAST} \citep{Rein2015} and an
+adaptive high-order integrator called \texttt{IAS15} \citep{Rein2014}. For
+applications which involve velocity-dependent non-conservative forces
+such as tidal decay of binary stars, \texttt{IAS15} is a better choice
+for such applications because symplectic integrators are by construction
+designed for conservative forces. 
+
+\texttt{IAS15} is designed to solve a system of differential equations of the form
+\begin{equation}
+    \ddot{\vect{y}}(t)=F(\dot{\vect{y}},\vect{y},t)
+    \label{eq:diff_eq}
+\end{equation}
+where $\ddot{\vect{y}}$ is the acceleration and $F$ is an arbitrary force
+which may depend also on the velocity. \Cref{eq:diff_eq} can be expanded
+into a truncated series:
+\begin{equation}
+    \ddot{\vect{y}}(t)\approx \ddot{\vect{y}}_0 + \vect{a}_0t+\vect{a}_1t^2
+    +\dots+\vect{b}_6t^7
+\end{equation}
+where $\ddot{\vect{y}}_0$ is the acceleration evaluated at $t=0$. 
+It can then be rewritten as
+\begin{equation}
+    \ddot{\vect{y}}(h)\approx \ddot{\vect{y}}_0 + \vect{b}_0h+\vect{b}_1h^2
+    +\dots+\vect{b}_6h^7
+    \label{eq:diff_eq2}
+\end{equation}
+where $dt$ is the \emph{timestep}, $h=t/dt$ and $\vect{b}_k=\vect{a}_kdt^{k+1}$.
+Finally, we rewrite it once again as
+\begin{equation}
+    \ddot{\vect{y}}(h)\approx \ddot{\vect{y}}_0 + \vect{g}_1h+\vect{g}_2h
+    (h-h_1)+\vect{g}_3h(h-h_1)(h-h_2)+\dots+g_8h(h-h_1)\dots(h-h_7)
+\end{equation}
+Where the timestep $h$ is now divided into substeps $h_1,\dots,h_7$ in the
+interval $[0,1]$. The coefficients $\vect{g}_k$ can be determined from 
+$\vect{b}_k$. When the expansion is written in this form, the coefficient 
+$\vect{g}_k$ depends only on the force evaluations at previous substeps
+$h_n$ with $n\leq k$. \Cref{eq:diff_eq2} can then be integrated to give the velocity
+\begin{equation}
+    \dot{\vect{y}}\approx \dot{\vect{y}}_0+hdt\left(\ddot{\vect{y}}_0+
+    \frac{h}{2} \left(\vect{b}_0+ \frac{2h}{3} \left(\vect{b}_1+\dots\right)
+    \right)\right)
+\end{equation}
+and once again for the position
+\begin{equation}
+    \vect{y}\approx\vect{y}_0+\cdot{\vect{y}}_0hdt+ \frac{h^2dt^2}{2} 
+    \left(\ddot{\vect{y}}_0+
+    \frac{h}{3} \left(\vect{b}_0+ \frac{h}{2} \left(\vect{b}_1+\dots\right)
+    \right)\right)
+\end{equation}
+To get the new positions and velocities, we need to estimate the coefficients
+$\vect{g}_k$ (and hence also $\vect{b}_k$). These are obtained using an implicit
+scheme
+\citep[see][for details]{Rein2014}. To obtain the best possible accuracy for
+the position and the velocity, the spacing of substeps in \texttt{IAS15} 
+\cite{Rein2014} chose Gauss-Radau spacing\footnote{Gauss-Radau spacing is related to 
+the Gaussian quadrature which is a way of approximating a solution to an 
+integral on a definite interval} with $h_n=0, 0.0562, 0.1802, 0.3526, 
+0.5471, 0.7342, 0.8853 and 0.9775$. In a Gauss-Radau integration scheme
+where a function $F(t)$ is integrated on the domain $[0,dt]$ with $m$ quadrature
+points and the absolute error term is of order $\mathcal{O}(dt^{2m})$
+\cite{Rein2014}. 
+For $m=8$ the error term is $\mathcal{O}(dt^{16})$ which makes this
+a 15-th order scheme, hence the name \texttt{IAS15}. The fact that this
+integrator is 15th order means that by reducing the timestep by a factor of
+$\alpha$ we reduce the error by a factor of $\alpha^{16}$! Thus, to obtain
+an accurate solution a very small timestep is often not necessary, it is
+usually sufficient to take a fraction of the smallest relevant dynamical
+timescale in the problem.
+
+The \emph{total error} in for example energy or position 
+depends not only on the error associated
+with the truncation of an infinite series in a numerical scheme but also
+on error $E_\text{floor}$ associated with the finite precision of 
+floating-point numbers 
+(\texttt{IAS15} uses \texttt{double} precision numbers) also known as
+roundoff error, a random error 
+$E_\text{random}$ coming from an addition of two floating-point numbers 
+and a bias error $E_\text{bias}$ associated
+with the bias of floating-point operations. That is, the total error $E$ is
+\begin{equation}
+    E=E_\text{floor}+E_\text{rand}+E_\text{bias}+E_\text{scheme}
+\end{equation}
+The total error is then dominated by the largest term. 
+
+\texttt{IAS} uses an adaptive timestepping scheme in which a new time
+step is chosen after previous timestep, since it is very high-order, the 
+timestep can be chosen such that the error associated with the scheme
+$E_\text{scheme}$ remains below $10^{-16}$, which is less than the precision
+of \texttt{double} floating-point numbers. We say that the integrator is
+accurate to machine precision. Therefore, it is not possible to achieve
+better precision with a different integrator unless the floating-point 
+precision is extended (to say 128 bit numbers). 
+The total error then depends on the other errors. $E_\text{floor}$ is constant,
+and $E_\text{bias}$ in general might grow linearly with time because
+some floating-point operations might be biased, for example, in a series
+of repeated additions the error might be prefferentialy positive instead of
+either positive or negative with equal probability. To avoid these types of
+errors all mathematical operations in \texttt{IAS15} use only the operators
+$+,-,\times,/$ which are guaranteed to give the same result\footnote{This is 
+in general not true for other operations such as $\sqrt{x}$ which may give 
+slightly different results depending on the system architecture.}in \texttt{C99}
+independent of the hardware on which the code is run or the compiler differences.
+Even if such biases are removed and the error in each individual calculation is
+completely random, the error (designated $E_\text{rand}$) grows with time. 
+\cite{brouwer} showed that $E_\text{random}$ quantities such as energy
+grows as $\propto t^{1/2}$ and the error in angles grows as $\propto t^{3/2}$,
+this is known as \emph{Brouwer's law}.
+
+Extensive test of the \texttt{IAS15} integrator presented in \cite{Rein2014} 
+show that it follows Brouwer's law, that is, the error is dominated by the 
+$\E_\text{random}$ term. The closest comparable integrator, \texttt{RADAU}
+in \texttt{MERCURY} generally has a two orders of magitude greater error. 
 
 \section{binary\_c - a binary stellar evolution code}
 \label{sec:binary_c - a binary stellar evolution code}
+If we were interested in the dynamics of circumbinary system on the main 
+sequence an N-body integrator would be sufficient because purely gravitational
+forces dominate. To investigate the dynamics beyond the main sequence we 
+need some prescription the evolution of the stellar binary. 
+
+I opted to use the \texttt{binary_c}
+\footnote{\url{http://www.ast.cam.ac.uk/~rgi/binary_c.html}}
+stellar evolution code described in
+\cite{izzard2004,izzard2006,izzard2008} which is based on a binary
+stellar evolution code \texttt{BSE} \citep{hurley2002}. Both \textt{BSE}
+and \texttt{binary_c} do not solve the equations of stellar structure directly
+(which is very computationally expensive) but rather uses analytical formulae
+fitted to the outputs of detailed models which do solve the stellar structure
+equations. Since analytic expressions are computationally 'cheap' to evaluate,
+the codes are very fast. \texttt{binary_c}
+is unfortunately not freely available for download, however it is available
+upon request from the author. The code is written in \texttt{C} and it
+includes an \texttt{API} interface for calling functions which 
+evolve the binary system for specified initial conditions and output the
+physical variables for each time step.
+
+In order to later on couple the \texttt{binary_c} code with \texttt{REBOUND},
+and easily plot the output from the code, I have written a \texttt{Python}
+interface to the code. The interface is built using the \texttt{Python} 
+library \texttt{ctypes} which enables one to access \texttt{C} functions
+from within \texttt{\Python} if the \texttt{C} code is compiled as a \emph{
+    shared library}. I use \texttt{ctypes} to access \texttt{binary_c API}
+functions from within \texttt{Python} and grab the output directly into memory
+as a \texttt{Python} object.
+
+
 - describe what it does, mention it's built on BSE
 - Python interface to the C library
 
