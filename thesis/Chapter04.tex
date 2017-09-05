@@ -1,0 +1,850 @@
+%************************************************
+\documentclass[ twoside,openright,titlepage,numbers=noenddot,headinclude,%1headlines,% letterpaper a4paper
+                footinclude=true,cleardoublepage=empty,abstractoff, % <--- obsolete, remove (todo)
+                BCOR=5mm,paper=a4,fontsize=11pt,%11pt,a4paper,%
+                american,%
+                ]{scrreprt}
+
+%********************************************************************
+% Note: Make all your adjustments in here
+%*******************************************************
+\input{classicthesis-config}
+
+%********************************************************************
+% Bibliographies
+%*******************************************************
+\addbibresource{library}
+\addbibresource{books}
+\begin{document}
+\frenchspacing
+\raggedbottom
+
+%\renewcommand*{\bibname}{new name}
+%\setbibpreamble{}
+\pagenumbering{roman}
+\pagestyle{plain}
+
+\chapter{N-body simulations of circumbinary systems up to the Common Envelope phase}
+\label{ch:NBODY_simulations}
+%************************************************
+While analytic models can give important insight into the physics 
+of divergent resonance passage in a circumbinary planetary system
+they cannot compare to the full solution of the equations of motion.
+Here I describe a different approach to studying evolving
+circumbinary systems, by means of direct
+N-body simulations coupled with simulations of the stellar binary. 
+These simulations provide a complete picture of the dynamical evolution
+of the system. To realistically simulate the dynamics of a stellar binary
+with a circumbinary planet as the stellar binary evolves, we need to know
+how to stars evolve at each time step and how they interact with the outer
+planet(s). To solve this computationally we need to couple in some way
+a stellar evolution code with an N-body solver. 
+
+\section{The N-body problem}
+\label{sec:The N-body problem}
+The \emph{N-body problem} is a problem of $N$ gravitationally interacting
+masses. The equations of motion are
+\begin{equation}
+    m_i\ddot{\vect{r}}_i=\sum_{j=1,j\neq 1}^NGm_im_j \frac{\vect{r}_{ij}}
+    {\lvert \vect{r}_{ij}\rvert^3} 
+    \label{eq:nbody_equations}
+\end{equation}
+where $m_i$ is the mass of the $i$-th particle, $\vect{r}_i$ is its 
+position vector, $\vect{r}_{ij}=\vect{r}_j-\vect{r}_i$ and $i=1\dots N$.
+Once the initial positions $\vect{r}_{i,0}$ and velocities $\dot{\vect{r}}_{i,0}$
+are specified, there exists a unique solution which can only be obtained
+numerically for $N>2$. The N-body system of equations is extremely sensitive
+to the initial conditions and special care must be taken to ensure numerical
+accuracy of the soltions. Since \cref{eq:nbody_equations} involve the force
+calculation between each pair of $N$ particles, the computational complexity
+of the problem scales as $\mathcal{O}(N^2)$.
+
+There are many different ways of solving \cref{eq:nbody_equations} numerically,
+and the choice of method depends primarily on the problem at hand. For systems
+with large $N$
+approximation schemes are often used which manage to reduce the complexity
+to order $\mathcal{O}(N\ln N)$. In celestial mechanics $N$ is generally on
+the order of a few and the integration times are very long (sometimes 
+billions of years), high precision is thus required and the complexity is 
+$\mathcal{O}(N^2)$. Another difficulty is the fact that \cref{eq:nbody_equations}
+has a singularity when two particles come very close to each other which
+can lead to arbitrarily high particle velocities if not properly handled.
+For a system of $N$ gravitationally interacting bodies the total energy 
+and angular momentum are always conserved, however, this need not be true 
+for a numerical solution of the equations of motion. Often, the 'quality'
+of an integrator\footnote{An \emph{integrator} is a name often given to
+any numerical scheme which solves a system of differential equations.}
+is judged by how good it conserves the total energy.
+
+A class of integrators called \emph{symplectic integrators} 
+\citep{vogelaere,ruth,feng} is often used
+in celestial mechanics. Instead of solving \cref{eq:nbody_equations}, these
+integrators solve the equivalent Hamiltonian system. They preserve
+invariant propertties such as phase-space density and in many cases
+can have an upper bound on the energy error.
+\section{REBOUND - an open source N-body integrator}
+\label{sec:REBOUND - an open source N-body integrator}
+Because the N-body problem occurs very often in astrophyisical applications,
+there exist multiple numerical solvers for problems of various scales and 
+with varying degree of accuracy. Traditionally, the code most often used for applications
+in celestial mechanics is \texttt{MERCURY} \citep{chambers1997,chambers1999}, 
+written in \texttt{Fortran} programming language.
+For the problem of simulating a circumbinary system
+which involves pure N-body computations and dissipative forces, I have 
+opted to use a different code called \texttt{REBOUND} \citep{Rein2012}.
+REBOUND is an open-source code freely available on \texttt{GitHub}\footnote{
+    \url{https://github.com/hannorein/rebound}}, it is written in \texttt{C99}
+and also has a \texttt{Python} interface, it is under active development.
+The reasons for choosing \texttt{REBOUND} over \texttt{MERCURY} are several,
+most important being the ease of use, the availability of 
+integrators accurate to machine precision  and the fact that 
+\texttt{REBOUND} uses Jacobi coordinates
+by default (which matches well with the analysis in \cref{ch:analytical_model})
+while \texttt{MERCURY} uses heliocentric coordinates which are more suitable to
+Solar System type of problems.
+
+\texttt{REBOUND} comes with many integrators, the most important of which
+are the symplectic integrator \texttt{WHFAST} \citep{Rein2015} and an
+adaptive high-order integrator called \texttt{IAS15} \citep{Rein2014}. For
+applications which involve velocity-dependent non-conservative forces
+such as tidal decay of binary stars, \texttt{IAS15} is a better choice
+for such applications because symplectic integrators are by construction
+designed for conservative forces. 
+
+\texttt{IAS15} is designed to solve a system of differential equations of the form
+\begin{equation}
+    \ddot{\vect{y}}(t)=F(\dot{\vect{y}},\vect{y},t)
+    \label{eq:diff_eq}
+\end{equation}
+where $\ddot{\vect{y}}$ is the acceleration and $F$ is an arbitrary force
+which may depend also on the velocity. \Cref{eq:diff_eq} can be expanded
+into a truncated series:
+\begin{equation}
+    \ddot{\vect{y}}(t)\approx \ddot{\vect{y}}_0 + \vect{a}_0t+\vect{a}_1t^2
+    +\dots+\vect{b}_6t^7
+\end{equation}
+where $\ddot{\vect{y}}_0$ is the acceleration evaluated at $t=0$. 
+It can then be rewritten as
+\begin{equation}
+    \ddot{\vect{y}}(h)\approx \ddot{\vect{y}}_0 + \vect{b}_0h+\vect{b}_1h^2
+    +\dots+\vect{b}_6h^7
+    \label{eq:diff_eq2}
+\end{equation}
+where $dt$ is the \emph{timestep}, $h=t/dt$ and $\vect{b}_k=\vect{a}_kdt^{k+1}$.
+Finally, we rewrite it once again as
+\begin{equation}
+    \ddot{\vect{y}}(h)\approx \ddot{\vect{y}}_0 + \vect{g}_1h+\vect{g}_2h
+    (h-h_1)+\vect{g}_3h(h-h_1)(h-h_2)+\dots+g_8h(h-h_1)\dots(h-h_7)
+\end{equation}
+Where the timestep $h$ is now divided into substeps $h_1,\dots,h_7$ in the
+interval $[0,1]$. The coefficients $\vect{g}_k$ can be determined from 
+$\vect{b}_k$. When the expansion is written in this form, the coefficient 
+$\vect{g}_k$ depends only on the force evaluations at previous substeps
+$h_n$ with $n\leq k$. \Cref{eq:diff_eq2} can then be integrated to give the velocity
+\begin{equation}
+    \dot{\vect{y}}\approx \dot{\vect{y}}_0+hdt\left(\ddot{\vect{y}}_0+
+    \frac{h}{2} \left(\vect{b}_0+ \frac{2h}{3} \left(\vect{b}_1+\dots\right)
+    \right)\right)
+\end{equation}
+and once again for the position
+\begin{equation}
+    \vect{y}\approx\vect{y}_0+\cdot{\vect{y}}_0hdt+ \frac{h^2dt^2}{2} 
+    \left(\ddot{\vect{y}}_0+
+    \frac{h}{3} \left(\vect{b}_0+ \frac{h}{2} \left(\vect{b}_1+\dots\right)
+    \right)\right)
+\end{equation}
+To get the new positions and velocities, we need to estimate the coefficients
+$\vect{g}_k$ (and hence also $\vect{b}_k$). These are obtained using an implicit
+scheme
+\citep[see][for details]{Rein2014}. To obtain the best possible accuracy for
+the position and the velocity, the spacing of substeps in \texttt{IAS15} 
+\cite{Rein2014} chose Gauss-Radau spacing\footnote{Gauss-Radau spacing is related to 
+the Gaussian quadrature which is a way of approximating a solution to an 
+integral on a definite interval} with $h_n=0, 0.0562, 0.1802, 0.3526, 
+0.5471, 0.7342, 0.8853 and 0.9775$. In a Gauss-Radau integration scheme
+where a function $F(t)$ is integrated on the domain $[0,dt]$ with $m$ quadrature
+points and the absolute error term is of order $\mathcal{O}(dt^{2m})$
+\cite{Rein2014}. 
+For $m=8$ the error term is $\mathcal{O}(dt^{16})$ which makes this
+a 15-th order scheme, hence the name \texttt{IAS15}. The fact that this
+integrator is 15th order means that by reducing the timestep by a factor of
+$\alpha$ we reduce the error by a factor of $\alpha^{16}$! Thus, to obtain
+an accurate solution a very small timestep is often not necessary, it is
+usually sufficient to take a fraction of the smallest relevant dynamical
+timescale in the problem.
+
+The \emph{total error} in for example energy or position 
+depends not only on the error associated
+with the truncation of an infinite series in a numerical scheme but also
+on error $E_\text{floor}$ associated with the finite precision of 
+floating-point numbers 
+(\texttt{IAS15} uses \texttt{double} precision numbers) also known as
+roundoff error, a random error 
+$E_\text{random}$ coming from an addition of two floating-point numbers 
+and a bias error $E_\text{bias}$ associated
+with the bias of floating-point operations. That is, the total error $E$ is
+\begin{equation}
+    E=E_\text{floor}+E_\text{rand}+E_\text{bias}+E_\text{scheme}
+\end{equation}
+The total error is then dominated by the largest term. 
+
+\texttt{IAS} uses an adaptive timestepping scheme in which a new time
+step is chosen after previous timestep, since it is very high-order, the 
+timestep can be chosen such that the error associated with the scheme
+$E_\text{scheme}$ remains below $10^{-16}$, which is less than the precision
+of \texttt{double} floating-point numbers. We say that the integrator is
+accurate to machine precision. Therefore, it is not possible to achieve
+better precision with a different integrator unless the floating-point 
+precision is extended (to say 128 bit numbers). 
+The total error then depends on the other errors. $E_\text{floor}$ is constant,
+and $E_\text{bias}$ in general might grow linearly with time because
+some floating-point operations might be biased, for example, in a series
+of repeated additions the error might be prefferentialy positive instead of
+either positive or negative with equal probability. To avoid these types of
+errors all mathematical operations in \texttt{IAS15} use only the operators
+$+,-,\times,/$ which are guaranteed to give the same result\footnote{This is 
+in general not true for other operations such as $\sqrt{x}$ which may give 
+slightly different results depending on the system architecture.}in \texttt{C99}
+independent of the hardware on which the code is run or the compiler differences.
+Even if such biases are removed and the error in each individual calculation is
+completely random, the error (designated $E_\text{rand}$) grows with time. 
+\cite{brouwer} showed that  quantities such as the energy  or position error
+grow as $\propto t^{1/2}$ and the error in angles grows as $\propto t^{3/2}$,
+this is known as \emph{Brouwer's law}.
+
+Extensive test of the \texttt{IAS15} integrator presented in \cite{Rein2014} 
+show that it follows Brouwer's law, that is, the error is dominated by the 
+$E_\text{random}$ term. The closest comparable integrator, \texttt{RADAU}
+in \texttt{MERCURY} generally has a two orders of magitude greater error. 
+
+\section{binary\_c - a binary stellar evolution code}
+\label{sec:binary_c - a binary stellar evolution code}
+If we were interested in the dynamics of circumbinary system on the main 
+sequence an N-body integrator would be sufficient because purely gravitational
+forces dominate. To investigate the dynamics beyond the main sequence we 
+need some prescription the evolution of the stellar binary. 
+
+I opted to use the \texttt{binary\_c}
+\footnote{\url{http://www.ast.cam.ac.uk/~rgi/binary_c.html}}
+stellar evolution code described in
+\cite{izzard2004,izzard2006,izzard2009}, which is based on a binary
+stellar evolution code \texttt{BSE} \citep{hurley2002}. Both \texttt{BSE}
+and \texttt{binary\_c} do not solve the equations of stellar structure directly
+(which is very computationally expensive) but rather uses analytical formulae
+fitted to the outputs of detailed models which do solve the stellar structure
+equations. Since analytic expressions are computationally 'cheap' to evaluate,
+the codes are very fast. \texttt{binary\_c}
+is unfortunately not freely available for download, however it is available
+upon request from the author. The code is written in \texttt{C} and it
+includes an \texttt{API} interface for calling functions which 
+evolve the binary system for specified initial conditions and output the
+physical variables for each time step. \Cref{tab:binary_c_params} shows
+the input parameters which need to be specified in order to run the code.
+\begin{table}[h!]
+\centering
+\begin{tabular}{lc}
+\toprule
+    Parameter & meaning\\
+\midrule
+    \texttt{M1} & mass of primary star\\
+    \texttt{M2} & mass of secondary star\\
+    \texttt{PER} & initial orbital period of the binary in days\\
+    \texttt{ECC} & initial eccentricity\\
+    \texttt{Z} & metallicity\\
+    \texttt{EVOLTIME} & total evolution time\\
+\bottomrule
+\end{tabular}
+    \caption{Initial parameters for the stellar evolution code \texttt{binary\_c}.}
+\label{table:binary_c_params}
+\end{table}
+For all the other parameters we keep the default values specified in the code, for 
+the metallicity we choose a fixed value of solar-like metallicity of $0.02$ and 
+evolve all systems for a duration of a Hubble time (13.7 Gyr).
+
+In order to later on couple the \texttt{binary\_c} code with \texttt{REBOUND},
+and easily plot the output from the code, I have written a \texttt{Python}
+interface to the code. The interface is built using the \texttt{Python} 
+library \texttt{ctypes} which enables one to access \texttt{C} functions
+from within \texttt{Python} if the \texttt{C} code is compiled as a \emph{
+    shared library}. I use \texttt{ctypes} to access \texttt{binary\_c API}
+functions from within \texttt{Python} and grab the output directly into memory
+as a \texttt{Python} object.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.7\linewidth]{gfx/stellar_evo_ex.pdf}
+\caption{An example of the stellar evolution output data from the \texttt{binary\_c}
+    code for $m_1=1.2\,M_\odot$, $m_2=0.5\,M_\odot$, $e=0.3$, $P=100$ days. Left
+    panel shows the time evolution of the stellar radii and the right panel shows
+    the evolution of orbital parameters.}
+\label{fig:stellar_evo_ex}
+\end{figure}
+
+\Cref{fig:stellar_evo_ex} shows an example output of the \texttt{binary\_c} code
+for an eccentric short-period binary ($e=0.3$, $P=100$ days), consisting of 
+main-sequence star of mass  
+$m_1=1.2\,M_\odot$, and a red-dwarf of mass $m_2=0.5\,M_\odot$. 
+The final outcome of the stellar evolution in this case is a binary 
+consisting of a white dwarf and a red dwarf.
+The top panel shows the evolution of the radius in time. It is apparent that 
+the higher mass star ascends the red giant branch first, while the lower mass
+star stays at near constant radius. The stellar radius is an important parameter
+because tidal forces which drive the orbital evolution depend very strongly on 
+radius. It is also important because for close binaries with a period shorter
+than about 1000 days, the stellar radius of the primary at the tip of the 
+red giant branch (the sharp peak in the figure) reaches beyond the Roche
+Lobe radius of the primary which triggers the formation of a common envelope. 
+
+The middle panel shows the masses of the two stars as a function of time.
+The mass loss is for the purposes of dynamical modeling negligible up to 
+the CE phase (less than 1\% for the primary star and near zero for the 
+secondary). During the CE phase a large percentage of the total mass in 
+the system is suddenly ejected. And then again nothing interesting
+happens because the secondary in this case is a low-mass star.
+
+The orbital evolution of the binary in period-eccentricity space is shown 
+in the bottom panel of \cref{fig:stellar_evo_ex}. 
+Initially the eccentricity is $e=0.3$ and the period is 100 days, 
+very quickly however the orbit is circularized via tidal 
+interactions and it continues to shrink at near zero eccentricity until
+a common-envelope event is triggered. Because resonance widths tend to 
+zero as the binary eccentricity declines, the influence of resonance
+passage on circumbinary planets is most significant if the passage happens
+at non-zero binary eccentricity. \Cref{fig:stellar_evo_kepler} shows the 
+evolutionary tracks in period-eccentricity space of stars in observed 
+ main sequence circumbinary systems (see \cref{tab:kepler_planets}). 
+ Shown are only the tracks
+from those stars which experience significant orbital evolution within a 
+Hubble time. Wee see that only a single circumbinary planet, PH-1 A (ab) b,
+crosses a resonance at an appreciable eccentricity of the stellar binary,
+namely the 7:1 MMR. All the other planets either cross the resonances
+after the binary's orbit has circularized or they orbit outside of even
+the $9:1$ MMR location. Thus, only a small subset of the initial parameter
+space results in outcomes which favor resonance crossing scenarios likely
+to cause significant eccentricity excitation. Nevertheless, the sample of 
+observed circumbinary systems in \cref{tab:kepler_planets} is very small 
+and there might stil be a significant population of circumbinary planets 
+located just inside the the $6:1$ and $7:1$ MMR locations.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=\linewidth]{gfx/stellar_evo_kepler.pdf}
+\caption{Evolutionary tracks of circumbinary planet hosting main-sequence
+    binaries in period-eccentricity space. The vertical lines show the location
+     of high-order mean motion commensurabilities up to the $9:1$ commensurability
+     . The title above each panel
+     shows the name of the stellar binary and the planet.}
+\label{fig:stellar_evo_kepler}
+\end{figure}
+
+Having covered binary evolution up to the common envelope phase, the question
+remains what happens during and after the common envelope.
+The common envelope is a very short lived and poorly understood phase of 
+binary stellar evolution (for a recent review see \cite{Ivanova2013}). 
+Depending on the model it lasts on the order of a few
+tenths to a few thousands of years, a blink of an eye when compared to 
+typical stellar evolution timescales. 
+As mentioned in \cref{sec:stellar_evolution}, it is modeled with 
+with a simple $\alpha$ parameter which tells us what percentage of the orbital 
+energy went into ejection of the common envelope. By default 
+\texttt{binary\_c} uses a value of $\alpha_\text{CE}=3.0$. Most stellar evolution codes,
+including \texttt{binary\_c}, do not resolve the CE phase but just proceed to
+calculate the evolution after ejection, accounting for the mass loss and the 
+possiblity of a merger during the CE. To get an idea of what the most common outcomes
+of common envelope evolution are, in \cref{fig:evolution_outcomes} we plot a density 
+map of \texttt{binary\_c} outcomes classified into four categories:
+\begin{enumerate}
+    \item None - CE did not occur
+    \item CE - CE did occur and the final system is a binary
+    \item CE \& merger - CE occured and the two stars merged into a single star
+    \item SN - CE occured and the two stars underwent a double-degenerate supernova
+\end{enumerate}
+Left panel of \cref{fig:evolution_outcome} shows a stellar evolution 
+outcomes for very short period binaries with
+$P=10$ days, similar to the binaries observed in circumbinary systems.  
+It appears that all main-sequence
+binary stars similar to the observed circumbinary systems end up as a single star, a 
+product of a stellar merger event during the CE phase. 
+For the somewhat longer period binaries (right panel), the part of parameter space
+which does not result in a merger is slightly larger and also possible for low 
+mass binaries. In general, these results should be taken with a grain of salt 
+because the physics behind the CE phase is so uncertain. We can however conclude
+that all of the circumbinary planet hosting binaries do undergo a common envelope
+phase, the question is just wheater they end up as a single star or a very tight 
+binary.
+\begin{figure}[t!]
+\centering
+\begin{subfigure}{0.52\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{gfx/outcomes_10.pdf}
+%  \caption{A subfigure}
+%  \label{fig:sub1}
+\end{subfigure}%
+\begin{subfigure}{0.52\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{gfx/outcomes_100.pdf}
+%  \caption{A subfigure}
+%  \label{fig:sub2}
+\end{subfigure}
+    \caption{Final outcomes of stellar evolution generated by the 
+    \texttt{binary\_c} code as a function of the the two masses. Left panel: 
+    binary with an initial period of $P=100$ days and initial eccentricity. 
+    Right panel: a 
+    binary with an initial period of $P=10$ days. Both panels show systems 
+    with an initial eccentricity of $e=0.3$. Various outcomes are denoted
+    by different colors specified in the legend.}
+\label{fig:evolution_outcomes}
+\end{figure}
+
+\section{Stability of circumbinary systems on the main sequence}
+\label{sec:Stability of observed circumbinary planets on the main sequence}
+Before moving  to the simulations of circumbinary planets around evolving
+binaries, we investigate the stability during the main sequence. A reasonable
+strategy is to use \texttt{REBOUND} and integrate systems with various initial
+conditions for a certain period of time, say 10 million years. There is however
+a better and computationally cheaper way of assessing stability. As mentioned
+in \cref{ch:theoretical_background}, phase-space trajectories with arbitrarily 
+mall differences in their initial conditions are said to be 
+\emph{chaotic} if they tend to diverge 
+from each other exponentially.  Measuring the rate of this exponential 
+divergence gives us some estimate of how 'chaotic' the trajectories are.
+
+The system of N-body equations \cref{eq:nbody_equations} is of the form
+\begin{equation}
+    \dot{\vect{x}}=f(\vect{x}),\vect{x}\in\mathbb{R}^{6N}
+    \label{eq:nbody_eq_general}
+\end{equation}
+The solution to these equations defines a trajectory $\vect{x}(t)$ in phase-space.
+Consider now a trajectory $\vect{x}'$ initially close to $\vect{x}$,
+$\vect{x}'(0)=\vect{x}(0)+\delta\vect{x}(0)$. To measure their relative divergence,
+we cannot just study the Eucledian norm $\lVert \delta\vect{x}(t)\rVert$ as 
+a function of time because in the case of bounded motion, this distance cannot
+grow indefinitely. What we need is is a measure of \emph{local} exponential
+divergence of nearby trajectories. Since local means in the vicinity of a point
+in phase space $\vect{x}$, we can \emph{linearize} the equations
+of relative motion by expanding the function $f(\delta\vect{x})$ around
+zero to first order. The linearized equations of relative motion, also called
+the \emph{variational equations}, then have the form
+\begin{equation}
+    \dot{\boldsymbol{\delta}}=A(t)\boldsymbol{\delta}
+    \label{eq:variational_equations}
+\end{equation}
+where the vector $\boldsymbol{\delta}(t)\equiv\delta\vect{x}(t)$ measures the
+Euclidian distance between two neighboring trajectories in phase-space
+and $A$ is the Jacobian matrix with elements $A_{ij}=\partial f_i/\partial x_j$.
+For as long as $\delta\vect{x}(t)$
+stays small, the linearized equations are a good approximation of the motion. The
+\emph{Maximum Lyapunov Exponent} is then defined as \citep{Hinse2010,morbidelli2002}
+\begin{equation}
+    \gamma=\lim_{t\rightarrow\infty} \frac{1}{t-t_0} \ln\left( \frac{\lVert 
+    \boldsymbol{\delta}(t)\rVert}{\lVert \boldsymbol{\delta}(t_0)\rVert}\right)=
+    \lim_{t\rightarrow\infty} \frac{1}{t-t_0}\int^t_{t_0} 
+    \frac{\lVert \dot{\boldsymbol{\delta}}(s)\rVert}{\lVert 
+    \boldsymbol{\delta}(s)\rVert}\mathrm{d}s
+\end{equation}
+ The ratio $\lVert\dot{\boldsymbol{\delta}}/ \boldsymbol{\delta}\rVert$ measures the
+rate of change of the separation vector $\boldsymbol{\delta}$. The rate of change
+of $\boldsymbol{\delta}$ is then $e^{\gamma t}$. If $\gamma >0$, the initial separation
+grows exponentially in time and we have chaotic motion. If $\gamma=0$ the separation
+does not change and we have quasi-periodic or regular motion. Finally, for $\gamma<0$
+the two trajectories approach each other at an exponential rate, this only happens
+for dissipative systems because it implies the existance of attractive fixed points which
+act as sinks in phase space. This is not possible for conservative Hamiltonian
+systems since it is a violation of Liouville's theorem. 
+
+In practice, calculating the limit when $t\rightarrow\infty$ is 
+computationally not feasible and usually one takes a 
+sufficiently long time $t=t_\text{max}$. For a recent review on the calcualtion
+of maximum Lyapunov exponents see \cite{skokos}.
+There are various ways of more efficiently computing either the MLE or so called
+chaos indicators closely related to the MLE. One such indicator is called the 
+\emph{Mean Exponential Growth of Nearby Orbits} \citep{refId0,cincotta2003} or MEGNO for short. 
+It is defined as
+\begin{equation}
+    Y(t)= \frac{2}{t} \int^t_{t_0} \frac{\lVert \dot{\boldsymbol{\delta}}(s)\rVert}{\lVert 
+    \boldsymbol{\delta}(s)\rVert}s\mathrm{d}s
+\end{equation}
+and its time-avaraged mean value is 
+\begin{equation}
+    \langle Y\rangle\left( t\right)= \frac{1}{t} \int^t_{t_0} Y(s)\mathrm{d}s
+\end{equation}
+The difference between the MLE and the MEGNO indicator is that the integral in MEGNO
+is weighted by time during the integration, thus giving more wait to the rate 
+of divergence of the separation vector at later times. Numerically, the MEGNO
+is computed by integrating the variational equations \cref{eq:variational_equations}
+wit a random initial displacement vector $\boldsymbol{\delta}_0$
+during the time interval $t-t_0$. Most other chaos indicators based on the
+MLE do not have this weighting. 
+Generally, $\langle Y\rangle$ can be parametrized as a linear function in time
+$\langle Y\rangle (t)=\alpha t+\beta$. \cite{cincotta2003} show that if the 
+motion is quasi-periodic $\alpha\approx 0$ and $\beta\approx 2$ and 
+$\langle Y\rangle \rightarrow 2$ as $t\rightarrow \infty$. Indeed, it
+converges to zero than the MLE \citep{cincotta2003}. In the case of a chaotic
+orbit $Y$ and $\langle Y\rangle$ increase linearly with time ($\alpha\neq 0$).
+
+The relationship between chaotic orbits (high MEGNO) and \emph{stability} of
+a system is not straightforward. A system is deemed stable for a certain time 
+if there are no \emph{close encounters}  between any two bodies in the system 
+leading to hyperbolic orbits. Chaotic trajectories need not lead to ejections
+because the chaos might be \emph{bounded}. Bounded chaos means that even
+if at a certain point in phase-space we have exponentially diverging 
+trajectories, the trajectories are still bounded to a certain \emph{finite} 
+volume of phase-space. Thus, high MEGNO values can only be used as a proxy
+for instability. We should always keep that caveat in mind when 
+interpreting MEGNO maps (or any other chaos indicator). For a discussion about 
+the relationship between chaos,
+ resonance overlap and  stability, see \cite{Deck2013}.
+
+Since MEGNO is calculated for a finite integration
+time, there
+is always a possibility that some trajectories start quasi-period and suddenly
+become chaotic after a time longer than the integration time. However, if an orbit
+has a large MEGNO value after a small interval of time, it 
+is almost certainly chaotic for all times. MEGNO is ideal for revealing 
+regions of phase-space which are chaotic due to overlapping mean-motion resonances.
+
+The question remains what is a suitable integration time for calculating the 
+MEGNO values for a given system. There is no unique answer as it depends on 
+the problem. For our purposes, the answer is  - whatever time is enough 
+to reveal the fine structure in the space of orbital parameters 
+due to resonance overalap. If we were to calculate the MEGNO values
+for say the Solar System and choose and extremely long integration time
+on the order of billions of years, we would find that almost all initial
+conditions result in chaotic orbit because even though the Solar System looks
+stable now, it can be chaotic on a sufficiently long timescale.
+
+The \texttt{REBOUND} package includes functions to calculate
+the MEGNO value out of the box. It does by integrating the variational equations
+for a specified period of time, either with the high-order \texttt{IAS15} 
+integrator or the symplectic \texttt{WHFAST}. Since we are interested
+in the stability of circumbinary systems on the main-sequence which are
+(to a good degree of approximation) conservative, we opt for the 
+\texttt{WHFAST} integrator since it is faster than \texttt{IAS15}. We chose
+to calculate MEGNO as a function of two orbital parameters because we can 
+then construct a density plot which is more informative than a one 
+dimensional function.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=\linewidth]{gfx/megno_time_comparison.pdf}
+\caption{MEGNO maps for a system with 
+    $m_1=1\,M_\odot$, $m_2=1\times 10^{-3}\,M_\odot$, $m_3=m_2$,
+    $P_i=10$ days, $e_i=0.1$ and $\varpi_o-\varpi_i=0$, c
+    alculated on a $150\times 150$
+    grid in variables $(P_o/P_i,e_o)$. White points are regular orbits
+    and the dark grey points are chaotic orbits. The left panel
+    shows a MEGNO map for an integration time of $1000$ years and the
+    right one for an integration time of $5000$ years. The dashed white line in
+    the top left corner of each panel is defined 
+    by $R_p/a_i=1$ where $R_p=a_o(1-e_o)$
+    is the outer periastron distance. Every outer orbit above that line
+    is crossing the inner orbit and is therefore guaranteed to be 
+    unstable in almost all cases.}
+\label{fig:megno_example}
+\end{figure}
+
+\Cref{fig:megno_example} shows an example of MEGNO maps for a system
+with $m_1=1\,M_\odot$, $m_2=1\times 10^{-3}\,M_\odot$ and $m_3=m_2$,
+that is, a system with a single star and two Jupiter mass planets.
+We choose $P_i=10$, $e_i=0.1$, $\varpi_o-\varpi_i=0$, and 
+we vary $e_o$ and $P_o$.
+Both planets have the same  value of the argument
+of pericentre. We
+could have just as well chosen some other parameters, these are just
+the most useful ones to plot.  The left panel shows a MEGNO map for a total 
+integration time of 1000 years. The $n:1$ 
+resonances are easily noticable, it also appears that the region
+up to the $2:1$ resonance is mostly unstable. The panel on the right
+shows the same MEGNO map with a longer integration time of 5000yr.
+As expected, the resonances are more easily apparent, however, the
+computational demands for a longer integration are considerable (an 
+hour on a 32 core machine with a paralellized code) and 
+we opt to use an integration time of around 1000 yr. Both plots
+show an unusual strip of regular orbits at very high eccentricities.
+This is most likely due the linear approximation of the variational
+equations used to calculate the MEGNO values. The variational equations
+are valid only in the vicinity of the point at which we expand the
+full equations of motion, presumably it fails in this particular 
+region because at those high eccentricities the planets are likely
+to experience close encounters which significantly perturb both 
+planets and the linear approximation breaks down. Above the strip at
+even higher eccentricities the orbits are again chaotic because at
+that point the close encounters actually result in an ejection event
+and an ejection event automatically assigns a maximum value of 
+MEGNO.
+
+After introducing the MEGNO technique on an example of a single-star 
+system with two planets, we apply it to circumbinary systems.
+\Cref{fig:megno_kepler} shows MEGNO maps for the observed circumbinary
+systems with relatively close-in planets. Plotted on top of the 
+MEGNO results are the analytically derived resonace widths (blue 'bubbles'
+in the figure) from
+\cite{Mardling2013} (see. \cref{ssub:Resonance_widths} for derivation), 
+the red dots are the observationally derived values for the 
+planet eccentricity and period. The first thing one should notice when
+comparing the various panels in \cref{fig:megno_kepler} to 
+\cref{fig:megno_example}  is the much larger volume of phase space 
+occupied by chaotic orbits. This is due to the fact that the circumbinary
+systems have an inner mass ratio larger by a factor of about 1000 compared
+to a single-star system with Jupiter mass planets. The higher innner
+mass ratio, combined with the fact that the stars in a circumbinary
+system tend to be eccentric, leads to a formation of chaotic zone
+extending all past the $5:1$ MMR for most binary eccentricities. 
+This chaotic region is indeed unstable, \cite{Holman1999} ran full 
+N-body simulations of test particles in close orbits around binaries
+and later fit analytical formulue which give the size of the instability
+region. Later, \cite{Mudryk2006} found that the instability region
+is due to resonance overlap, as is visible in \cref{fig:megno_kepler}.
+
+Looking at the analytic predictions for the resonant widths in 
+\cref{fig:megno_kepler}, we see that all regions of resonance overlap
+lead to chaotic trajectories. For all but one of the systems, the 
+resonant widths roughly follow the first emerging chaotic trajectories.
+The exception is Kepler-34 which orbits a highly eccentric binary
+and is located in a region with mostly black dots. Since Kepler-34 
+is a confirmed exoplanet with a well determined orbit, we conclude 
+that the chaotic region in the first pane which does not overlap with 
+the analytical prediction is most likely reasonably stable. All the 
+other circumbinary planets lie comfortably outside the inner
+chaotic zone and none of the planets lie within the $5:1$ MMR, which
+is why the $6:1$ MMR is the first we considered in detail in 
+\cref{ch:analytical_model}. Notice most importantly that
+the extent of the inner chaotic region at moderete planet eccentricities
+depends crucially on the binary eccentricity $e_i$, the higher it is, 
+the further away an inner most planet has to be in order to be on a
+stable orbit. \cite{Sutherland2015} investigate the chaotic zone
+in detail by means of N-body simulations and find that the most likely
+outcome for a planet in the inner chaotic zone is ejection, and a 
+significant fraction of planets collider with one of the stars.
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\linewidth]{gfx/megno_kepler.pdf}
+\caption{MEGNO maps for the observed circumbinary systems with relatively
+    close-in planets. Red dots show observationally derived values for 
+    the orbital parameters of the planets. The color coding shows the MEGNO 
+    value, darker shades 
+    corresponding to chaotic orbits with high MEGNO and lighter ones to 
+    regular orbits. Plotted on top of the MEGNO maps is the analytical 
+    prediction for the resonance widths of $n:1$ mean-motion resonances, 
+    starting with $n=2$ (see \cref{ssub:Resonance_widths}). 
+The dashed white line in
+    the top left corner of each panel  is defined 
+    by $R_p/a_i=1$ where $R_p=a_o(1-e_o)$
+    is the outer periastron distance. Every outer orbit above that line
+    is crossing the inner orbit and is therefore guaranteed to be 
+    unstable in almost all cases.}
+\label{fig:megno_kepler}
+\end{figure}
+
+\section{Coupling between \texttt{binary\_c} and REBOUND}
+\label{sec:coupling_binary_c_rebound}
+In order to realistically simulate the dynamical evoulution of a circumbinary
+system, we need to combine a model for the orbital evolution of the stellar
+binary given by \texttt{binary\_c} with the N-body code \texttt{REBOUND}. A best
+conceivable solution would be an N-body code which at each timestep on top of
+the gravitational forces acting on the three bodies also calculates the 
+tidal forces acting on the binary. Since 
+the tidal forces depend on all kinds of stellar parameters such as the
+luminosities of the stars, their temperatures, core masses etc.; 
+we would also need the full output of the \texttt{binary\_c} code between each 
+N-body timestep. Actually, not only would we need to run \texttt{binary\_c} 
+between each timestep in the N-body code but also between each \emph{substep}  
+of a given timestep since the \texttt{IAS15} integrator requires several force
+evaluations in an interval $[0,dt]$.
+
+While not impossible, such approach would require a lot of work and and we
+would need to make sure that \texttt{binary\_c} is able to work with timesteps
+of a fraction of the dynamical time in the system (on the order of days), when
+it normally works with timesteps comparable to stellar evolution timescales 
+(millions of years). This would almost certainly be challenging and would most
+likely
+require some sort of interpolation scheme for the \texttt{binary\_c} output
+variables.
+
+There is  however an easier solution to the problem. We could ignore the gravitational
+influence of the circumbinary planet on the stellar binary and in the N-body
+code force the binary to move in a way consistent with the output of 
+\texttt{binary\_c} generated beforehand. This would mean that we are in a regime
+of a \emph{restricted three body problem} where the inner two masses do not 
+experince the force of the third mass\footnote{Acutally, this is not strictly
+true for the implementation in the code. The calculation of the forces on the 
+stars at each \texttt{IAS15} timestep does include the influence of the planet.
+However, since the stars are 'forced' to move according to a trajectory 
+previously generated
+beforehand with \texttt{binary\_c}, which was derived assuming an isolated system of 
+two stars, it is still effectively a restricted problem over sufficiently long
+timescales (at least one \texttt{binary\_c} period).}.
+, a reasonable approximation because
+the mass ratio between the total mass of the stellar binary in a circumbinary
+system and the outer planet is $m_3/m_{12}\approx 10^{-3}$.
+
+The question remaining then is how to 'force' the stellar binary in \texttt{REBOUND}
+to move in the $(a,e)$ such that its trajectory matches the output from 
+\texttt{binary\_c}. There are two options, the first one is to directly change 
+the orbital elements $a_i$ and $e_i$ after each internal \texttt{binary\_c} timestep
+(long compared to \texttt{IAS15} timestep). The other approach is to construct 
+a force which acts on the stellar binary such that the values of $(a_i,e_i)$ after
+specified time match the \text{binary\_c} values at that time; such force is 
+necessarily velocity-dependent. Both approaches
+are implented in \texttt{REBOUNDx}, a library for incorporating additional effects
+in \texttt{REBOUND} simulations (\url{https:// github.com/dtamayo/reboundx}), as
+functions \texttt{modify\_orbits\_direct} and \texttt{modify\_orbits\_forces}. We opt
+to use the second approach because it is more physically motivated than directly 
+changing the orbital elements 'by hand'. Indeed, a velocity-dependent force
+ is exactly how the tidal decay of the binary happens in the first place.
+
+In \texttt{REBOUNDx}, the force is constructed such that when orbit-avaraged it
+gives an \emph{exponential} growth/decay of the semi-major axis and the
+eccentricity. The approach is based on \cite{papaloizou}; the force governing 
+the eccentricity evolution is given by
+\begin{equation}
+    \vect{a}_\text{damp}=-2 \frac{(\vect{v}\cdot\vect{r})\vect{r}}{r^2 \tau_e }
+\end{equation}
+and for the semi-major axis evolution
+\begin{equation}
+    \vect{a}_\text{damp}=- \frac{\vect{v}}{\tau_a} 
+\end{equation}
+where $\vect{a}$ is the acceleration vector. These two forces act in a way such
+that the eccentricity/semi-major axis exponentially increase/decrease by a factor
+of $e=2.71\dots$ over a timescale $\tau_e$/$\tau_a$. The eccentricity damping
+keeps the angular momentum constant which meeans that some semi-major axis 
+evolution is always induced. It also induces some pericentre precession. Both
+effects are physical. 
+
+The problem of changing the orbital elements of the stellar binary then reduces
+to a suitable choice of two damping timescales, between each \texttt{binary\_c}
+timesteps. An exponential decay in the semi-major axis is described by
+the differential equation
+\begin{equation}
+    \left( \frac{\dot{a}}{a} \right)= \frac{1}{\tau_a} 
+\end{equation}
+which can be easily solved with the method of the separation of variables, giving
+\begin{equation}
+    \ln a_{k+1}-\ln a_k= \frac{t_{k+1}-t_k}{\tau_a} 
+\end{equation}
+where we have discretized the solution with $a_k$ designating the value of the
+semi-major axis at timestep $k$ and $a_{k+1}$ the value at timestep $k+1$. The
+damping timescale is then
+\begin{equation}
+    \tau_a = \frac{t_{k+1}-t_k}{\ln \frac{a_{k+1}}{a_k} } 
+\end{equation}
+Therefore, given the values of $a_k$ and $a_{k+1}$ (which are precalculated with
+\texttt{binary\_c}), we can determine the exponential decay timescale and pass 
+it to \texttt{REBOUND} such that ate time $t_{k+1}$ the value of $a$ in 
+\texttt{REBOUND} matches the one in \texttt{binary\_c}. The algorithm for
+running a simulation of a circumbinary system is then
+\begin{enumerate}
+    \item Choose stellar parameters, evolve binary system using \texttt{binary\_c}
+        from a point at which significant changes in $(a,e)$ start occuring (RGB 
+        branch) up to the start of the common envelope phase. Save output data
+        to file.
+    \item Load orbital parameters from \texttt{binary\_c}, calculate array of
+        damping timescales $\tau_a$ and $\tau_e$ for each \texttt{binary\_c}
+        timestep.
+    \item Integrate system using \texttt{REBOUND} with the \texttt{IAS15} integrator
+        from the zeroth to the final value of time in \texttt{binary\_c} output, at
+        each time $t$ for which there is data from \texttt{binary\_c} change 
+        damping timescales with a new value from array
+\end{enumerate}
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\linewidth]{gfx/rebound_binary_c_coupling.pdf}
+    \caption{Results of a \texttt{REBOUND} integration of a two-body system representing
+    a stellar binary. The left panel shows the relative error in the orbital elements
+    $a$ and $e$ between \texttt{REBOUND} and \texttt{binary\_c}. The right panel
+    shows the output of \texttt{REBOUND} (blue dots) between two \texttt{binary\_c}
+    timesteps (orange stars). The integration time in \text{REBOUND} has been
+    rescaled by a factor of $10^3$ for reasons of computational efficiency.}
+\label{fig:reb_bin_coupling}
+\end{figure}
+\Cref{fig:reb_bin_coupling}
+shows the result of an N-body integration of a system with masses $M_1=1.4 M_\odot$,
+$M_2=0.7 M_\odot$, initial eccentricity $e=0.3$ and initial period $P=200$ days. 
+The integration time in REBOUND has been rescaled by a factor of $10^3$ compared to 
+the output in \texttt{binary\_c} in order to reduce runtime; in the simulations which
+include an outer planet the integration runs for the complete duration.
+The left panel shows the relative error of the orbital elements calculated by
+\texttt{REBOUND} compared to those from \texttt{binary\_c}. The right panel shows a 
+small portion of the total integration time between two \texttt{binary\_c}
+timesteps (orange stars). The errors are negligible. Even though this is a
+two-body system, the energy is not conserved because of the presence of a 
+velocity-dependent force (or equivalently, dissipative processes). 
+
+\section{Intial conditions}
+\label{sec:Intial conditions}
+Before running full N-body simulations of circumbinary systems, a suitable choice
+of initial conditions needs to be made. Since N-body simulations are in general very
+computationally costly, we need to run simulations which explore the various parts
+of the parameter space and which can be done in reasonable time on the available 
+computer architecture. Unfortunately the N-body problem with small N is not 
+parallelizable and is therefore largely limited by the CPU clock speed which has not
+progressed significantly in the past decade. Having access to large clusters 
+of CPUs is therefore only useful for running many simulations with different 
+initial conditions.
+
+The runtime of any given simulation depends crucially on the smallest dynamical 
+timescale of interest. In this case, it is the orbital period of the stellar binary,
+or rather, a fraction of it. We are most interested in circumbinary systems similar 
+to the observed once on the main sequence, those have binary periods on the order of days.
+Because the binary stars in such systems evolve slowly on timescales of tens to 
+hundreds of millions of years from RGB to common-envelope, the simulations would 
+require months of computer time. Instead we choose a fixed value of the initial period of
+200 days which is approximately $~10$ times longer compared to observed systems. 
+The \emph{shape}  of evolutionary tracks of binary stars in semi-major axis-eccentricity 
+space only weakly dependends on the initial period (much more important are the masses)
+and as long as the adiabatic criterion for resonant passage is satisfied in both cases,
+its outcome will stay the same. Nevertheless, we do run a few simulations with
+shorter period to check this is indeed the case.
+
+The initial conditions are presented in \cref{table:initial_conditions}. For the 
+primary mass we choose three values, ranging from $1.2\,M_\odot$ to $2.0\,M_\odot$.
+Lower primary masses are not interesting because such binary stars take too long
+to evolve past the common envelope phase and as a consequence we cannot observe
+their final post common-envelope configurations. On the higher end, the case
+$m1=2.0\,M_\odot$ is interesting because it marks the boundary between stars which
+undergo helium flash ($\leq 2\,M_\odot$) and those that don't. The latter have
+different trajectories in $(a,e)$ space with an abrupt decline in semi-major 
+axis and eccentricity immediately before the onset of the common-envelope phase.
+We specify the secondary mass with a mass ratio $q=m_1/m_2$ for three different 
+values. The case of binaries with mass fraction near unity is not considered
+because such systems undergo two common-envelope events in a short time span.
+
+The inner period is fixed at 200 days as mentioned previously. For the 
+eccentricity, perhaps the most important parameter for the global dynamics, 
+we choose a circular value of $e=0.0$, a slightly eccentric value of $e=0.1$,
+and a highly eccentric value of $e=0.3$. The outer period, corresponding
+to the planet, is chosen such that initially, the planet is outside the 
+inner chaotic zone. For $e_i=0.$ and $e_i=0.1$ we choose $P_o=5.8\,P_i$, which
+is just inside the $6:1$ MMR, and for the highly eccentric binary with $e_i=0.3$,
+we place the planet just inside the $7:1$ resonance because in that case the 
+inner chaotic zone has a greater extent.
+\begin{table}[h!]
+\centering
+\begin{tabular}{lc}
+\toprule
+    Parameter &  Value\\
+\midrule
+    $m_1\,[M_\odot]$ &1.2, 1.6, 2.0\\
+    $q$&0.3, 0.6, 0.8\\
+    $P_i$ [days]& 200\\
+    $e_i$ &0.0, 0.1, 0.3\\
+    $P_o/P_i$ & 5.8/6.8 \\
+    $e_o$&$e_\text{forced}$\\
+    $\varpi_i-\varpi_o$  & 0\\
+         \bottomrule
+\end{tabular}
+    \caption{The initial choice of parameters for the N-body simulations.}
+\label{table:initial_conditions}
+\end{table}
+
+The outer eccentricity is set to a fixed value of the secularly forced 
+eccentricity for each system. To find the forced eccentricity, we 
+run a short \txtttt{REBOUND} simulation without any coupling to 
+\texttt{binary\_c}, taking $e_o=0$ for the initial value. After the 
+simulation has finished, we calculate the centroid of points in 
+$(e_o\cos\varpi_o,e_o\sin\varpi_o)$ plane, which is the forced eccentricity
+(see \cref{sec:secular_evolution}). Finally, the difference in pericentres
+is kept at a fixed value of zero, that is, the orbits are aligned. Starting
+at a different value of $\varpi_i-\varpi_o$ would not change the results 
+considerably
+because the relative orientations of the two orbits become randomized on a short 
+timescale.
+
+\end{document}

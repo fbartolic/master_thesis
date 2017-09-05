@@ -28,7 +28,8 @@ def find_CBPs(detection_method):
 
     # Store all CBPs in a pandas DataFrame object
     columns = ['m', 'm_erru', 'm_errorl', 'R', 'a', 'P',
-               'e', 'I', 'mstar1', 'mstar2', 'q', 'a_binary', 'P_binary', 'e_binary']
+               'e', 'I', 'mstar1', 'mstar2', 'q', 'a_binary', 'P_binary',
+               'e_binary']
     rows_transit = []
     rows_timing = []
 
@@ -76,10 +77,10 @@ def find_CBPs(detection_method):
                     planet.findtext("inclination"),
                     mstars[0],
                     mstars[1],
-                    mstars[0]/mstars[1],
+                    mstars[1]/mstars[0],
                     binary.findtext("semimajoraxis"),
                     binary.findtext("period"),
-                    binary.findtext("eccentricity")
+                    binary.findtext("eccentricity") 
                 ]
 
             if (planet.findtext("discoverymethod")=="transit"):
@@ -91,7 +92,8 @@ def find_CBPs(detection_method):
     # Convert all values in DataFrame to floats
     planets_transit = planets_transit.apply(pd.to_numeric, errors='raise')
     planets_timing = planets_timing.apply(pd.to_numeric, errors='raise')
-    
+    planets_transit['per_ratio'] = planets_transit['P']/planets_transit['P_binary']
+
     if detection_method=='transit':
         return planets_transit
     if detection_method=='timing':
