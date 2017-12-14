@@ -13,27 +13,12 @@
 % This program is free software; you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
 % the Free Software Foundation; either version 2 of the License, or
-% (at your option) any later version.
-%
-% This program is distributed in the hope that it will be useful,
-% but WITHOUT ANY WARRANTY; without even the implied warranty of
-% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-% GNU General Public License for more details.
-%
-% You should have received a copy of the GNU General Public License
-% along with this program; see the file COPYING.  If not, write to
-% the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-% Boston, MA 02111-1307, USA.
-%
-% **************************************************************************************************************
 \RequirePackage{fix-cm} % fix some latex issues see: http://texdoc.net/texmf-dist/doc/latex/base/fixltx2e.pdf
-\documentclass[ twoside,openright,titlepage,numbers=noenddot,headinclude,%1headlines,% letterpaper a4paper
-                footinclude=true,cleardoublepage=empty,abstractoff, % <--- obsolete, remove (todo)
+\documentclass[twoside,openright,titlepage,numbers=noenddot,headinclude,%1headlines,% letterpaper a4paper
+                footinclude=true,cleardoublepage=empty,abstractoff, 
                 BCOR=5mm,paper=a4,fontsize=11pt,%11pt,a4paper,%
                 american,%
-                ]{scrreprt}
-
-%********************************************************************
+                ]{scrreprt}%********************************************************************
 % Note: Make all your adjustments in here
 %*******************************************************
 \input{classicthesis-config}
@@ -78,10 +63,12 @@
 %\cleardoublepage\include{FrontBackmatter/Dedication}
 %\cleardoublepage\include{FrontBackmatter/Foreword}
 \include{FrontBackmatter/Abstract}
+\include{FrontBackmatter/Abstract_croatian}
 %\cleardoublepage\include{FrontBackmatter/Publications}
 \include{FrontBackmatter/Acknowledgments}
 \pagestyle{scrheadings}
 \include{FrontBackmatter/Contents}
+\cleardoublepage
 %********************************************************************
 % Mainmatter
 %*******************************************************
@@ -99,25 +86,26 @@ at hand.
 \section{History}
 \label{sec:History}
 In the past decade the number of detected exoplanets has skyrocketed
- to thousands of confirmed detections from both space and grund facilities 
+ to thousands of confirmed detections from both space and ground facilities 
  \citep{fabrycky2015}. The vast majority
  of these planets have been detected around single stars. Interestingly, 
  the very first proposed exoplanet \citep{campbell1988} is located in a 
  binary star system $\gamma$ Cephei (orbiting around one of the stars), 
- though it was not confirmed until \cite{hatzes2003}. In 1993, 
- \cite{thorsett1993} proposed the existence of a planetary mass body around
+ though it was not confirmed until 2003 \citep{hatzes2003}. First confirmed 
+ exoplanet, orbiting a single neutron star pulsar star, was discovered in 1992 
+ \citep{pulsar_planet} and a year later
+ \citet{thorsett1993} proposed the existence of a circumbinary planet around
  a binary star system PSR B1620-26 consisting of a neutron star 
- pulsar and a white dwarf (orbiting around both stars),
- orbiting around both of the stars. Again, it was not confirmed until several
- years later, in the year 2000. The earliest confirmed exoplanet detection 
- came in 1995 when \cite{mayor1995} detected a planet around a single star
+ pulsar and a white dwarf (confirmed in 2000). The earliest confirmed 
+ exoplanet detection around a main sequence (MS) star
+ came in 1995 when \citet{mayor1995} detected a planet around a single star
  51 Pegasi.  
 
  Since the first confirmed exoplanet, thousands more  have been discovered, 
  mainly by the Kepler space mission. The number of known circumbinary
- planets  (planets orbiting around both stars)
- is much lower, less than 20 confirmed so far. The interest in these systems
- is sigificant because their dynamics is more interesting than that of planets
+ planets  (planets orbiting around two stars)
+ is much lower with less than 20 confirmed so far. The interest in these systems
+ is significant because their dynamics is more interesting than that of planets
  in single star systems, they also provide a test bed for planet formation 
  theories.
  
@@ -125,7 +113,7 @@ In the past decade the number of detected exoplanets has skyrocketed
 \label{sec:Binary_stars_and_types_of_planetary_orbits}
 There are two main types of planetary orbits in binary star systems, shown in
 \cref{fig:binary_types}. \emph{S-type} or \emph{circumprimary} planets orbit
-around one of the two stars in the stellar binary. \emph{P-type} or \emph{
+around one of the two stars in the stellar binary, \emph{P-type} or \emph{
     circumbinary} (CB) planets orbit around both of the stars. 
 Most S-type systems
 are similar to single star systems except with the addition of an outside 
@@ -133,12 +121,12 @@ perturber (the second star). The stability of such systems depends primarily
 on the separation of the stellar binary, if the binary is on a wide orbit
 ($\gtrsim 50$ au) the effect of the outside perturber is small and the system
 might not behave too differently from a single star planetary systems. 
-If the binary is too close  however there may be no stable S-type orbits. 
+If the binary is too close  however, there may be no stable S-type orbits. 
 
 P-type or circumbinary systems are very different from S-type, in this case 
 the planet orbits around both of the stars. Binary stars in such systems
-are found on very close orbits on the order of tens of days. Intuitively,
- the closer a P-type orbit is to the orbit of the binary the greater the 
+are found on very close orbits of the order of tens of days. Intuitively,
+ the closer a P-type orbit is to the orbit of the binary, the greater the 
  chance of an interaction with one of the stars. Conversely, if the planet
  is very far away from the binary, it experiences gravitational forces 
  as if the binary was a single star with a small gravitational quadropole 
@@ -153,7 +141,7 @@ are found on very close orbits on the order of tens of days. Intuitively,
  between the two stars is to truncate the disks at a certain orbital radius
  \citep{pichardo2005}. If the disk is truncated too close to the star where
  icy dust grains cannot form this might hinder or prevent giant planet
- formation in the core-accretion scenario \cite{Lissauer1993}.
+ formation in the core-accretion scenario \citet{Lissauer1993}.
 
  
  Circumbinary
@@ -162,7 +150,7 @@ are found on very close orbits on the order of tens of days. Intuitively,
  stirred by the two stars, increasing the relative velocity $\Delta v$ between
  the dust and gas particles in the disk. This increase in the relative velocity
  can inhibit planetesimal accretion in the inner regions of the disk
- \citep{meschiari2012}. The picture is not that simple because the the 
+ \citep{meschiari2012}. The picture is not that simple because the 
  circumbinary disks might have so-called 'dead zones' where the relative
  velocity is actually smaller than in single star disks, thus making planet
  formation easier \citep{rafikov2013, martin2013}. 
@@ -173,7 +161,8 @@ The formation of of CB planets could also occur in post
 \begin{figure}[htb]
 \centering
 \includegraphics[width=0.5\linewidth]{gfx/binary_types.pdf}
-\caption{Two types of planetary orbits in binary star systems. S-type or
+    \caption[Types of orbits in binaries.]{Two types of planetary 
+    orbits in binary star systems. S-type or
     circumprimary orbits encompass one of the stars. P-type or circumbinary
     orbits encompass both stars.}
 \label{fig:binary_types}
@@ -181,7 +170,7 @@ The formation of of CB planets could also occur in post
 
 Because most binary stars consisting of a solar 
  type primary and a smaller
-companian have a period distribution which peaks around $P_b=10^4$ days 
+companion have a period distribution which peaks around $P_b=10^4$ days 
 \citep{mayor1991}, S-type systems are far more common than P-type (planet 
 formation is virtually impossible around such wide binaries).
 
@@ -193,10 +182,12 @@ light of the star(s)) or via transit timing variations (TTVs for short)
 of the eclipsing binary 
 where the presence of the planet is inferred 
 \citep[see][for explaination of exoplanet detection methods]{perryman}.
+Recently \citet{microlensing_cb} found a circumbinary planet with the
+gravitational microlensing method.
 
 The observed CB planets can be divided into two categories, those
 orbiting binary stars on the main-sequence, and those orbiting post
-main-sequence stars which experienced a common-enevelope event (see 
+main-sequence stars which experienced a common-envelope event (see 
 \cref{sec:stellar_evolution}). The first population consists of planets 
 observed mostly with the Kepler satellite, it is listed in 
 \cref{table:kepler_planets}. The second population has been detected with 
@@ -224,8 +215,11 @@ Kepler-1647 b    &  1.52 &  1.06 &  2.72 &  1107.59 &  0.06 &  90.10 &    1.21 &
     KOI-2939 b       &  1.52 &  1.06 &  2.72 &  1107.59 &  0.06 &  90.10 &    1.22 &    0.97 &  0.79 &      0.13 &     11.26 &      0.16 &      98.38 \\
     PH-1 A(ab) b     &   - &  0.56 &  0.63 &   138.51 &  0.05 &  90.02 &    1.38 &    0.39 &  0.28 &      0.17 &     20.00 &      0.21 &       6.93 \\
 \bottomrule
-\end{tabular}\caption{Observed circumbinary planets orbiting around main-sequence
-    stars. Planet masses are units of Jupiter masses and the radius is measured
+\end{tabular}\caption[Observed circumbinary planets orbiting MS stars.]{Observed 
+    circumbinary planets orbiting around main-sequence
+    stars, excluded is the CB planet OGLE-2007-BLG-349L(AB)c which orbits far away from the star 
+    and 
+    is not relevant for this study. Planet masses are in units of Jupiter masses and the radius is measured
     in Jupiter radii, the binary masses are in units of solar masses, $e_b$ and
     $a_b$ denote the binary eccentricity and semi-major axis respectively. $qM_2/M_1$ is the 
     binary mass fraction, where $M_1>M_2$. The inclination is measured with
@@ -256,7 +250,8 @@ Kepler-1647 b    &  1.52 &  1.06 &  2.72 &  1107.59 &  0.06 &  90.10 &    1.21 &
     RR Cae (AB) b      &   4.20 & - &   5.30 &   4350.00 &  0.00 &   - &    0.62 &    0.18 &  0.29 &       - &      0.30 &       - \\
     PSR B1620-26 b     &   1.70 & - &  20.00 &  24837.00 &  0.13 &   - &    1.35 &    0.34 &  0.25 &       - &    191.44 &      0.03 & 129.8\\
 \bottomrule
-\end{tabular}\caption{Observed circumbinary planets orbiting around evolve post 
+\end{tabular}\caption[Observed circumbinary planets orbiting post common envelope stars.]{Observed circumbinary 
+    planets orbiting around evolve post 
 common-envelope 
     stars. Planet masses are units of Jupiter masses and the radius is measured
     in Jupiter radii, the binary masses are in units of solar masses, $e_b$ and
@@ -277,7 +272,7 @@ the main-sequence population and generally small for the evolved population,
 as one would expect.
 
 The left panel of \cref{fig:observations} shows a scatter plot of the 
-the binary properties for the main-sequence population in 
+binary properties for the main-sequence population in 
 period--eccentricity space. The binaries have relatively high eccentricities,
 going all the way up to 0.5 for Kepler-34 and their periods 
 are all less than 50 days. No observed 
@@ -286,7 +281,7 @@ binaries have a period of less than $\lesssim 7$ days, an unusual fact
 considering that the Kepler survey is biased towards short period binaries.
 One possible explaination for the lack of planets around such short-period
 binaries is the formation mechanism. Short-period binaries are unlikely
-to form with such a small period inititally, rather, it is thought that 
+to form with such a small period initially, rather, it is thought that 
 they form as a wider binary and shrink their orbit.
 
 The right panel of \cref{table:timing_planets} shows the planet properties 
@@ -305,7 +300,8 @@ in a mean-motion resonance
 \begin{figure}[htb]
 \centering
 \includegraphics[width=\linewidth]{gfx/observations.pdf}
-\caption{Left panel: the observed orbital parameters 
+    \caption[Orbital parameters of main-sequence CB planets.]{Left panel: 
+    the observed orbital parameters 
     of planet hosting main-sequence binary stars with 
     circumbinary planets. Right panel: the same orbital parameters for the 
     circumbinary planets.}
@@ -330,14 +326,14 @@ excited such that in no longer transits.
 
 There are ways of correcting such survey biases and getting to the true 
 underlying mutual inclination distribution, and as a consequence also the
-occurence rate of CB planets. \cite{Armstrong2014} took into account the 
-survey biases of the Kepler mission and derived the occurence rate of CB
-planets. They find that if the CB planets are prefferentialy coplanar
-with their host binaries, the occurence rate of planets with radii greater
+occurrence rate of CB planets. \citet{Armstrong2014} took into account the 
+survey biases of the Kepler mission and derived the occurrence rate of CB
+planets. They find that if the CB planets are preferentially coplanar
+with their host binaries, the occurrence rate of planets with radii greater
 than 6 earth radii and with periods less than 300 days, orbiting around
 short period main-sequence binaries is around $10\%$, a value slightly 
 higher than 
-the corresponding occurence rate for single star systems. They also
+the corresponding occurrence rate for single star systems. They also
 find that the lack of giant planets in the MS sample is a real effect,
 it appears that CB planets are generally smaller than their
 single star cousins.
@@ -347,7 +343,7 @@ single star cousins.
 The subject of this thesis is the influence of stellar evolution on the orbits
 of CB planets. In this section I will provide a very brief overview of the
 stellar evolution of binary star systems. For more details see for example
-\cite{prialnik2009}.
+\citet{prialnik2009}.
 \subsection{Evolution on the main sequence}
 \label{sub:Evolution on the main sequence}
 Stellar evolution in single star systems
@@ -372,7 +368,7 @@ to the start of Helium burning the stellar radius increases during the red
 giant branch at reaches it highest point just before the ignition of Helium.
 The
 Helium burning phase lasts less than a billion years and in the process the 
-radius again increases followed by siginificant mass loss. Finally, all that is
+radius again increases followed by significant mass loss. Finally, all that is
 left is 
 the inert core in the form of a White Dwarf.
 
@@ -392,23 +388,23 @@ the eccentricity $e_i$.
 Following the main sequence the evolution of the binary is driven by
 the more massive star (the primary), which evolves faster and starts
 ascending the RGB first. As it ascends the RGB its radius starts to increase
-and tidal interactions (which depend very strongly on the stelallar radius)
+and tidal interactions (which depend very strongly on the stellar radius)
 become important. What happens is that the secondary star raises a tidal bulge
 on the primary which lags behind the secondary in its orbit, with a constant
 phase angle. The tidal bulge then exerts a negative torque on the secondary,
 effectively pulling it closer together and decreasing the semi-major axis of
 the orbit. Another effect of the tidal forces is a decrease in the eccentricity
 which declines towards zero before the end of the RGB. Tidal evolution
-is described in \cite{murray} and \cite{zahn1989a, zahn1989b}.
+is described in \citet{murray} and \citet{zahn1989a, zahn1989b}.
 
 To understand what happens in binary systems at the end of the RGB we need to
-undestand the concept of \emph{Roche Lobes}. Roche Lobes are surfaces in
+understand the concept of \emph{Roche Lobes}. Roche Lobes are surfaces in
 3D space where the force gravitational force experienced on a test 
 particle from the primary equals the force from the secondary, they are shown
 in \cref{fig:roche_lobe} as curves in the $x-y$ plane. The radius of the lobe
 around the more massive star is given by
 \begin{equation}
-    \frac{R_l}{a} = \frac{0.49q^{2/3}}{0.6q^{2/3} + \ln{(1+q^{1/3})}}
+    \frac{R_L}{a} = \frac{0.49q^{2/3}}{0.6q^{2/3} + \ln{(1+q^{1/3})}}
 \end{equation}
 where $q$ is the binary mass fraction and $a$ is the semi-major axis of the
 binary orbit. If a test particle is located within that radius it will be bound
@@ -417,27 +413,30 @@ secondary. The point at the limit between the lobes is called the
 \emph{Lagrange point L1}. The binary evolution then depends crucially on the
 ratio $R_1/R_L$ between the current radius of the primary and its 
 Roche lobe radius. If $R_1$ grows beyond the Roche Lobe radius the envelope
-no longer stays bound to the primary and the gas oveflows on to the secondary,
+no longer stays bound to the primary and the gas overflows on to the secondary,
 an event called the \emph{Roche Lobe Overflow} (RLOF). 
 This situation is illustrated in \cref{fig:roche_overflow}. 
 \begin{figure}[t!]
 \centering
 \includegraphics[width=0.7\linewidth]{gfx/roche_lobe.jpg}
-\caption{Roche Lobe surface for a binary star. On the level curves the pull
+    \caption[Roche lobe surface.]{Roche Lobe surface for a binary star. 
+    On the level curves the pull
     of gravity on a test particle from the primary equals the pull from the 
-    secondary.}
+    secondary. Figure taken from
+    \url{https://en.wikipedia.org/wiki/Roche_lobe\#/media/File:RochePotential.jpg}.}
 \label{fig:roche_lobe}
 \end{figure}
 \begin{figure}[htb]
 \centering
 \includegraphics[width=0.6\linewidth]{gfx/roche_overflow.pdf}
-    \caption{Time evolution of a binary system. a) Initially the primary (
+    \caption[Evolution of a binary system.]{Time evolution of a 
+    binary system. a) Initially the primary (
     star 1) is 
     more massive and fills a larger percentage of its Roche Lobe. b) The 
     primary star evolves first and significantly increases its radius. c) At
     a certain point, the radius of the primary becomes equal to the Roche Lobe
     radius and a CE phase starts. d) Mass is transfered from the primary
-    to the secondary. e) A commmon envelope form around both of the stars, as
+    to the secondary. e) A common envelope form around both of the stars, as
     a results the primary core and the secondary star spiral inwards due to
     gas drag. The orbital energy released goes into ejecting the envelope with
     some efficiency.}
@@ -445,7 +444,7 @@ This situation is illustrated in \cref{fig:roche_overflow}.
 \end{figure}
 
 Once RLOF starts very quickly the thin hydrogen envelope of the primary
-encompasses both of the stars, this phase is known as a \emph{common envelope}
+encompasses both of the stars, this phase is known as the \emph{common envelope}
 (CE). As a result the dense primary core and
 the secondary star experience strong gas drag which acts as a negative torque.
 The stars quickly spiral towards each other, and the orbital energy released
@@ -457,7 +456,7 @@ of a merger which happens if the stars spiral into each other.
 
 The CE phase usually lasts on the order of a thousand years and is very poorly
 understood \citep{Ivanova2013}. It is usually modeled with a single parameter
-$\alpha$, the fraction of orbital energy released during the inspiral
+$\alpha$, the fraction of orbital energy released during the in-spiral
 phase which goes into expanding and ejecting the envelope. 
 \begin{equation}
     \alpha= \frac{\Delta E_\text{bind}}{\Delta E_{orb}} 
@@ -466,14 +465,14 @@ Higher $\alpha$ means greater probability of envelope ejection
 while smaller $\alpha$ 
 means that the most likely outcome is a merger between the two stars and 
 partial ejection of the envelope.
-Observations tell us that usually $\alpha\approx 0.1-0.2$. In the process of CE 
+Observations tell us that usually $\alpha\approx 0.1-0.5$. In the process of CE 
 ejection some of the material can stay bound to the star and for a post CE
 circumbinary (or circumstellar in the case of a merger) disk. 
 
 The systems which are most interesting for the subject of this thesis are 
 binaries with primary mass of $1-2\,M_\odot$, those are most likely to host
 CB planets. We will use a well tested stellar evolution code (see 
-\cref{sec:binary_c}) which solves for the time evolution of bianry systems.
+\cref{sec:binary_c}) which solves for the time evolution of binary systems.
 
 \section{Motivation for the thesis topic}
 \label{sec:two_populations}
@@ -489,14 +488,14 @@ of planet-planet (or planet-star in the case of CB planets) interactions
 variations can be used to infer the presence of additional non-transiting 
 bodies in the system.
 
-While the TTVs are generally a reliable and powerfull technique for detecting
+While the TTVs are generally a reliable and powerful technique for detecting
 and characterizing  exoplanets, the detections of post CB planets presented 
 in \cref{table:timing_planets} have been cast into serious doubt by
-\cite{zorotovic}. They find the most of the detected planets in 
+\citet{zorotovic}. They find the most of the detected planets in 
 \cref{table:timing_planets} are likely not planets at all, 
 the observed variations could be  
 a result of variations in the shape of a magnetically active 
-seconday star via the so called Applegate mechanism \citep{applegate}. Other
+secondary star via the so called Applegate mechanism \citep{applegate}. Other
 authors \citep{hinse2012} find that some of the claimed planets
 are dynamically unstable on short timescales which means they are less likely
 to be real.
@@ -506,12 +505,13 @@ In particular, the system NN Ser, a post CE circumbinary system with
 two giant planets has been observed for 25 years, recent work \citep{Marsh2013}
 shows that best fit orbital parameters of the two planets result in a stable
 system. If the two giant planets are indeed real, the work by 
-\cite{Mustill2013a} showed that under standard stellar evolution assumption, 
+\citet{Mustill2013a} showed that under standard stellar evolution assumption, 
 the MS progenitors of those planets (orbiting a MS progenitor of the post CE
 binary star NN Serpentis) are dynamically unstable \emph{on the MS}. Hence, 
 their conclusion is that the either the planets formed recently in a post CE
 disk or they are not real. Tantalizingly, a recent detection of dust around
-the binary NN Serpentis by ALMA submilimeter array gives credence to the former
+the binary NN Serpentis by ALMA (Atacama Large Millimeter Array) 
+gives credence to the former
 scenario.
 
 The idea of so called second generation planet formation (where the planets
@@ -522,10 +522,10 @@ youngest planets ever detected. Post CE envelope disks are both predicted
 to arise in simulations \citep{Ivanova2013}, and have been observed 
 \citep{vanWinckel2009}. There is some similarity between these disks and 
 the protoplanetary disks around pre MS binaries \citep{deRuyter2006}. 
-\cite{Perets2010} points out that there is another possibility, the distinction
+\citet{Perets2010} points out that there is another possibility, the distinction
 between second and first generation formation need not be so strict. Lower
 mass planets could have formed with the binary and if they survived the 
-CE they would have providided initial seeds for second generation formation,
+CE they would have provided initial seeds for second generation formation,
 potentially making it even more efficient. For NN Serpentis in particular, 
 more observations are needed to confirm the planetary hypothesis and 
 distinguish between the various formation scenarios. 
@@ -533,14 +533,14 @@ distinguish between the various formation scenarios.
 The question remains what exactly happens to CB planets orbiting MS binaries
 such as those listed in \cref{table:kepler_planets}, as the binary 
 evolves first during
-the RGB phase and then through the CE phase. \cite{Kostov2016} did detailed
+the RGB phase and then through the CE phase. \citet{Kostov2016} did detailed
 N-body simulations of  planets in \cref{table:kepler_planets} during the 
 CE phase. They find that the planets predominantly survive through the
 CE phase, migrating further out due to significant mass loss, and potentially
-gaining significant eccentricities. The surving planets are roughly consistent
+gaining significant eccentricities. The surviving planets are roughly consistent
 with the observed post CE detections (except for the masses which are 
-consistently higher in the post CE population). However, \cite{Kostov2016},
-and also \cite{Mustill2013a} did not take into account the influence of an 
+consistently higher in the post CE population). However, \citet{Kostov2016},
+and also \citet{Mustill2013a} did not take into account the influence of an 
 evolving binary during the RGB phase when significant tidal evolution of
 the binary's orbit occurs. The subject of this thesis is to look into
 this phase by means of N-body simulations and analytical models and see if
@@ -548,7 +548,7 @@ if the orbital evolution of the binary prior to CE has a major influence on
 the stability of CB planets. In particular, during the tidal decay phase the
 CB experience passing mean motion resonances 
 (see \cref{ch:theoretical_background}) which can potentially have a major 
-influence on the dynamics of CB planets. The work of \cite{Kostov2016} then
+influence on the dynamics of CB planets. The work of \citet{Kostov2016} then
 nicely continues on the subject of this thesis and provides a complete picture
 of the dynamical evolution of circumbinary systems from the MS phase, all
 the way past the CE event. 
@@ -580,12 +580,11 @@ In \cref{sec:three_body} I review the theory of the three--body problem
 which forms the basis for subsequent analysis. Finally, in 
 \cref{sec:small_divisor} I talk about the validity of a certain approximation
 used in \cref{ch:analytical_model}.
-For the most part, the derivations in this chapter follow \cite{murray} and 
-\cite{Mardling2013}
+For the most part, the derivations in this chapter follow \citet{murray,Mardling2013}.
 \section{The two--body problem}
 \label{sec:two_body}
 \subsection{The orbit equation and its solution}
-If we are to attack the problem of three gravitionally interacting
+If we are to attack the problem of three gravitationally interacting
 bodies in a circumbinary system, we first need to understand a simpler 
 problem -- that of two interacting massive bodies. This problem is often called 
 the \emph{Kepler problem} or the \emph{two-body problem}. Consider two bodies with masses
@@ -626,7 +625,7 @@ where $\vect{h}$ is a constant vector perpendicular to the plane spanned
 by $\vect{r}\times\dot{\vect{r}}$. $\vect{h}$ is in fact the angular momentum
 per unit mass. Thus, the motion of $m_2$
 relative to $m_1$ is confined to a plane perpendicular to $\vect{h}$. Since 
-the motion is in a plane, we can simplify the problem further by transfering
+the motion is in a plane, we can simplify the problem further by transferring 
 to polar coordinated $(r,\theta)$ centered at $m_1$. We then have the following
 relations between vectors, available in any vector calculus book
 \begin{align}
@@ -669,25 +668,25 @@ differential equation has the solution (after transforming back to $r$)
 where the \emph{eccentricity} $e$ and the \emph{argument of pericentre} $\omega$
 are the two constants of integration. \Cref{eq:orbit_eq_solution} defines 
 a \emph{conic section} curve in 2D space. Depending on the eccentricity,
-it can either be an ellipse for $e<1$ corresponding to a closed orbit, or
+it can either be an for $e<1$ corresponding to a closed orbit, or
 a hyperbola for $e>1$ corresponding to an unbound orbit. The special case
-$e=1$ defines a boundary between closed elliptical orbits and open hyperbollic
+$e=1$ defines a boundary between closed elliptical orbits and open hyperbolic
 orbits. Any
 particular orbit is highly unlikely to have an eccentricity of exactly zero. 
 Similarly $e=0$ defines a circular orbit which is of more interest since
 most stable planetary orbits are very nearly circular.
 \begin{figure}[htb]
 \centering
-\includegraphics[width=\linewidth]{gfx/ellipse.png}
-\caption{An elliptical orbit. The mass $m_1$ sits in one focus and $m_2$ orbits 
-    around it. The postion of $m_2$ on the ellipse is specified by two angles, 
+\includegraphics[width=\linewidth]{gfx/ellipse.pdf}
+    \caption[Elliptical orbit.]{An elliptical orbit. The mass $m_1$ sits in one focus and $m_2$ orbits 
+    around it. The position  of $m_2$ on the ellipse is specified by two angles, 
     the true anomaly $f$ and the argument of pericentre $\omega$. Only $f$ 
     varies in the two--body problem, $\omega$ stays fixed in the absence of an
-    external perturbation. Figure taken from \citet{murray}.}
+    external perturbation.} 
 \label{fig:ellipse}
 \end{figure}
 \Cref{fig:ellipse} shows an elliptical orbit in two dimensional space. The mass
-$m_2$ orbits around $m_1$ which is located in one of the focci of the ellipse.
+$m_2$ orbits around $m_1$ which is located in one of the foci of the ellipse.
 The position of $m_2$ at each moment in time is described by the $2\pi$--periodic
 angle 
 $f=\theta - \omega$ called the \emph{true anomaly}. The angle $\omega$ is specified 
@@ -730,7 +729,7 @@ thus, the energy of a closed orbit in the two--body problem depends only on the 
 \subsection{The mean and eccentric anomaly}
 By solving the orbit equation, we have established that the mass $m_2$ orbits 
 around $m_1$ in an ellipse if $e<1$. However, it is not immediately clear how
-to explicitly solve for the time dependance of $r$ and $f$ and thus determine 
+to explicitly solve for the time dependence of $r$ and $f$ and thus determine 
 the position of $m_2$ at any given time, because $f$ and $r$ vary
 non-linearly with time for $e\neq 0$. For reasons which will become apparent 
 later, we would like to construct an angle which varies linearly with time.
@@ -744,11 +743,11 @@ since the orbiting body was at pericentre, and it is constant. $M$
 increases linearly with time at a rate equal to the mean motion. At $t=\tau$ 
 we have $M=f=0$
 and at $t=\tau + T/2$ $M=f=\pi$, thus, at the pericentre and apocentre 
-M matches with $f$. The angle $M$ has no obvious geometricall significance
+M matches with $f$. The angle $M$ has no obvious geometrical significance
 but we can define another angle which does. \Cref{fig:eccentric_anomaly} 
 shows the orbital ellipse with semi-major axis $a$ together with a 
 circumscribed circle of radius $a$ concentric with the ellipse. A line 
-perpendicular to the semi-major axis of the ellipse interesects two points,
+perpendicular to the semi-major axis of the ellipse intersects two points,
 one on the orbit and one on the circumscribed circle. We define the 
 \emph{eccentric anomaly} $E$ to be the angle between the semi-major axis
 of the ellipse and the intersected point on the circle. Again, we have
@@ -756,7 +755,8 @@ $E=M=0$ at $f=0$ and $E=M=\pi$ at $f=\pi$.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=0.5\linewidth]{gfx/eccentric_anomaly.png}
-\caption{A geometrical description of the eccentric anomaly $E$.}
+    \caption[Eccentric anomaly.]{A geometrical description of 
+    the eccentric anomaly $E$. Figure from \citet{murray}.}
 \label{fig:eccentric_anomaly}
 \end{figure}
 From geometry one can show that the following relation between the
@@ -765,7 +765,7 @@ angles $f$ and $E$ is satisfied
     \cos f= \frac{\cos E -e}{1-e\cos E} 
     \label{eq:eccentric_anomaly}
 \end{equation}
-Thus, there is a one-to-one correspondance between $f$ and $E$ as long as
+Thus, there is a one-to-one correspondence between $f$ and $E$ as long as
 both are measured with respect to the positive $x$ axis. To 
 locate the location of the body on its orbit at time $t$, we need
 a relationship between $E$ and $M$. This relation ship is called
@@ -798,12 +798,13 @@ of $m_2$ with respect to $m_1$, we now turn to the description of the
 orbit in a non-accelerating \emph{inertial frame}.
 \begin{figure}[htb]
 \centering
-\includegraphics[width=0.5\linewidth]{gfx/barycentric_orbit.png}
-\caption{The motion of $m_2$ and $m_1$ with respect to their centre
+\includegraphics[width=0.5\linewidth]{gfx/barycentric_orbit.pdf}
+    \caption[Barycentric orbit.]{The motion of $m_2$ and $m_1$ 
+    with respect to their centre
     of mass $O'$.}
 \label{fig:barycentric_orbit}
 \end{figure}
-It is not difficult to show that the the masses $m_1$ and $m_2$ again
+It is not difficult to show that the masses $m_1$ and $m_2$ again
 orbit in a conic section around their centre of mass with the same
 period $T$ as before. 
 \Cref{fig:barycentric_orbit} shows the orbits with respect to the
@@ -848,7 +849,8 @@ in 3D space relative to a fixed reference plane.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=0.8\linewidth]{gfx/3d_orbit.png}
-\caption{A keplerian orbit in 3D space.}
+    \caption[Orbit in 3D space.]{A Keplerian orbit in 3D space, figure
+    from \citet{murray}.}
 \label{fig:3d_orbit}
 \end{figure}
 \Cref{fig:3d_orbit} shows the orbit in 3D Cartesian coordinate system,
@@ -868,15 +870,15 @@ is defined in the range $0\leq I\leq \pi$.
 Thus, we have completely described the orbit in 3D space. However, it is useful to 
 define another angle $\varpi$ called the \emph{longitude of pericentre.} 
 $\varpi$ is not really a true angle since it is defined as a sum of 
-angles in two seperate planes. When the inclination is zero (the orbit
+angles in two separate planes. When the inclination is zero (the orbit
 is co-planar with the reference plane) we have $\varpi=\omega$. 
 
-It can be shown that each there is a one-to-one correspondance between 
+It can be shown that each there is a one-to-one correspondence between 
 a set of Cartesian positions and velocities $(x,y,z,v_x,v_y,v_z)$ 
 of a given massive particle and an \emph{instantaneous} Keplerian orbit 
 defined by $(a,e,I,\Omega,\omega,f)$ with respect to another massive
-particle. This is why it is still usefull to talk about orbits even
-when we are dealing with a system of multiple bodies. Altough those
+particle. This is why it is still useful to talk about orbits even
+when we are dealing with a system of multiple bodies. Although those
 bodies won't stay on a fixed Keplerian orbit for all time, at any given
 time we can still define an instantaneous Keplerian orbit.
 Most bodies in stable systems change their orbital elements slowly
@@ -947,21 +949,21 @@ rescale the time. This can be seen from the form of
     \frac{\mathrm{d}q}{\mathrm{d}(\eta t)}  
     \label{eq:rescaling_hamiltonian}
 \end{equation}
-and similary for the coordinate scaling. Transformations of this
+and similarly for the coordinate scaling. Transformations of this
 type are known as \emph{scale transformations} and they are simply 
 a reflection of the fact that the equations of motion should be invariant
 to the changes of units.
 \subsection{Integrable Hamiltonians}
 The Hamiltonian formalism is useful for finding conserved quantities.
 If a generalized coordinate $q_i$ does not appear in the Hamiltonian
-the the corresponding momentum conjugate $p_i$ is a conserved quantity
+the corresponding momentum conjugate $p_i$ is a conserved quantity
 \begin{equation}
     \dot{p}_i= \frac{\partial \mathcal{H}}{\partial q_i} =0
 \end{equation}
 If the motion is in a fixed potential, the Hamiltonian is equal
 to the total energy of the system $E$.
 
-If a particular hamiltonian $\mathcal{H}$ can be reduced to a form
+If a particular Hamiltonian $\mathcal{H}$ can be reduced to a form
 where it depends only on the momenta, that is
 \begin{equation}
     \mathcal{H}(\vect{p})
@@ -1095,7 +1097,7 @@ fixed point is unstable and we call it a \emph{saddle}.
 
 \subsection{Canonical transformations}
 \label{sub:Canonical transformations}
-A \emph{canonical transormation} is a coordinate transformation
+A \emph{canonical transformation} is a coordinate transformation
 from a set $(\vect{q},\vect{p})$ to $\left[Q(\vect{q},\vect{p}),
 P(\vect{q},\vect{p})\right]$ which preserves the form of Hamilton's
 equations. It can be shown that canonical transformations
@@ -1171,7 +1173,7 @@ Combining the two equations, we obtain a single equation of motion
 We see that in the limit of small $\phi$ the motion is equivalent to
 that of the harmonic oscillator oscillating with the frequency
 $\omega_0$. The fixed points are located at
-$(\phi, p)=(\pm k\pi,0)$ (where k is an interger) and there is 
+$(\phi, p)=(\pm k\pi,0)$ (where k is an integer) and there is 
 a single 
 stable center point located at $(\phi¸ p)=(\pi, 0)$. It is 
 sufficient to study the two fixed points $(0,0)$ and $(\pi,0)$
@@ -1192,11 +1194,12 @@ at $(\pi,0)$, we have
         0 & 1
     \end{pmatrix}
 \end{equation}
-The point is a an unstable saddle point.
+The point is an unstable saddle point.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=\linewidth]{gfx/pendulum.pdf}
-\caption{The phase space of a pendulum. The red curve denotes the 
+    \caption[Pendulum phase space portrait.]{The phase space of a pendulum. 
+    The red curve denotes the 
     separatrix filled circles denote stable fixed points, open circles denote
     unstable fixed points.}
 \label{fig:pendulum}
@@ -1213,9 +1216,9 @@ expression for $\omega_{lib}$ as a function of maximum $\phi$.},
 the oscillation period increases from the initial
 small amplitude value of $2\pi/\omega_0$ to infinity as the separatrix is
 approached. Once the separatrix is crossed the motion is unbounded. This
-steep dependance of the librational period on the distance to the separatrix is
+steep dependence of the librational period on the distance to the separatrix is
 responsible for chaos in weakly interacting non-linear systems (see
-\cite{cambridgenbody} for a broader discussion of this point). The concepts
+\citet{cambridgenbody} for a broader discussion of this point). The concepts
 presented in this section will be important for the study of resonance in the
 three--body problem.
 
@@ -1228,7 +1231,7 @@ an outer planet. The three--body problem is famously not integrable, many
 great mathematicians such as Newton and Poincaré have tried and failed to find and
 exact solution. However, it is still possible to do a perturbative analysis
 in the case when one of the bodies is only weakly interacting with the
-other two. The following discussion largely follows \citet{Mardling2013}.
+other two. The following discussion largely follows \citett{Mardling2013}.
 
 A stable hierarchical system of three bodies naturally divides into
 two orbits composed of an "inner binary" and an "outer binary". We will work
@@ -1244,13 +1247,14 @@ Thus, at any given moment we can define two Keplerian orbits, one for
 the inner binary and one for the outer binary. Since the three--body
 problem is not integrable the orbits will in general no longer be fixed
 and will change their orbital elements with time. This choice of coordinates
-obviously fails in the case of crossing orbits since the hiararchy loses
+obviously fails in the case of crossing orbits since the hierarchy loses
 its meaning, however, a system with crossing orbits is inherently unstable
 and not the subject of our interest.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=\linewidth]{gfx/jacobi.pdf}
-    \caption{A system of three massive bodies in Jacobi coordinates. 
+    \caption[Jacobi coordinates.]{A system of three massive 
+    bodies in Jacobi coordinates. 
     The point $C_{12}$ denotes the centre of mass of the inner two 
     bodies and the point $C_{123}$ that of the whole system.}
 \label{fig:jacobi}
@@ -1260,19 +1264,20 @@ When the system is stable the inner and outer orbits interact only
 weakly by means of an interacting potential called the 
 \emph{disturbing function}. The disturbing function can be written
 as an infinite Fourier series of angles called the \emph{harmonic
-angles} (or sometimes resonance angles), it is responsible for the exchange of energy and angular 
+angles} (or sometimes resonance angles), it is responsible 
+for the exchange of energy and angular 
 momentum between the two orbits.  Each resonance angle is a linear
 superposition of all angles in the system. A resonance angles can either 
 circulate or librate in exactly the same way as the angle in the pendulum model
 described in the previous section.
 If a particular resonance angle is librating, we say that the system
 is in \emph{resonance}. The various resonance angles can mutually 
-interact, under certain conditions a system can exisist in two 
+interact, under certain conditions a system can exist in two 
 neighbouring resonant states where two resonant angles librate 
 at a similar period. This is known as \emph{resonance overlap} 
 and it leads to chaotic behaviour as the resonance angle approaches
 the unstable fixed points \citep{WalkerFord1969}. The resonance
-overlap criterion is then a good indication of wheather the
+overlap criterion is then a good indication of whether the
 system is chaotic or not.
 
 We can write the equations of motions as
@@ -1289,12 +1294,12 @@ We can write the equations of motions as
 \end{equation}
 where the position vectors $r_i$ point from the centre of mass of 
 system $C_{123}$ to the mass $m_i$ and $\vect{r}_{ij}=\vect{r}_j-\vect{r}_i$. 
-\Cref{eq:three_body_newton} constitues a system with 9 degrees of freedom.
+\Cref{eq:three_body_newton} constitutes a system with 9 degrees of freedom.
 Again we have the 7 conserved quantities due to momentum and energy 
 conservation, however, there is no analogue of the Runge-Lenz vector
 in the three--body problem. Therefore, the system is not completely
 integrable, in fact, it admits \emph{chaotic} solutions -- solutions which
-are extremely sensitive to small variations in the inital conditions. 
+are extremely sensitive to small variations in the initial conditions. 
 There are two kinds of stability, one is called \emph{Lagrange stability} 
 and the other \emph{Hill stability}. The latter happens due to close
 approaches of two bodies which most often result in an ejection of one
@@ -1325,11 +1330,12 @@ and
     \label{eq:dist_cartesian}
 \end{equation}
 is the disturbing function with $\beta_i=m_i/m_{12},\,i=1,2$. We use the subscripts
-$i$ and $o$ to denote quantities defined with respoct to the inner and outer orbits
+$i$ and $o$ to denote quantities defined with respect to the inner and outer orbits
 respectively. The notation $\partial/\partial\vect{r}$ refers to the gradient with 
 respect to the spherical polar coordinates $(r,\theta_1,\phi_1)$ 
 associated with the position od body 2 relative to the centre of mass $C_{12}$, similarly,
-$\partial/\partial\vect{R}$ is the gradient associated with the position of body 3 with coordinates $(R,\theta_o,\phi_o)$
+$\partial/\partial\vect{R}$ is the gradient associated with the position 
+of body 3 with coordinates $(R,\theta_o,\phi_o)$
 relative to the same origin. All information
 about the mutual interaction of the inner and outer orbits is contained in
 $\mathcal{R}$\footnote{Historically, most versions of the expanded disturbing
@@ -1360,7 +1366,7 @@ motion. Those are equivalent to \cref{eq:three_body_newton_R}, except that they
 are first order in time. If those equations are then expressed in terms
 of the inner and outer orbital elements, they are called 
 \emph{Lagrange's planetary equations}. The derivation is presented
-in \cite[for ex.][]{brouwer1961}, here we merely state the result for coplanar
+in \citet[for ex.][]{brouwer1961}, here we merely state the result for coplanar
 systems
 \begin{equation}
 \begin{aligned}
@@ -1447,7 +1453,7 @@ where
     c^2_{lm}= \frac{8\pi}{2l+1} \left[Y_{lm}(\pi/2,0)\right]=c^2_{l-m}
 \end{equation}
 and the notation $m=-l, 2$ in the summation over $m$ means that the summation is taken
-in steps of 2. The first few values for $c_{lm}$ can be found in \cite{Mardling2013}.
+in steps of 2. The first few values for $c_{lm}$ can be found in \citet{Mardling2013}.
 For stable systems the expressions in the last two brackets of
 \cref{eq:dist_expanded} are nearly periodic and can therefore be expanded in a 
 \emph{Fourier series} of the inner and outer mean anomalies $M_i=n_it+M_i(0)$ and
@@ -1500,7 +1506,7 @@ where
 is the \emph{harmonic angle},
 \begin{equation}
     \mathcal{R}_{mnn'}= \frac{G\mu_im_3}{a_o} \sum^\infty_{l=l_\text{min},2}
-    %\zeta_m c_{lm}^2 \mathcal{M}_l\alpha^l X^{l,m}_n(e_i)X^{-(l+1),m}_n'(e_o)
+    \zeta_m c_{lm}^2 \mathcal{M}_l\alpha^l X^{l,m}_n(e_i)X^{-(l+1),m}_{n'}\,(e_o)
     \label{eq:harmonic_coefficient}
 \end{equation}
 is the \emph{harmonic coefficient} associated with the harmonic angle
@@ -1572,7 +1578,7 @@ contain only the angles which vary on a slower timescale, such
 as $\varpi_i-\varpi_o$ and the inclination angles in non-coplanar
 systems. As we will be shown in \cref{sec:small_divisor}, in many
 cases one can ignore the disturbing function terms involving the 
-fast-varying mean longitudes and avarage them over the orbital
+fast-varying mean longitudes and average them over the orbital
 period, this is due to the fact that for such terms $\phi$ is 
 slowly varying and therefore $\cos{\phi}$ becomes significant.
  In practice, the averaging\footnote{One can show \citep{murray}
@@ -1589,7 +1595,7 @@ the terms with $n=n'=0$ in \cref{eq:disturbing_function}. The
 resulting disturbing function is called the 
 \emph{secular}\footnote{The word secular comes from Latin 
 \emph{seculum} meaning
-century, or long period.} distrubing function and it is given by
+century, or long period.} disturbing function and it is given by
 \begin{equation}
     \tilde{\mathcal{R}}=\sum^\infty_{m=0}\tilde{\mathcal{R}}_m
     \cos[m(\varpi_i-\varpi_o)]
@@ -1663,7 +1669,7 @@ system can be solved as an eigenvalue problem, the solutions are
 \end{equation}
 where the frequencies $g$ are the eigenvalues of the matrix $\vect{A}$
 with $e_{ol}$ and $e_{il}$ the components of two corresponding 
-eigenvectors. These are determined from the inital conditions together
+eigenvectors. These are determined from the initial conditions together
 with the phases $\beta_l$. \Cref{eq:laplace_lagrange} is known as
 the \emph{Laplace-Lagrange secular solution}. As expected, the solution
 does not depend on the mean longitudes since we are neglecting them
@@ -1674,9 +1680,9 @@ system in which there are two additional coordinates $p=I\sin\Omega$
 and $q=I\cos\Omega$.}of the two orbits as a function
 of time and it implies that the orbits are stable for all time within
 the limits of the secular approximation (terms with mean longitudes
-can be avaraged out) and the eccentricity expansion to second order.
+can be averaged out) and the eccentricity expansion to second order.
 The Laplace-Lagrange holds not only in the three body case but
-also in the N-body case and it successfuly reproduces most aspects
+also in the N-body case and it successfully reproduces most aspects
 of the secular dynamics of the Solar System.
 \subsubsection*{Free and Forced elements}
 In \cref{sub:secular_dynamics} we have shown that it is possible to 
@@ -1710,8 +1716,9 @@ e'\sin\varpi')$.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=0.6\linewidth]{gfx/free_forced_elements.png}
-\caption{The geometric relationship between the free and forced
-    eccentricities and longitudes. Figure taken from \cite{murray}.}
+    \caption[Free and forced elements.]{The geometric relationship 
+    between the free and forced
+    eccentricities and longitudes. Figure taken from \citet{murray}.}
 \label{fig:free_forced_elements}
 \end{figure}
 \Cref{fig:free_forced_elements} shows the geometrical interpretation
@@ -1760,10 +1767,10 @@ require approximately
 \begin{equation}
     \frac{n_i}{n_o} = \frac{n'}{n} 
 \end{equation}
-Thus, the harmonic angle is slowly varying if there is an interger 
-ratio (since $n$ and $n'$ are interger coefficients in a Fourier 
+Thus, the harmonic angle is slowly varying if there is an integer 
+ratio (since $n$ and $n'$ are integer coefficients in a Fourier 
 series) between the mean motions of
-the inner and outer orbits, or equivalently, there is an interger
+the inner and outer orbits, or equivalently, there is an integer
 ratio between the periods since $n=2\pi/P$. If this 
 requirement is satisfied, we say that the mean motions
 are \emph{commensurate}. If \cref{eq:resonance_condition} is 
@@ -1776,9 +1783,10 @@ mean motion commensurability.
 \begin{figure}[htb]
 \centering
     \includegraphics[width=\linewidth]{gfx/conjunctions.png}
-    \caption{The relative positions of Jupiter (white circle) and 
+    \caption[Geometry of a mean--motion resonance.]{The relative positions 
+    of Jupiter (white circle) and 
     an asteroid (small filled circle) in a $2:1$ mean motion
-    resonance. Figure taken from \cite{murray}.}
+    resonance. Figure taken from \citet{murray}.}
 \label{fig:conjuctions}
 \end{figure}
 
@@ -1817,7 +1825,7 @@ necessarily also at the same position in inertial space.
 A consequence of \cref{eq:hansen_inner,eq:hansen_outer}
 defining the Hansen coefficients
 is that the combined power exponent of the inner and outer 
-eccentricites 
+eccentricitets 
 grows with the resonance order. The eccentricity dependance
 for a given term in the disturbing function 
 is of the form $\mathcal{O}(e_i^{\lvert m-n\rvert}
@@ -1871,7 +1879,7 @@ Just as in the case of a pendulum described in
 depends on the distance from the border between the libration region
 and the circulation region, i.e., the separatrix.  
 
-In order to calculate the resonance width, \cite{Mardling2013} derives
+In order to calculate the resonance width, \citet{Mardling2013} derives
 a pendulum like differential equation for the harmonic angle $\phi_{mnn'}$.
 Given a pendulum equation it is straightforward to calculate the dimensionless
 width of the resonance in units of period ratio.
@@ -1919,7 +1927,7 @@ The harmonic angle $\phi_N$ librates around $0$ because
 $X^{2,2}_1(e_i)<0$ and $X^{-3,2}_N(e_o)>0$ for all
 $e_i$ and $e_o$ and thus there is a minus sign in front
 of $\omega_N^2$. If it weren't for the minus sign, the 
-angle would librate around $\pi$ \cite{Mardling2013}.
+angle would librate around $\pi$ \citet{Mardling2013}.
 The libration condition is then
 \begin{equation}
     \dot{\phi}_N=n_o\left( \frac{n_i}{n_o} -N\right)<2\omega_N
@@ -1991,8 +1999,8 @@ Consider a Hamiltonian of the form
 where $\epsilon$ is a small parameter, $(\vect{J},\boldsymbol{\theta})$
 for a conjugate pair of variables where $\vect{J}$ is the momentum
 vector and $\boldsymbol{\theta}$ is the coordinate vector, $\vect{k}$ is
-a vector whose elements are intergers. This Hamiltonian has the form of
-\cref{eq:three_body_hamiltonian} where we have isolated a paricular term
+a vector whose elements are integers. This Hamiltonian has the form of
+\cref{eq:three_body_hamiltonian} where we have isolated a particular term
 in $\mathcal{R}$. We transform the coordinates
 by means of a canonical transformation $(\vect{J},\boldsymbol{\theta})
 \rightarrow (\vect{I},\boldsymbol{\theta}')$ generated by
@@ -2046,7 +2054,7 @@ as the \emph{small divisor problem}. Thus, any attempt to remove a
 commensurate term in the disturbing function by means of a canonical transformation
 fails. Any non-commensurate term however, can be consistently removed.
 
-Therefore, as long a single resonant term in the distrubing function dominates, and
+Therefore, as long a single resonant term in the disturbing function dominates, and
 all the other terms are non-commensurate, we can consider only a single term
 in Hamiltonian \ref{eq:three_body_hamiltonian}. It remains to show that 
 such a Hamiltonian can then be reduced to a single degree of freedom.
@@ -2143,7 +2151,8 @@ $\phi_{616}=\lambda_i-6\lambda_o+5\varpi_i  $ &
     $\mathcal{O}(\alpha^6,\,e_i^5,\,e_o^5)$\\
 \bottomrule
 \end{tabular}
-\caption{Harmonic angles associated with the principal harmonics
+    \caption[$6:1$ MMR harmonic angles.]{Harmonic angles 
+    associated with the principal harmonics
     of a $6:1$ mean motion resonance (those with $n\leq m\leq n'$).}
 \label{tab:6_1_angles}
 \end{table}
@@ -2180,7 +2189,7 @@ semi-major axes and
     X^{2,2}_1(e_i)\,X^{-3,2}_6(e_o)\cos(\lambda_i-6\lambda_o+
     \varpi_i + 4\varpi_o)
 \end{equation}
-is the single resonant distrubing function term. The Hamiltonian 
+is the single resonant disturbing function term. The Hamiltonian 
 \ref{eq:hamiltonian_orbital_elements} is written in terms of the
 orbital elements $(\lambda,a,e,\varpi)$ which do not form a canonically
 conjugate set of variables. We choose to rewrite the Hamiltonian in
@@ -2195,7 +2204,7 @@ variables are defined in terms of the orbital elements as
 \end{aligned}
 \label{eq:poincare_variables}
 \end{equation}
-and similary for the outer orbit with $m_{12}\rightarrow m_{123}$ and the
+and similarly for the outer orbit with $m_{12}\rightarrow m_{123}$ and the
 index $o$ for the orbital elements. Remembering \cref{eq:ang_momentum} for 
 the angular momentum of a Keplerian orbit, we see that the Poincaré 
 Lambdas correspond to the angular momentum for a circular outer and inner orbit
@@ -2204,9 +2213,9 @@ momenta for a circular and elliptical orbit\footnote{In secular interactions
 the sum of all $\Gamma$ elements of the system
 is called the \emph{angular momentum deficit} (AMD). It is a conserved quantity
 because the semi-major axes are constant and the total angular momentum is conserved.
-\cite{laskar} has shown that the Solar System is AMD unstable in the sense that
+\citet{laskar} has shown that the Solar System is AMD unstable in the sense that
 if say all planets except, say, Venus attained maximum angular momentum (corresponding
-to a circular orbit), Venus's eccentricity would inrease enough for crossing
+to a circular orbit), Venus's eccentricity would increase enough for crossing
 orbits to occur.}.
 We can then solve the system 
 \ref{eq:poincare_variables} for the orbital elements in terms of Poincaré
@@ -2242,7 +2251,7 @@ time by a constant factor, as follows
 \end{equation}
 where $m$ stands for any quantity with the dimension of mass in 
 \cref{eq:hamiltonian_poincare} and $a$ stands for any quantity with the 
-dimension of length. Time is not present explicitely in \cref{eq:hamiltonian_poincare}.
+dimension of length. Time is not present explicitly in \cref{eq:hamiltonian_poincare}.
 The hats denote the fact that the new variables are dimensionless. Plugging in the
 rescaled variables in the Hamiltonian (and taking out $G$, which has dimensions, from
 the definition of the Poincaré momenta) we obtain a Hamiltonian of the form
@@ -2352,7 +2361,7 @@ by using \cref{eq:eccentric_anomaly,eq:kepler_equation}. Finally,
 we expand the integrand in the inner coefficient in a Taylor series 
 around $e_i$, and similarly around $e_o$ for the outer coefficient.
 
-We can only use the lowest order approximation for the Hansen coefficinets
+We can only use the lowest order approximation for the Hansen coefficients
 accurate to order 
 $\mathcal{O}(e_i^3,e_o^6)$, otherwise the Hamiltonian becomes too complicated
 later on. In order to establish the domain of validity of this approximation,
@@ -2365,7 +2374,8 @@ regime so it remains justified.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=\linewidth]{gfx/hansen_coefficients.pdf}
-    \caption{Lowest order expansion term for the Hansen coefficients (dashed curves) 
+    \caption[Approximation of Hansen coefficients.]{Lowest order expansion 
+    term for the Hansen coefficients (dashed curves) 
     compared to exact integration.}
 \label{fig:hansen_coefficients}
 \end{figure}
@@ -2496,7 +2506,7 @@ and the Hamiltonian is
     \frac{\alpha^5}{\epsilon^4} \Theta^2\sqrt{\Theta+ \frac{\Theta_4}{\eta}}
     \cos\theta
 \end{equation}
-We can now multiply the hamiltonian by the dimensionless factor 
+We can now multiply the Hamiltonian by the dimensionless factor 
 $\frac{\epsilon^4}{\alpha^5}$ which corresponds to rescaling the time
 again. The final Hamiltonian then has the form
 \begin{equation}
@@ -2520,13 +2530,14 @@ parameters. We now turn to studying its structure.
 \begin{figure}[htb]
 \centering
     \includegraphics[width=\linewidth]{gfx/ham_params.pdf}
-    \caption{(a) Hamiltonian parameter $\delta$
-     on the period ratio $\mu_i=0.5$, $m_3=10^{-3}$, $e_i=0.2$, $e_o=0.05$.
+    \caption[Parameters of the Hamiltonian.]{(a) Hamiltonian parameter $\delta$
+     as a function of the period ratio $\mu_i=0.5$, $m_3=10^{-3}$, 
+     $e_i=0.2$, $e_o=0.05$.
      (b) Hamiltonian parameter $c$ as a function of the inner
      eccentricity for $\mu_i=0.5$, $m_3=10^{-3}$, $e_o=0.05$.}
 \label{fig:ham_params}
 \end{figure}
-In order to gain insight into the dependance of the two parameters $\delta$
+In order to gain insight into the dependence of the two parameters $\delta$
 and $c$, we plot them in \cref{fig:ham_params}. We see that $\delta$ is a 
 measure of proximity to the exact commensurability since it reaches 
 zero at $P_o/P_i\approx 6$. In the case of an evolving circumbinary 
@@ -2586,7 +2597,8 @@ and
 \begin{figure}[htb]
 \centering
 \includegraphics[width=0.9\linewidth]{gfx/fixed_points.pdf}
-\caption{A graphical solution to the equation defining the fixed points of
+    \caption[Graphical solution for the fixed points.]{A 
+    graphical solution to the equation defining the fixed points of
     the Hamiltonian \ref{eq:hamiltonian_final}. The solid lines are 
     plots of $f(\delta,R)$ for various values of $\delta$. The dashed
     lines are plots of the function $g(R, c)$  for a fixed positive value
@@ -2598,7 +2610,7 @@ for a fixed value of $c$. Each solid line corresponds to a different
 value of delta. The intersections of $f$ and $g$ are the roots of 
 \cref{eq:fixed_points}. There are two solutions for $\delta>0$
 and no solutions for $\delta<0$. At $\delta=0$ and $\Phi=0$, a double root
-of \cref{eq:fixed_points} either appears or disappears depending on wheater
+of \cref{eq:fixed_points} either appears or disappears depending on whether
 zero is approached from above or below. Thus, we conclude that there are two 
 distinct behaviours of the Hamiltonian depending on the sign of $\delta$,
 $\delta=0$ is then called a \emph{bifurcation point} of the
@@ -2636,7 +2648,8 @@ point, independent of the value of $\delta$.
 \begin{figure}
 \centering
 \includegraphics[width=0.8\linewidth]{gfx/phase_space_plot.pdf}
-    \caption{Phase space portraits of the Hamiltonian 
+    \caption[Phase space portraits of the Hamiltonian.]{Phase space 
+    portraits of the Hamiltonian 
     \ref{eq:hamiltonian_cartesian} for different values of 
     $\delta$. The red curve
     is the separatrix. Filled circles are stable fixed points and the open
@@ -2662,7 +2675,7 @@ The phase space of the first two panels of \cref{fig:phase_space} is divided int
 \emph{topologically}\footnote{Topology is a field in mathematics which studies 
 properties of space preserved under continuous deformations such as stretching, twisting
 and crumpling. For example, a circle is topologically equivalent to an ellipse, 
-a sphere is equal to an ellipsoid, and a coffe cup is equivalent to a torus.} different
+a sphere is equal to an ellipsoid, and a coffee cup is equivalent to a torus.} different
 regions divided by the separatrix curve (red curve). The separatrix curve passes through
 the unstable saddle point and consists of two
 'branches', an inner branch (small red quasi-circle) and on outer branch (large red
@@ -2693,7 +2706,8 @@ types of trajectories are indicated in the diagram.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=\linewidth]{gfx/morphogenesis.pdf}
-    \caption{The bifurcation diagram of the the Hamiltonian \ref{eq:hamiltonian_final}. 
+    \caption[Bifurcation diagram]{The bifurcation diagram of
+    the Hamiltonian \ref{eq:hamiltonian_final}. 
     The dashed curve denotes the value of $\mathcal{H}$ evaluated at the saddle point $x_s$, and 
     the solid curve the value of $\mathcal{H}$ at the left center point.}
 \label{fig:morphogenesis}
@@ -2739,7 +2753,7 @@ are however analytically intractable.
 
 One can show that given a Hamiltonian $\mathcal{H}(\theta,\Theta;\delta)$
 where $\delta$ is slowly varying, there exists a constant of motion
-called the \emph{adiabatic invariant} (see for example \cite{landau}),
+called the \emph{adiabatic invariant} (see for example \citet{landau}),
 given by
 \begin{equation}
     \mathcal{J}=\oint \Theta\,\mathrm{d}\theta    
@@ -2779,7 +2793,7 @@ to a particular level curve.
 
 There is caveat to the conservation of $\mathcal{J}$ however. If the trajectory 
 approaches
-the separatrix, the librational period tends to inifinity (remember the pendulum
+the separatrix, the librational period tends to infinity (remember the pendulum
 model). As $T\rightarrow\infty$, the adiabatic criterion in 
 \cref{eq:adabatic_criterion} is no longer satisfied and $\mathcal{J}$ is not
 conserved. After passing the separatrix curve however, $\mathcal{J}$ is 
@@ -2790,7 +2804,8 @@ of divergent resonance crossing.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=\linewidth]{gfx/phase_space_plot_adiabatic.pdf}
-    \caption{The evolution of the adiabatic invariant $\mathcal{J}$
+    \caption[Adibatic invariant evolution.]{The evolution of the 
+    adiabatic invariant $\mathcal{J}$
     with varying $\delta$.
     Dark circle denotes the adiabatic invariant, red curve is the 
     separatrix. Top left panel - initially the trajectory is a circle.
@@ -2816,7 +2831,7 @@ outer separatrix branch (bottom left panel). Finally, as $\delta$
 decreases further and goes past $\delta=0$, the separatrix
 disappears, the adiabatic invariant is again conserved and the 
 system is left on a trajectory with a larger $\Theta$ (and
-therefore larger $e_o$) then it inially started with.
+therefore larger $e_o$) then it initially started with.
 
 In order to calculate the adiabatic invariant after the discontinuous
 jump and therefore also the final eccentricity, we need to know
@@ -2862,7 +2877,7 @@ point $\Theta_1=\Theta_s$, the upper limit is the value of $\Theta$
 at $\theta=\pi$ where the inner and the outer branch cross the separatrix.
 
 Since it is not possible to derive an analytic solution for the location
-of the fixed points and hence also the poins at which the separatrix
+of the fixed points and hence also the points at which the separatrix
 crosses the $x$ axis, we have to resort to numerical methods of finding
 the equation roots. To find the roots we use
 the \texttt{Python} package \texttt{SciPy} \citep{scipy} and its
@@ -2912,9 +2927,8 @@ as follows
 For a system with $\mu_i=0.5\,\text{M}_\odot$, $m_3=10^{-3}\,\text{M}_\odot$ 
 and initial eccentricities $e_i=0.2$, $e_o=0.05$ we obtain a final outer
 eccentricity after resonance passage of $e_o=0.089$. We will use the
-algorithms defined above to investagate the dependance of the eccentricity
+algorithms defined above to investigate the dependence of the eccentricity
 kick on system parameters in \cref{ch:results}.
-\clearpage
 %************************************************
 \chapter{N-body simulations of circumbinary systems up to the Common Envelope phase}
 \label{ch:numerical_analysis}
@@ -2947,7 +2961,7 @@ Once the initial positions $\vect{r}_{i,0}$ and velocities $\dot{\vect{r}}_{i,0}
 are specified, there exists a unique solution which can only be obtained
 numerically for $N>2$. The N-body system of equations is extremely sensitive
 to the initial conditions and special care must be taken to ensure numerical
-accuracy of the soltions. Since \cref{eq:nbody_equations} involve the force
+accuracy of the solutions. Since \cref{eq:nbody_equations} involve the force
 calculation between each pair of $N$ particles, the computational complexity
 of the problem scales as $\mathcal{O}(N^2)$.
 
@@ -2972,15 +2986,15 @@ A class of integrators called \emph{symplectic integrators}
 \citep{vogelaere,ruth,feng} is often used
 in celestial mechanics. Instead of solving \cref{eq:nbody_equations}, these
 integrators solve the equivalent Hamiltonian system. They preserve
-invariant propertties such as phase space density and in many cases
+invariant properties such as phase space density and in many cases
 can have an upper bound on the energy error.
 \section{REBOUND - an open source N-body integrator}
 \label{sec:REBOUND - an open source N-body integrator}
-Because the N-body problem occurs very often in astrophyisical applications,
+Because the N-body problem occurs very often in astrophysical applications,
 there exist multiple numerical solvers for problems of various scales and 
 with varying degree of accuracy. Traditionally, the code most often used for applications
 in celestial mechanics is \texttt{MERCURY} \citep{chambers1997,chambers1999}, 
-written in the \texttt{Fortran} programming language.
+written in the \texttt{FORTRAN} programming language.
 
 For the problem of simulating a circumbinary system
 which involves pure N-body computations and dissipative forces, I have 
@@ -3053,13 +3067,13 @@ $\vect{g}_k$ (and hence also $\vect{b}_k$). These are obtained using an implicit
 scheme
 \citep[see][for details]{Rein2014}. To obtain the best possible accuracy for
 the position and the velocity, the spacing of substeps in \texttt{IAS15} 
-\cite{Rein2014} chose Gauss-Radau spacing\footnote{Gauss-Radau spacing is related to 
+\citet{Rein2014} chose Gauss-Radau spacing\footnote{Gauss-Radau spacing is related to 
 the Gaussian quadrature which is a way of approximating a solution to an 
 integral on a definite interval} with $h_n=0, 0.0562, 0.1802, 0.3526, 
 0.5471, 0.7342, 0.8853 and 0.9775$. In a Gauss-Radau integration scheme
 where a function $F(t)$ is integrated on the domain $[0,dt]$ with $m$ quadrature
 points and the absolute error term is of order $\mathcal{O}(dt^{2m})$
-\cite{Rein2014}. 
+\citet{Rein2014}. 
 For $m=8$ the error term is $\mathcal{O}(dt^{16})$ which makes this
 a 15-th order scheme, hence the name \texttt{IAS15}. The fact that this
 integrator is 15th order means that by reducing the timestep by a factor of
@@ -3094,7 +3108,7 @@ precision is extended (to say 128 bit numbers).
 The total error then depends on the other errors. $E_\text{floor}$ is constant,
 and $E_\text{bias}$ in general might grow linearly with time because
 some floating-point operations might be biased, for example, in a series
-of repeated additions the error might be prefferentialy positive instead of
+of repeated additions the error might be preferentially positive instead of
 either positive or negative with equal probability. To avoid these types of
 errors all mathematical operations in \texttt{IAS15} use only the operators
 $+,-,\times,/$ which are guaranteed to give the same result\footnote{This is 
@@ -3104,13 +3118,13 @@ independent of the hardware on which the code is run or the compiler differences
 
 Even if such biases are removed and the error in each individual calculation is
 completely random, the error (designated $E_\text{rand}$) grows with time. 
-\cite{brouwer} showed that  quantities such as the energy  or position error
+\citet{brouwer} showed that  quantities such as the energy  or position error
 grow as $\propto t^{1/2}$ and the error in angles grows as $\propto t^{3/2}$,
 this is known as \emph{Brouwer's law}.
-Extensive test of the \texttt{IAS15} integrator presented in \cite{Rein2014} 
+Extensive test of the \texttt{IAS15} integrator presented in \citet{Rein2014} 
 show that it follows Brouwer's law, that is, the error is dominated by the 
 $E_\text{random}$ term. The closest comparable integrator, \texttt{RADAU}
-in \texttt{MERCURY} generally has a two orders of magitude greater error. 
+in \texttt{MERCURY} generally has a two orders of magnitude greater error. 
 
 \section{binary\_c - a binary stellar evolution code}
 \label{sec:binary_c}
@@ -3122,7 +3136,7 @@ need some prescription the evolution of the stellar binary.
 I opted to use the \texttt{binary\_c}
 \footnote{\url{http://www.ast.cam.ac.uk/~rgi/binary_c.html}}
 stellar evolution code described in
-\cite{izzard2004,izzard2006,izzard2009}, which is based on a binary
+\citet{izzard2004,izzard2006,izzard2009}, which is based on a binary
 stellar evolution code \texttt{BSE} \citep{hurley2002}. Both \texttt{BSE}
 and \texttt{binary\_c} do not solve the equations of stellar structure directly
 (which is very computationally expensive) but rather uses analytical formulae
@@ -3167,7 +3181,8 @@ as a \texttt{Python} object.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=0.7\linewidth]{gfx/stellar_evo_ex.pdf}
-\caption{An example of the stellar evolution output data from the \texttt{binary\_c}
+    \caption[Example stellar evolution trajectories.]{An example of the 
+    stellar evolution output data from the \texttt{binary\_c}
     code for $m_1=1.2\,M_\odot$, $m_2=0.5\,M_\odot$, $e=0.3$, $P=100$ days.Top 
     panel shows the time evolution of the stellar radii, middle panel shows
     the mass loss from both stars and the bottom panel shows the 
@@ -3176,7 +3191,7 @@ as a \texttt{Python} object.
 \end{figure}
 
 \Cref{fig:stellar_evo_ex} shows an example output of the \texttt{binary\_c} code
-for an eccentric short-period binary ($e=0.3$, $P=100$ days), consisting of 
+for an eccentric short-period binary ($e=0.3$, $P=100$ days), consisting of a
 main-sequence star of mass  
 $m_1=1.2\,M_\odot$, and a red-dwarf of mass $m_2=0.5\,M_\odot$. 
 The final outcome of the stellar evolution in this case is a binary 
@@ -3221,11 +3236,12 @@ space results in outcomes which favor resonance crossing scenarios likely
 to cause significant eccentricity excitation. Nevertheless, the sample of 
 observed circumbinary systems in \cref{table:kepler_planets} is very small 
 and there might stil be a significant population of CB planets 
-located just inside the the $6:1$ and $7:1$ MMR locations.
+located just inside the $6:1$ and $7:1$ MMR locations.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=\linewidth]{gfx/stellar_evo_kepler.pdf}
-\caption{Evolutionary tracks of circumbinary planet hosting main-sequence
+    \caption[MMR crossings.]{Evolutionary tracks of circumbinary 
+    planet hosting main-sequence
     binaries in period-eccentricity space. The vertical lines show the location
      of high-order mean motion commensurabilities up to the $9:1$ commensurability
      . The title above each panel
@@ -3236,7 +3252,7 @@ located just inside the the $6:1$ and $7:1$ MMR locations.
 Having covered binary evolution up to the common envelope phase, the question
 remains what happens during and after the common envelope.
 The common envelope is a very short lived and poorly understood phase of 
-binary stellar evolution (for a recent review see \cite{Ivanova2013}). 
+binary stellar evolution (for a recent review see \citet{Ivanova2013}). 
 Depending on the model it lasts on the order of a few
 tenths to a few thousands of years, a blink of an eye when compared to 
 typical stellar evolution timescales. 
@@ -3254,8 +3270,8 @@ map of \texttt{binary\_c} outcomes classified into four categories:
 \begin{enumerate}
     \item None - CE did not occur
     \item CE - CE did occur and the final system is a binary
-    \item CE \& merger - CE occured and the two stars merged into a single star
-    \item SN - CE occured and the two stars underwent a double-degenerate supernova
+    \item CE \& merger - CE occurred and the two stars merged into a single star
+    \item SN - CE occurred and the two stars underwent a double-degenerate supernova
 \end{enumerate}
 Left panel of \cref{fig:evolution_outcomes} shows a stellar evolution 
 outcomes for very short period binaries with
@@ -3268,7 +3284,7 @@ which does not result in a merger is slightly larger and also possible for low
 mass binaries. In general, these results should be taken with a grain of salt 
 because the physics behind the CE phase is so uncertain. We can however conclude
 that all of the circumbinary planet hosting binaries do undergo a common envelope
-phase, the question is just wheater they end up as a single star or a very tight 
+phase, the question is just whether they end up as a single star or a very tight 
 binary.
 \begin{figure}[t!]
 \centering
@@ -3284,8 +3300,9 @@ binary.
 %  \caption{A subfigure}
 %  \label{fig:sub2}
 \end{subfigure}
-    \caption{Final outcomes of stellar evolution generated by the 
-    \texttt{binary\_c} code as a function of the the two masses. Left panel: 
+    \caption[Outcomes of binary stellar evolution.]{Final outcomes of 
+    stellar evolution generated by the 
+    \texttt{binary\_c} code as a function of the two masses. Left panel: 
     binary with an initial period of $P=100$ days and initial eccentricity. 
     Right panel: a 
     binary with an initial period of $P=10$ days. Both panels show systems 
@@ -3346,14 +3363,14 @@ of $\boldsymbol{\delta}$ is then $e^{\gamma t}$. If $\gamma >0$, the initial sep
 grows exponentially in time and we have chaotic motion. If $\gamma=0$ the separation
 does not change and we have quasi-periodic or regular motion. Finally, for $\gamma<0$
 the two trajectories approach each other at an exponential rate, this only happens
-for dissipative systems because it implies the existance of attractive fixed points which
+for dissipative systems because it implies the existence of attractive fixed points which
 act as sinks in phase space. This is not possible for conservative Hamiltonian
 systems since it is a violation of Liouville's theorem. 
 
 In practice, calculating the limit when $t\rightarrow\infty$ is 
 computationally not feasible and usually one takes a 
-sufficiently long time $t=t_\text{max}$. For a recent review on the calcualtion
-of maximum Lyapunov exponents see \cite{skokos}.
+sufficiently long time $t=t_\text{max}$. For a recent review on the calculation
+of maximum Lyapunov exponents see \citet{skokos}.
 There are various ways of more efficiently computing either the MLE or so called
 chaos indicators closely related to the MLE. One such indicator is called the 
 \emph{Mean Exponential Growth of Nearby Orbits} \citep{refId0,cincotta2003} or MEGNO for short. 
@@ -3374,7 +3391,7 @@ wit a random initial displacement vector $\boldsymbol{\delta}_0$
 during the time interval $t-t_0$. Most other chaos indicators based on the
 MLE do not have this weighting. 
 Generally, $\langle Y\rangle$ can be parametrized as a linear function in time
-$\langle Y\rangle (t)=\alpha t+\beta$. \cite{cincotta2003} show that if the 
+$\langle Y\rangle (t)=\alpha t+\beta$. \citet{cincotta2003} show that if the 
 motion is quasi-periodic $\alpha\approx 0$ and $\beta\approx 2$ and 
 $\langle Y\rangle \rightarrow 2$ as $t\rightarrow \infty$. Indeed, it
 converges to zero than the MLE \citep{cincotta2003}. In the case of a chaotic
@@ -3391,7 +3408,7 @@ volume of phase space. Thus, high MEGNO values can only be used as a proxy
 for instability. We should always keep that caveat in mind when 
 interpreting MEGNO maps (or any other chaos indicator). For a discussion about 
 the relationship between chaos,
- resonance overlap and  stability, see \cite{Deck2013}.
+ resonance overlap and  stability, see \citet{Deck2013}.
 
 Since MEGNO is calculated for a finite integration
 time, there
@@ -3405,7 +3422,7 @@ The question remains what is a suitable integration time for calculating the
 MEGNO values for a given system. There is no unique answer as it depends on 
 the problem. For our purposes, the answer is  - whatever time is enough 
 to reveal the fine structure in the space of orbital parameters 
-due to resonance overalap. If we were to calculate the MEGNO values
+due to resonance overlap. If we were to calculate the MEGNO values
 for say the Solar System and choose and extremely long integration time
 on the order of billions of years, we would find that almost all initial
 conditions result in chaotic orbit because even though the Solar System looks
@@ -3424,10 +3441,11 @@ dimensional function.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=\linewidth]{gfx/megno_time_comparison.pdf}
-\caption{MEGNO maps for a system with 
+    \caption[MEGNO maps for different integration itmes.]{MEGNO maps for a 
+    system with 
     $m_1=1\,M_\odot$, $m_2=1\times 10^{-3}\,M_\odot$, $m_3=m_2$,
-    $P_i=10$ days, $e_i=0.1$ and $\varpi_o-\varpi_i=0$, c
-    alculated on a $150\times 150$
+    $P_i=10$ days, $e_i=0.1$ and $\varpi_o-\varpi_i=0$, calculated 
+    on a $150\times 150$
     grid in variables $(P_o/P_i,e_o)$. White points are regular orbits
     and the dark grey points are chaotic orbits. The left panel
     shows a MEGNO map for an integration time of $1000$ years and the
@@ -3450,12 +3468,12 @@ of pericentre. We
 could have just as well chosen some other parameters, these are just
 the most useful ones to plot.  The left panel shows a MEGNO map for a total 
 integration time of 1000 years. The $n:1$ 
-resonances are easily noticable, it also appears that the region
+resonances are easily noticeable, it also appears that the region
 up to the $2:1$ resonance is mostly unstable. The panel on the right
-shows the same MEGNO map with a longer integration time of 5000yr.
+shows the same MEGNO map with a longer integration time of 5000 yr.
 As expected, the resonances are more easily apparent, however, the
 computational demands for a longer integration are considerable (an 
-hour on a 32 core machine with a paralellized code) and 
+hour on a 32 core machine with a parallelized code) and 
 we opt to use an integration time of around 1000 yr. Both plots
 show an unusual strip of regular orbits at very high eccentricities.
 This is most likely due the linear approximation of the variational
@@ -3474,9 +3492,9 @@ After introducing the MEGNO technique on an example of a single-star
 system with two planets, we apply it to circumbinary systems.
 \Cref{fig:megno_kepler} shows MEGNO maps for the observed circumbinary
 systems with relatively close-in planets. Plotted on top of the 
-MEGNO results are the analytically derived resonace widths (blue 'bubbles'
+MEGNO results are the analytically derived resonance widths (blue 'bubbles'
 in the figure) from
-\cite{Mardling2013} (see. \cref{ssub:Resonance_widths} for derivation), 
+\citet{Mardling2013} (see. \cref{ssub:Resonance_widths} for derivation), 
 the red dots are the observationally derived values for the 
 planet eccentricity and period. The first thing one should notice when
 comparing the various panels in \cref{fig:megno_kepler} to 
@@ -3487,10 +3505,10 @@ to a single-star system with Jupiter mass planets. The higher innner
 mass ratio, combined with the fact that the stars in a circumbinary
 system tend to be eccentric, leads to a formation of chaotic zone
 extending all past the $5:1$ MMR for most binary eccentricities. 
-This chaotic region is indeed unstable, \cite{Holman1999} ran full 
+This chaotic region is indeed unstable, \citet{Holman1999} ran full 
 N-body simulations of test particles in close orbits around binaries
-and later fit analytical formulue which give the size of the instability
-region. Later, \cite{Mudryk2006} found that the instability region
+and later fit analytical formulae which give the size of the instability
+region. Later, \citet{Mudryk2006} found that the instability region
 is due to resonance overlap, as is visible in \cref{fig:megno_kepler}.
 
 Looking at the analytic predictions for the resonant widths in 
@@ -3506,17 +3524,18 @@ other CB planets lie comfortably outside the inner
 chaotic zone and none of the planets lie within the $5:1$ MMR, which
 is why the $6:1$ MMR is the first we considered in detail in 
 \cref{ch:analytical_model}. Notice most importantly that
-the extent of the inner chaotic region at moderete planet eccentricities
+the extent of the inner chaotic region at moderate planet eccentricities
 depends crucially on the binary eccentricity $e_i$, the higher it is, 
 the further away an inner most planet has to be in order to be on a
-stable orbit. \cite{Sutherland2015} investigate the chaotic zone
+stable orbit. \citet{Sutherland2015} investigate the chaotic zone
 in detail by means of N-body simulations and find that the most likely
 outcome for a planet in the inner chaotic zone is ejection, and a 
-significant fraction of planets collider with one of the stars.
+significant fraction of planets collide with one of the stars.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=\linewidth]{gfx/megno_kepler.pdf}
-\caption{MEGNO maps for the observed circumbinary systems with relatively
+    \caption[MEGNO maps of circumbinary systems.]{MEGNO maps for 
+    the observed circumbinary systems with relatively
     close-in planets. Red dots show observationally derived values for 
     the orbital parameters of the planets. The color coding shows the MEGNO 
     value, darker shades 
@@ -3535,7 +3554,7 @@ The dashed white line in
 
 \section{Coupling between \texttt{binary\_c} and REBOUND}
 \label{sec:coupling_binary_c_rebound}
-In order to realistically simulate the dynamical evoulution of a circumbinary
+In order to realistically simulate the dynamical evolution of a circumbinary
 system, we need to combine a model for the orbital evolution of the stellar
 binary given by \texttt{binary\_c} with the N-body code \texttt{REBOUND}. A best
 conceivable solution would be an N-body code which at each timestep on top of
@@ -3563,15 +3582,15 @@ influence of the circumbinary planet on the stellar binary and in the N-body
 code force the binary to move in a way consistent with the output of 
 \texttt{binary\_c} generated beforehand. This would mean that we are in a regime
 of a \emph{restricted three body problem} where the inner two masses do not 
-experince the force of the third mass\footnote{Acutally, this is not strictly
+experience the force of the third mass\footnote{Acutally, this is not strictly
 true for the implementation in the code. The calculation of the forces on the 
 stars at each \texttt{IAS15} timestep does include the influence of the planet.
 However, since the stars are 'forced' to move according to a trajectory 
 previously generated
 beforehand with \texttt{binary\_c}, which was derived assuming an isolated system of 
 two stars, it is still effectively a restricted problem over sufficiently long
-timescales (at least one \texttt{binary\_c} period).}.
-, a reasonable approximation because
+timescales (at least one \texttt{binary\_c} period).}, a reasonable 
+approximation because
 the mass ratio between the total mass of the stellar binary in a circumbinary
 system and the outer planet is $m_3/m_{12}\approx 10^{-3}$.
 
@@ -3583,16 +3602,16 @@ the orbital elements $a_i$ and $e_i$ after each internal \texttt{binary\_c} time
 a force which acts on the stellar binary such that the values of $(a_i,e_i)$ after
 specified time match the \text{binary\_c} values at that time; such force is 
 necessarily velocity-dependent. Both approaches
-are implented in \texttt{REBOUNDx}, a library for incorporating additional effects
+are implemented in \texttt{REBOUNDx}, a library for incorporating additional effects
 in \texttt{REBOUND} simulations (\url{https:// github.com/dtamayo/reboundx}), as
 functions \texttt{modify\_orbits\_direct} and \texttt{modify\_orbits\_forces}. We opt
 to use the second approach because it is more physically motivated than directly 
 changing the orbital elements 'by hand'. Indeed, a velocity-dependent force
  is exactly how the tidal decay of the binary happens in the first place.
 
-In \texttt{REBOUNDx}, the force is constructed such that when orbit-avaraged it
+In \texttt{REBOUNDx}, the force is constructed such that when orbit-averaged it
 gives an \emph{exponential} growth/decay of the semi-major axis and the
-eccentricity. The approach is based on \cite{papaloizou}; the force governing 
+eccentricity. The approach is based on \citet{papaloizou}; the force governing 
 the eccentricity evolution is given by
 \begin{equation}
     \vect{a}_\text{damp}=-2 \frac{(\vect{v}\cdot\vect{r})\vect{r}}{r^2 \tau_e }
@@ -3604,7 +3623,7 @@ and for the semi-major axis evolution
 where $\vect{a}$ is the acceleration vector. These two forces act in a way such
 that the eccentricity/semi-major axis exponentially increase/decrease by a factor
 of $e=2.71\dots$ over a timescale $\tau_e$/$\tau_a$. The eccentricity damping
-keeps the angular momentum constant which meeans that some semi-major axis 
+keeps the angular momentum constant which means that some semi-major axis 
 evolution is always induced. It also induces some pericentre precession. Both
 effects are physical. 
 
@@ -3625,14 +3644,14 @@ damping timescale is then
 \begin{equation}
     \tau_a = \frac{t_{k+1}-t_k}{\ln \frac{a_{k+1}}{a_k} } 
 \end{equation}
-Therefore, given the values of $a_k$ and $a_{k+1}$ (which are precalculated with
+Therefore, given the values of $a_k$ and $a_{k+1}$ (which are pre calculated with
 \texttt{binary\_c}), we can determine the exponential decay timescale and pass 
 it to \texttt{REBOUND} such that at time $t_{k+1}$ the value of $a$ in 
 \texttt{REBOUND} matches the one in \texttt{binary\_c}. The algorithm for
 running a simulation of a circumbinary system is then
 \begin{enumerate}
     \item Choose stellar parameters, evolve binary system using \texttt{binary\_c}
-        from a point at which significant changes in $(a,e)$ start occuring (RGB 
+        from a point at which significant changes in $(a,e)$ start occurring (RGB 
         branch) up to the start of the common envelope phase. Save output data
         to file.
     \item Load orbital parameters from \texttt{binary\_c}, calculate array of
@@ -3646,7 +3665,8 @@ running a simulation of a circumbinary system is then
 \begin{figure}[!t]
 \centering
 \includegraphics[width=\linewidth]{gfx/rebound_binary_c_coupling.pdf}
-    \caption{Results of a \texttt{REBOUND} integration of a two-body system representing
+    \caption[Coupling between \texttt{REBOUND} and \texttt{binary\_c}]{Results 
+    of a \texttt{REBOUND} integration of a two-body system representing
     a stellar binary. The left panel shows the relative error in the orbital elements
     $a$ and $e$ between \texttt{REBOUND} and \texttt{binary\_c}. The right panel
     shows the output of \texttt{REBOUND} (blue dots) between two \texttt{binary\_c}
@@ -3668,7 +3688,7 @@ two-body system, the energy is not conserved because of the presence of a
 velocity-dependent force (or equivalently, dissipative processes). 
 
 \section{Intial conditions}
-\label{sec:Intial conditions}
+\label{sec:initial_conditions}
 Before running full N-body simulations of circumbinary systems, a suitable choice
 of initial conditions needs to be made. Since N-body simulations are in general very
 computationally costly, we need to run simulations which explore the various parts
@@ -3679,73 +3699,74 @@ progressed significantly in the past decade. Having access to large clusters
 of CPUs is therefore only useful for running many simulations with different 
 initial conditions.
 
-The runtime of any given simulation depends crucially on the smallest dynamical 
-timescale of interest. In this case, it is the orbital period of the stellar binary,
-or rather, a fraction of it. We are most interested in circumbinary systems similar 
-to the observed once on the main sequence, those have binary periods on the order of days.
-Because the binary stars in such systems evolve slowly on timescales of tens to 
-hundreds of millions of years from RGB to common-envelope, the simulations would 
-require months of computer time. Instead we choose a fixed value of the initial period of
-200 days which is approximately $~10$ times longer compared to observed systems. 
+We are most interested in the binary systems which could be the progenitors of
+the observed post common-envelope CB planets. We restrict ourselves to a single
+binary period of 200 days which usually leads to binary systems at the end
+of the common envelope instead of a merger. 
 The \emph{shape}  of evolutionary tracks of binary stars in semi-major axis-eccentricity 
-space only weakly dependends on the initial period (much more important are the masses)
-and as long as the adiabatic criterion for resonant passage is satisfied in both cases,
+space only weakly depends on the initial period (much more 
+important are the masses)
+and as long as the adiabatic criterion for resonant passage is satisfied 
+in both cases,
 its outcome will stay the same. Nevertheless, we do run a few simulations with
-shorter period to check this is indeed the case.
+shorter period to check this is indeed the case. We also restrict the simulations 
+to only systems which reach the common-envelope phase on the red giant branch,
+systems which reach the CE phase on the asymptotic giant branch (higher mass and
+longer period binaries) have post MS evolution times prior to the CE phase
+on the order of hundreds of millions of years which would take too long to simulate
+with the IAS15 integrator.
 
-The initial conditions are presented in \cref{table:initial_conditions}. For the 
-primary mass we choose three values, ranging from $1.2\,M_\odot$ to $2.0\,M_\odot$.
-Lower primary masses are not interesting because such binary stars take too long
-to evolve past the common envelope phase and as a consequence we cannot observe
-their final post common-envelope configurations. On the higher end, the case
-$m1=2.0\,M_\odot$ is interesting because it marks the boundary between stars which
-undergo helium flash ($\leq 2\,M_\odot$) and those that don't. The latter have
-different trajectories in $(a,e)$ space with an abrupt decline in semi-major 
-axis and eccentricity immediately before the onset of the common-envelope phase.
+The initial conditions are presented in \cref{table:initial_conditions}. 
+For the 
+primary mass we choose three values, ranging from $1.2\,M_\odot$ to 
+$2.0\,M_\odot$.
+Lower primary masses are not interesting because such binary stars 
+take too long
+to evolve past the common envelope phase and as a consequence 
+we cannot observe
+their final post common-envelope configurations. On the higher 
+end, we don't go higher than primary mass of $2\,M_\odot$ because stars more massive
+than $2\,M_\odot$ do not ignite Helium in their cores violently, in the
+form of a helium flash. Primaries which do not undergo the Helium flash
+reach a smaller RGB tip radius and are more likely to experience a CE
+event on the AGB.
 We specify the secondary mass with a mass ratio $q=m_1/m_2$ for three different 
 values. The case of binaries with mass fraction near unity is not considered
 because such systems undergo two common-envelope events in a short time span.
 
-The inner period is fixed at 200 days as mentioned previously. For the 
-eccentricity, perhaps the most important parameter for the global dynamics, 
+For the inner eccentricity, perhaps the most important parameter for the global 
+dynamics, 
 we choose a circular value of $e=0.0$, a slightly eccentric value of $e=0.1$,
-and a highly eccentric value of $e=0.3$. The outer period, corresponding
-to the planet, is chosen such that initially, the planet is outside the 
-inner chaotic zone. For $e_i=0.$ and $e_i=0.1$ we choose $P_o=5.8\,P_i$, which
-is just inside the $6:1$ MMR, and for the highly eccentric binary with $e_i=0.3$,
-we place the planet just inside the $7:1$ resonance because in that case the 
-inner chaotic zone has a greater extent.
+and a highly eccentric value of $e=0.3$. The outer eccentricity is set to
+a value in the range $0-0.2$. The outer period, 
+planet, is chosen such that initially, the planet is outside the 
+inner chaotic zone and inside the $6:1$ MMR.
 \begin{table}[h!]
 \centering
 \begin{tabular}{lc}
 \toprule
     Parameter &  Value\\
 \midrule
-    $m_1\,[M_\odot]$ &1.2, 1.6, 2.0\\
+    $m_1\,[M_\odot]$ &1.2, 1.6\\
     $q$&0.3, 0.6, 0.8\\
     $P_i$ [days]& 200\\
     $e_i$ &0.0, 0.1, 0.3\\
-    $P_o/P_i$ & 5.8/6.8 \\
-    $e_o$&$e_\text{forced}$\\
+    $P_o/P_i$ & 5.8-5.9 \\
+    $e_o$& 0-0.2\\
     $\varpi_i-\varpi_o$  & 0\\
          \bottomrule
 \end{tabular}
-    \caption{The initial choice of parameters for the N-body simulations.}
+    \caption[Initial conditions for N-body simulations.]{The initial 
+    choice of parameters for the N-body simulations.}
 \label{table:initial_conditions}
 \end{table}
-
-The outer eccentricity is set to a fixed value of the secularly forced 
-eccentricity for each system. To find the forced eccentricity, we 
-run a short \texttt{REBOUND} simulation without any coupling to 
-\texttt{binary\_c}, taking $e_o=0$ for the initial value. After the 
-simulation has finished, we calculate the centroid of points in 
-$(e_o\cos\varpi_o,e_o\sin\varpi_o)$ plane, which is the forced eccentricity
-(see \cref{sub:secular_dynamics}). Finally, the difference in pericentres
+Finally, the difference of pericentres
 is kept at a fixed value of zero, that is, the orbits are aligned. Starting
 at a different value of $\varpi_i-\varpi_o$ would not change the results 
 considerably
-because the relative orientations of the two orbits become randomized on a short 
-timescale.
+because the relative orientations of the two orbits become either randomized,
+aligned or anti-aligned on a short timescale.  
+
 \clearpage
 %************************************************
 \chapter{Results}
@@ -3774,26 +3795,30 @@ related to $\mu_i$ by
 \end{equation}
 We choose to plot the results in the form of a 
 density map showing the percentage increase over the initial outer eccentricity, as
-a function of the inner mass ratio $q$ and the inner ecccentricity.
+a function of the inner mass ratio $q$ and the inner eccentricity.
 This is shown in \cref{fig:eccentricity_kick} for two values of initial outer 
-eccentricity $e_o$. The density map shows $e_o/e_{o,\text{initial}}$.
+eccentricity $e_o$. The density map shows $e_{o,\text{final}}/e_{o,\text{initial}}$.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=\linewidth]{gfx/eccentricity_kick.pdf}
-\caption{}
+    \caption[The kick in eccentricity during resonant passage.]{The color 
+    coding shows the relative increase in the CB planet 
+    eccentricity $e_{o,\text{final}}/e_{o,\text{initial}}$ after the
+    passage of the $6:1$ MMR, calculated using the algorithm described in 
+    \cref{sec:Resonance_passage}.}
 \label{fig:eccentricity_kick}
 \end{figure}
 
 The increase in eccentricity scales with the parameters as we expected;
-it incrases with increasing mass ratio $q$, and inner eccentricity $e_i$.
+it increases with increasing mass ratio $q$, and inner eccentricity $e_i$.
 As $e_i$ approaches zero the eccentricity kick goes to zero as well, this 
 makes sense since the resonance widths approach zero 
 (\cref{eq:resonance_width}).
 The effect of varying the
 outer mass ratio $\mu_o=m_3$ is negligible for sensible values
-of the mass (earth masses to jupiter masses). Comparing the left and right 
+of the mass (earth masses to Jupiter masses). Comparing the left and right 
 panel of \cref{fig:eccentricity_kick}, we see that the relative increase
-in eccentricty is practically independent of the initial eccentricity.
+in eccentricity is practically independent of the initial eccentricity.
 Thus, the outcome of the
 kick depends primarily on the stellar orbital parameters and only weakly
 depends on the planet parameters.
@@ -3817,33 +3842,254 @@ of the analysis presented in \cref{sec:Resonance_passage} are the resonance
 areas enclosed by the two branches of the Hamiltonian separatrix, it is 
 straightforward to calculate the corresponding capture probability 
 \citep{murray}. We do not do it here, but without listing any numbers we can
-conclude that these probabilities are low because a small eccentricty
-kick correponds to a a small capture probability in the inverse scenario
+conclude that these probabilities are low because a small eccentricity
+kick corresponds to  a small capture probability in the inverse scenario
 of convergent orbital evolution. Since all planets form in protoplanetary 
 disks and then (in the majority of cases) migrate inwards, they can end
 up getting captured into resonance. This is how the planets around single stars
-end up in resonance. The possible explaination for the fact that none of the
+end up in resonance. The possible explanation for the fact that none of the
 observed CB planets are in a $6:1$, $7:1$ or higher order resonance
-is that they did not end up getting captured because of the small probabilities.
-This is an important result in itself.
+is that they did not end up getting captured because of the small capture
+probabilities. This is an important result in itself.
 
 One might wonder if there are other cases where else could we apply the 
 derived Hamiltonian model. Circumbinary planets were the main motivation
-in this work, but the results are equally valid for any hierarchical triple
+for this work but the results are equally valid for any hierarchical triple
 systems with large inner mass ratios and in the vicinity of the $6:1$ MMR.
 
-\section{Results of N-body simulations}
+\section{N-body simulations}
 \label{sec:Comparison to the analytical model}
-The table showing the the results of all N-body simulation runs with initial 
-conditions listed in \cref{table:initial_conditions} 
-is available in \cref{appendix:res}. Below, we plot the time evolution of the 
-orbital parameters of a few representative outcomes.
+Following the specification of the initial conditions for the
+N-body simulations (\cref{table:initial_conditions}), in this section we 
+present the results. We plot the orbital parameters of a few representative
+cases.
 
+\Cref{table:results_1} and \cref{table:results_2} show the results for two values 
+of primary mass and three values of mass ratio. We see that whether or not there
+is a visible eccentricity kick depends primarily on the eccentricity of the
+stellar binary. If the orbit of the binary is circular there is no kick. This
+is what is expected based on the results from the analytical model
+(\cref{fig:eccentricity_kick}).
+The fact that
+the mass ratio is not very important is again consistent with the analytical
+prediction. 
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lccc}
+\toprule
+    & $q=0.3$ & $q=0.6$ & $q=0.8$\\
+\midrule
+    $e_i=0.0$ & N & N & N\\
+    $e_i=0.1$ & K & K & K\\
+    $e_i=0.3$ & K & K & K\\
+\bottomrule
+\end{tabular}
+    \caption[N-body simulation results for $m_1=1.2$.]{N-body simulation 
+    results for $m_1=1.2$ and various values of $q$. All planets initially  
+    start just inside the $6:1$ MMR. The letter 'N' means that no significant events
+    happened and the planet survived the evolution prior to the CE. 
+    'K' means that the planet experienced a 
+    visible eccentricity kick due to the $6:1$
+    MMR. The letters 'K\&E' means that the planet 
+    experienced and eccentricity
+    kick and as a result was ejected out of the system. Finally, 'E' 
+    means that the
+    planet was ejected as a result of a close encounter not due to 
+    the eccentricity kick.}
+\label{table:results_1}
+\end{table}
+\begin{table}[h]
+\centering
+\begin{tabular}{lccc}
+\toprule
+    & $q=0.3$ & $q=0.6$ & $q=0.8$\\
+\midrule
+    $e_i=0.0$ & N & N & N\\
+    $e_i=0.1$ & K & K & K\\
+    $e_i=0.3$ & K\&E & K & K\\
+\bottomrule
+\end{tabular}
+    \caption[N-body simulation results for $m_1=1.2$.]{Same as 
+    \cref{table:results_1} 
+    except with $m_1=1.6$.}
+    \label{table:results_2}
+\end{table}
+
+\Cref{fig:nbody_small_kick} shows the time evolution of the orbital elements
+for a system with $m_1=1.6$, $q=0.3$ and $e_i=0.1$. The resonance is crossed
+when the inner eccentricity is still significant and there is a small 
+noticeable kick in the eccentricity. After the kick the secular effects 
+start to dominate and the eccentricity decreases towards a value lower
+than the initial value at $t=0$. This decrease in eccentricity is likely
+a result of the forced eccentricity going to zero due to to the 
+circularization of the binary's orbit. The relative orientation of the
+arguments of pericentres (bottom left panel) is randomized until the secular
+decline in the eccentricity during which the orbits become aligned. The 
+arguments of pericentre then again become randomized.
+\begin{figure}[t]
+\centering
+    \includegraphics[width=\linewidth]{gfx/nbody_1.6_0.3_0.1.png}
+\caption[N-body results example with a small eccentricity kick]
+    {The  N-body evolution of a circumbinary system with $m_1=1.6$, $q=0.3$, 
+    $P_i=200$ days, $e_i=0.1$. The outer eccentricity is initially set to 
+    a value corresponding to the forced eccentricity of the planet when the
+    binary is on the main sequence. In order from top to bottom, the 
+    plots show the    time evolution of:
+    a) semi-major axes, b) eccentricities, c) Difference in arguments of 
+    pericentre, d) The resonant angle for the $6:1$ MMR 
+    (see \cref{tab:6_1_angles}). For this system a resonance kick can
+    be seen around $t=3.5$ Myr. A secular decline in the eccentricity
+    is also visible.}
+\label{fig:nbody_small_kick}
+\end{figure}
+
+\Cref{fig:nbody_ejection} shows the evolution of the same system
+as in \cref{fig:nbody_small_kick} except with a higher initial value
+of binary eccentricity $e_i=0.3$. The onset of the eccentricity kick is
+visible at around $t=6$ Myr at which point the planet is quickly ejected 
+from the system. The arguments of pericentres are initially anti-aligned.
+\begin{figure}[t]
+\centering
+    \includegraphics[width=\linewidth]{gfx/nbody_1.6_0.3_0.3.png}
+    \caption[N-body results example with a large eccentricity kick]
+    {Same as \cref{fig:nbody_small_kick} except with the binary
+    eccentricity increased to $e_i=0.3$. In this case the resonance
+    kick leads to the ejection of the planet.}
+\label{fig:nbody_ejection}
+\end{figure}
+
+In \cref{fig:nbody_large_kick} we again integrate the system with the
+same binary masses as in \cref{fig:nbody_small_kick}, but this time 
+starting the planet at a higher 
+initial eccentricity of $e_o=0.2$ instead of starting it at the forced 
+eccentricity. A strong secular decline in the eccentricity is visible from
+the beginning and the eccentricity kick is stronger than for
+the system with $e_i=0.1$, reaching
+a value above $e_o=0.2$. One can also clearly see the gap in the relevant
+harmonic angle $\Phi_{216}$ (see \cref{tab:6_1_angles}) which librates around
+$\pi$ during the resonant passage.
+Interestingly, even though the planet in this example
+starts at a higher initial eccentricity of $e_o=0.2$, it does not get
+ejected at the start of the kick, most likely due to a lower spread
+in $e_o$ (lower amplitude of the secular variations). The arguments of 
+pericentre are anti-aligned 
+up to the onset of the kick at which point they become randomized and 
+then the pericentre evolution proceeds as in \cref{fig:nbody_small_kick}.
+In all cases where we see a kick, its magnitude is roughly consistent with 
+the analytic predictions from \cref{fig:eccentricity_kick}, given the 
+approximations involved. More importantly, the kick scales with the system
+parameters in a way one would expect (in particular, it vanishes for a 
+circular binary).
+\begin{figure}[t]
+\centering
+    \includegraphics[width=\linewidth]{gfx/nbody_1.6_0.3_0.3_0.2.png}
+    \caption{Same as \cref{fig:nbody_ejection} except with a higher initial
+    planet eccentricity of $e_o=0.2$.}
+\label{fig:nbody_large_kick}
+\end{figure}
+
+To get a sense of the timescale of the secular changes, we integrate the
+system plotted in \cref{fig:nbody_ejection} for a time of $1000$ years and
+plot the eccentricities and arguments of pericentres, this is shown
+in \cref{fig:nbody_secular}. Secular variation in the eccentricity due to
+angular momentum exchange with the binary with 
+a period of around $300$ years is clearly visible. The difference in the 
+arguments of pericentres also exhibits secular variations.
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{gfx/nbody_secular.pdf}
+\caption{A close up view on the secular interactions for the system in
+    \cref{fig:nbody_ejection}. The integration time is $1000$ years,
+    a fraction of the red giant branch timescale.}
+\label{fig:nbody_secular}
+\end{figure}
 
 \clearpage
 %************************************************
 \chapter{Conclusions}
 \label{ch:conclusions}
+The goal of this thesis was to evaluate the stability of CB planets during
+the red giant branch part of binary evolution and prior to the beginning
+of the CE phase. In particular, a major goal was to investigate the effect
+of high order mean motion resonances such as the $6:1$ MMR. In 
+\cref{ch:analytical_model} we have developed a Hamiltonian model of the
+$6:1$ MMR applicable to arbitrary choices of all three masses in the problem.
+This model is not only significant for this particular case of CB system
+but can also be used in any other appropriate scenario, including studying
+resonant capture in the case of convergent orbital evolution. The procedure
+outlined in \cref{ch:analytical_model} can be used used to derive similar
+models of higher order resonances such as $7:1$ and $8:1$, however, in that
+case one has to be careful to expand the Keplerian part of the Hamiltonian
+to higher order than second order.
+
+In \cref{ch:numerical_analysis}, we have developed a computational framework
+which uses well tested and open-source (or in the case 
+of \texttt{binary\_c}, easily available
+upon request) astrophysical codes in order to consistently simulate an
+evolving binary system with an outer planet in an N-body simulation. This 
+procedure can be easily extended to any number of planets and any prescription
+for the orbital evolution of the stellar binary.
+
+Both the analytic results  and the numerical simulations gave similar results
+when the assumptions going into the analytical model were satisfied. We
+found that resonant effects are important only for appreciable eccentricity
+of the binary. Since even the eccentric binaries circularize on a short 
+timescale, resonant passage which happens at significant binary eccentricity
+is an event with relatively small probability. On the other hand, secular
+effects were found to be important with the secular decline in the 
+planet eccentricity happening in all cases. In light of these results,
+the conclusions of \citet{Kostov2016} should not change significantly 
+if one includes the red-giant phase prior to the start of the common envelope.
+Therefore, the puzzle of first vs second generation planet formation in
+post common envelope CB systems remains unsolved. Given better observations
+of individual post common envelope systems, one should definitely take
+into account the orbital changes happening during the red giant branch. 
+Although they might not be important for the majority of systems, a single 
+observed post common envelope system whose progenitor configuration
+is determined to be unstable during the red giant branch 
+would be an important result, similar to what \citet{Mustill2013a} 
+has done with a study of progenitors on the main sequence.
+
+In retrospect, I found that the choice of initial conditions presented in 
+\cref{sec:initial_conditions} is not ideal. To maximize science goals 
+it would have been more useful to do a detailed study of possible progenitors
+of the observed post common envelope systems. This is left as a possibility
+for a future study.
+
+\section{Future work}
+\label{sec:Future work}
+Based on the work done in this thesis, I could imagine several different 
+topics which could be studied in detail, perhaps in a dedicated
+journal paper. First, it would be useful to extend the analysis done
+in \cref{ch:analytical_model} to similar resonances such as the 
+$5:1$ (which is not well studied), $7:1$ and even higher order. One could
+then also derive probabilities of capture into such resonances and publish
+such work on its own, without a focus on a particular application. Second,
+one could extended the N-body simulations presented in 
+\cref{ch:numerical_analysis} and include  two planets, mass-loss 
+and the CE phase \footnote{In fact, I wrote a test 
+code which does exactly that, but I was not
+able to present the results here due to time limitations.} to gain a 
+full consistent picture of the post main sequence evolution. Third, 
+although we initially expected that resonant effect would be most important,
+it turned out that secular effects were more important. These can also
+be studied analytically, by working with the secular disturbing function
+listed in \cref{eq:secular_dist}. Fourth, one could look at the effects 
+of close encounters between CB planets and the two stars and their effect
+on White Dwarf pollution with heavy elements (from collisions or tidal 
+disruption of the planets), although this is likely to be
+less important in CB systems than in single star system because 
+\citet{Smullen2016a} finds that in CB system, the outcome of close encounters
+is an ejection of the planet in the majority of cases, rather than collision
+with one of the stars.
+Finally, we completely neglected
+the possibility that the planet is inclined relative to the plane
+of the binary, one could then study inclination resonances and the 
+Kozai-Lidov effect \citep{Kozai}. However, this would require 
+an extension of the disturbing function derived by \citet{Mardling2013} and 
+inclusion of two additional orbital angles, $\Omega$ and $I$.
+
 %************************************************
 % ********************************************************************
 % Backmatter
@@ -3856,8 +4102,6 @@ orbital parameters of a few representative outcomes.
 % Other Stuff in the Back
 %*******************************************************
 \cleardoublepage\include{FrontBackmatter/Bibliography}
-\cleardoublepage\include{FrontBackmatter/Declaration}
-\cleardoublepage\include{FrontBackmatter/Colophon}
 % ********************************************************************
 % Game Over: Restore, Restart, or Quit?
 %*******************************************************
